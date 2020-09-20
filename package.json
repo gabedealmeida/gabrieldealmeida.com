@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "node index.js",
+    "build": "postcss public/styles/index.css -o public/styles/build/index.css"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,10 @@
   },
   "homepage": "https://github.com/gabedealmeida/gabedealmeida.com#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "@tailwindcss/ui": "^0.6.2",
+    "express": "^4.17.1",
+    "autoprefixer": "^9.7.4",
+    "postcss-cli": "^7.1.2",
+    "tailwindcss": "^1.8.10"
   }
 }
