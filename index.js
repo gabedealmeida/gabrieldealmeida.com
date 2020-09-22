@@ -10,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.post('/endpoint', (req, res) => {
-  fs.writeFileSync('test.JSON', JSON.stringify(req.params()));
+  fs.writeFileSync('test.json', JSON.stringify(req.params()));
 });
 
 // Error handler
