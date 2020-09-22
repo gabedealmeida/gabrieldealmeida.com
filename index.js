@@ -13,6 +13,7 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
   await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', (err, client) => {
     if (err) throw err;
