@@ -11,6 +11,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.post('/endpoint', (req, res) => {
   fs.writeFileSync('endpoint.json', JSON.stringify(req.params()));
+  res.status(202);
 });
 
 // Error handler
