@@ -1,6 +1,9 @@
 const express = require("express");
 const app = express();
 const fs = require('fs');
+const bodyParser = require('body-parser');
+
+const jsonParser = bodyParser.json();
 
 const host = 'localhost';
 const port = 3000;
@@ -9,8 +12,8 @@ app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: false }));
 
-app.post('/endpoint', (req, res) => {
-  fs.writeFileSync('endpoint.json', JSON.stringify(req.params()));
+app.post('/endpoint', jsonParser, (req, res) => {
+  fs.writeFileSync('endpoint.json', JSON.stringify(req.body));
   res.status(202);
 });
 
