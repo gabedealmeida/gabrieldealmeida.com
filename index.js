@@ -12,10 +12,6 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json())
 
-app.get('/endpoint', (req, res) => {
-  res.status(202).send('hello there');
-});
-
 app.post('/endpoint', async (req, res) => {
   await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', function (err, client) {
     if (err) throw err
