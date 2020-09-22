@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const fs = require('fs');
 
 const host = 'localhost';
 const port = 3000;
@@ -9,7 +10,7 @@ app.use(express.static("public"));
 app.use(express.urlencoded({ extended: false }));
 
 app.post('/endpoint', (req, res) => {
-  console.log(req.params());
+  fs.writeFileSync('test.JSON', JSON.stringify(req.params()));
 });
 
 // Error handler
