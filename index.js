@@ -15,7 +15,7 @@ app.post('/endpoint', (req, res) => {
 
 // Error handler
 app.use((err, req, res, _next) => {
-  console.log("Error"); // Writes more extensive information to the console log
+  console.log("Error");
   res.status(404).send("There has been an error. Oops!");
 });
 
