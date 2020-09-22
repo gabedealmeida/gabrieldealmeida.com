@@ -16,8 +16,8 @@ app.get('/endpoint', (req, res) => {
   res.status(202).send('hello there');
 });
 
-app.post('/endpoint', (req, res) => {
-  MongoClient.connect('mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb', function (err, client) {
+app.post('/endpoint', async (req, res) => {
+  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', function (err, client) {
     if (err) throw err
 
     const db = client.db('gabrieldealmeida');
