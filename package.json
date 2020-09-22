@@ -20,8 +20,9 @@
   "homepage": "https://github.com/gabedealmeida/gabedealmeida.com#readme",
   "dependencies": {
     "@tailwindcss/ui": "^0.6.2",
-    "express": "^4.17.1",
     "autoprefixer": "^9.7.4",
+    "express": "^4.17.1",
+    "mongodb": "^3.6.2",
     "postcss-cli": "^7.1.2",
     "tailwindcss": "^1.8.10"
   }
