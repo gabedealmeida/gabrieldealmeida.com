@@ -12,9 +12,13 @@ app.use(express.static("public"));
 
 app.use(express.urlencoded({ extended: false }));
 
+app.get('/endpoint', (req, res) => {
+  res.status(202).send('hello there');
+});
+
 app.post('/endpoint', jsonParser, (req, res) => {
   fs.writeFileSync('endpoint.json', JSON.stringify(req.body));
-  res.status(202);
+  res.status(202).send();
 });
 
 // Error handler
