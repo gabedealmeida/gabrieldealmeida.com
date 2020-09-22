@@ -1,8 +1,9 @@
 const express = require('express');
+
 const app = express();
 
 const bodyParser = require('body-parser');
-const MongoClient = require('mongodb').MongoClient;
+const { MongoClient } = require('mongodb');
 
 const host = 'localhost';
 const port = 3000;
@@ -10,22 +11,22 @@ const port = 3000;
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 app.post('/endpoint', async (req, res) => {
-  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', function (err, client) {
-    if (err) throw err
+  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', (err, client) => {
+    if (err) throw err;
 
     const db = client.db('gabrieldealmeida');
 
     const jsonObj = req.body;
-    const repository = jsonObj.repository;
+    const { repository } = jsonObj;
     const ownerObj = repository.owner;
     const headCommit = jsonObj.head_commit;
     const commiterObj = headCommit.commiter;
 
-
-    db.collection('github').insertOne({ repo: repository.name,
+    db.collection('github').insertOne({
+      repo: repository.name,
       repo_url: repository.html_url,
       owner: ownerObj.name,
       owner_avatar: ownerObj.avatar_url,
@@ -34,7 +35,8 @@ app.post('/endpoint', async (req, res) => {
       timestamp: headCommit.timestamp,
       commit_url: headCommit.url,
       commiter: commiterObj.name,
-      commiter_username: commiterObj.username });
+      commiter_username: commiterObj.username,
+    });
   });
 
   res.status(202).send();
