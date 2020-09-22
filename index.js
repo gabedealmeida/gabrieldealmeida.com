@@ -1,7 +1,6 @@
 const express = require('express');
 const app = express();
 
-const fs = require('fs');
 const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 
@@ -18,7 +17,14 @@ app.get('/endpoint', (req, res) => {
 });
 
 app.post('/endpoint', (req, res) => {
-  fs.writeFileSync('endpoint.json', JSON.stringify(req.body));
+  MongoClient.connect('mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb', function (err, client) {
+    if (err) throw err
+
+    const db = client.db('gabrieldealmeida');
+
+    db.collection('github').insertOne(req.body);
+  });
+
   res.status(202).send();
 });
 
