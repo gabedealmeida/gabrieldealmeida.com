@@ -21,21 +21,14 @@ app.post('/endpoint', async (req, res) => {
 
     const jsonObj = req.body;
     const { repository } = jsonObj;
-    const ownerObj = repository.owner;
-    const headCommit = jsonObj.head_commit;
-    const commiterObj = headCommit.commiter;
+    const { sender } = jsonObj;
 
     db.collection('github').insertOne({
       repo: repository.name,
       repo_url: repository.html_url,
-      owner: ownerObj.name,
-      owner_avatar: ownerObj.avatar_url,
-      owner_url: ownerObj.html_url,
-      commit_msg: headCommit.message,
-      timestamp: headCommit.timestamp,
-      commit_url: headCommit.url,
-      commiter: commiterObj.name,
-      commiter_username: commiterObj.username,
+      sender_avatar: sender.avatar_url,
+      sender_url: sender.html_url,
+      commits: jsonObj.commits,
     });
   });
 
