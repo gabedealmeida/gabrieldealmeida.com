@@ -6,6 +6,12 @@ const port = 3000;
 
 app.use(express.static("public"));
 
+app.use(express.urlencoded({ extended: false }));
+
+app.post('/endpoint', (req, res) => {
+  console.log(req.params());
+});
+
 // Error handler
 app.use((err, req, res, _next) => {
   console.log("Error"); // Writes more extensive information to the console log
