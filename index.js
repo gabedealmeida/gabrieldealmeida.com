@@ -21,8 +21,7 @@ app.post('/endpoint', async (req, res) => {
     const db = client.db('gabrieldealmeida');
 
     const jsonObj = req.body;
-    const { repository } = jsonObj;
-    const { sender } = jsonObj;
+    const { repository, sender } = jsonObj;
 
     db.collection('github').insertOne({
       repo: repository.name,
