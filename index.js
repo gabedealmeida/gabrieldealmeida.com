@@ -8,10 +8,29 @@ const { MongoClient } = require('mongodb');
 const host = 'localhost';
 const port = 3000;
 
+app.set("views", "./views");
+app.set("view engine", "pug");
+
 app.use(express.static('public'));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+app.get('/pug', async (req, res) => {
+  let commits;
+  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', (err, client) => {
+    if (err) throw err;
+
+    const db = client.db('gabrieldealmeida');
+
+    const jsonObj = req.body;
+    const { repository, sender } = jsonObj;
+
+    commits = db.collection('github').sort({$natural: -1}).limit(10);
+    });
+    res.send(commits);
+  res.render('home');
+});
 
 // Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
