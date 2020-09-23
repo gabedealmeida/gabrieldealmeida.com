@@ -28,7 +28,7 @@ app.get('/pug', async (req, res) => {
 
     commits = db.collection('github').find().sort({$natural: -1}).limit(10);
     });
-    res.send(commits);
+    res.send(JSON.stringify(commits));
   res.render('home');
 });
 
