@@ -32,6 +32,8 @@ app.post('/endpoint', async (req, res) => {
     });
   });
 
+  await client.close();
+
   res.status(202).send();
 });
 
