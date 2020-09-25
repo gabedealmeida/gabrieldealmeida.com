@@ -1,17 +1,13 @@
 const express = require('express');
-
-const app = express();
-
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
 const TimeAgo = require('javascript-time-ago');
-
 const en = require('javascript-time-ago/locale/en');
-
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
+const app = express();
 const host = 'localhost';
 const port = 3000;
 
@@ -29,7 +25,12 @@ app.get('/', async (req, res) => {
 
   try {
     await client.connect();
-    documents = await client.db('gabrieldealmeida').collection('github').find().sort({ $natural: -1 }).limit(5).toArray();
+    documents = await client.db('gabrieldealmeida')
+      .collection('github')
+      .find()
+      .sort({ $natural: -1 })
+      .limit(5)
+      .toArray();
   } catch (e) {
     console.log(e);
   } finally {
