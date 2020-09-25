@@ -46,7 +46,7 @@ app.get('/', async (req, res) => {
 
 // Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
-  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida');
+  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
 
