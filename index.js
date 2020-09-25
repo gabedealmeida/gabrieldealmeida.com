@@ -5,18 +5,18 @@ const app = express();
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
-// const TimeAgo = require('javascript-time-ago');
+const TimeAgo = require('javascript-time-ago');
 
-// const en = require('javascript-time-ago/locale/en');
+const en = require('javascript-time-ago/locale/en');
 
-// TimeAgo.addLocale(en);
-// const timeAgo = new TimeAgo('en-US');
+TimeAgo.addLocale(en);
+const timeAgo = new TimeAgo('en-US');
 
 const host = 'localhost';
 const port = 3000;
 
-app.set('views', './views');
-app.set('view engine', 'pug');
+app.set("views", "./views");
+app.set("view engine", "pug");
 
 app.use(express.static('public'));
 
@@ -25,18 +25,18 @@ app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
   let documents = [];
-  // const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
 
-  // try {
-  //   await client.connect();
-  //   documents = await client.db('gabrieldealmeida').collection('github').find().sort({ $natural: -1 }).limit(5).toArray();
-  // } catch (e) {
-  //   console.log(e);
-  // } finally {
-  //   await client.close();
-  // }
+  try {
+    await client.connect();
+    documents = await client.db('gabrieldealmeida').collection('github').find().sort({ $natural: -1 }).limit(5).toArray();
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
 
-  res.render('home', { documents });
+  res.render('home', { documents, timeAgo });
 });
 
 // Endpoint for github webhook
