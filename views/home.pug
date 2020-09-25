@@ -100,16 +100,15 @@ html(lang="en")
                       th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
                         span(class="lg:pl-2") Repo
                       th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
-                        | Commit Msg
+                        | Commit Message
                       th.hidden.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-right.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider(class="md:table-cell")
                         | Timestamp
-                      th.pr-6.py-3.border-b.border-gray-200.bg-gray-50.text-right.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
                   tbody.bg-white.divide-y.divide-gray-100
                     each document in documents
                       each commit in document.commits
                         tr
-                          td.px-6.py-3.max-w-0.w-full.whitespace-no-wrap.text-sm.leading-5.font-medium.text-gray-900
-                            .flex.items-center.space-x-3.mb-1(class="lg:pl-2")
+                          td.px-6.py-3.max-w-0.whitespace-no-wrap.text-sm.leading-5.font-medium.text-gray-900(class="w-2/5")
+                            .flex.items-center.space-x-3.my-2(class="lg:pl-2")
                               span.h-4.w-4.bg-green-100.rounded-full.flex.items-center.justify-center(aria-label="Running")
                                 span.h-2.w-2.bg-green-400.rounded-full
                               span
@@ -123,7 +122,7 @@ html(lang="en")
                                   .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
                                     | #{document.repoPath}
                           td.px-6.py-3.text-sm.leading-5.text-gray-500.font-normal(class="hover:text-gray-900")
-                            - const msg = commit.message.slice(0, 30) + '...';
+                            - const msg = commit.message.slice(0, 50) + '...';
                               a(href=`${commit.url}`)
                                 | #{msg}
                           td.hidden.px-6.py-3.whitespace-no-wrap.text-sm.leading-5.text-gray-500.text-right(class="md:table-cell hover:text-gray-900")
