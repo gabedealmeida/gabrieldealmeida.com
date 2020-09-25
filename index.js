@@ -6,15 +6,17 @@ const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
 const TimeAgo = require('javascript-time-ago');
+
 const en = require('javascript-time-ago/locale/en');
-TimeAgo.addLocale(en)
+
+TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 const host = 'localhost';
 const port = 3000;
 
-app.set("views", "./views");
-app.set("view engine", "pug");
+app.set('views', './views');
+app.set('view engine', 'pug');
 
 app.use(express.static('public'));
 
@@ -27,7 +29,12 @@ app.get('/', async (req, res) => {
 
   try {
     await client.connect();
-    documents = await client.db('gabrieldealmeida').collection('github').find().sort({$natural: -1}).limit(4).toArray();
+    documents = await client.db('gabrieldealmeida')
+      .collection('github')
+      .find()
+      .sort({ $natural: -1 })
+      .limit(4)
+      .toArray();
   } catch (e) {
     console.log(e);
   } finally {
@@ -39,7 +46,6 @@ app.get('/', async (req, res) => {
 
 // Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
-
   const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida');
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
