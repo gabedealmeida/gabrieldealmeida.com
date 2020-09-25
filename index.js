@@ -33,7 +33,7 @@ app.get('/', async (req, res) => {
       .collection('github')
       .find()
       .sort({ $natural: -1 })
-      .limit(4)
+      .limit(5)
       .toArray();
   } catch (e) {
     console.log(e);
