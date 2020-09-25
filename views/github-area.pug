@@ -116,7 +116,8 @@ block github
                                 .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
                                   | #{document.repoPath}
                         td.px-6.py-3.text-sm.leading-5.text-gray-500.font-normal(class="hover:text-gray-900")
-                          - const msg = commit.message.slice(0, 30) + '...';
+                          - const msg = commit.message.slice(0, 30);
+                          - if (commit.message.length >= 30) msg += '...';
                             a(href=`${commit.url}`)
                               | #{msg}
                         td.hidden.px-6.py-3.whitespace-no-wrap.text-sm.leading-5.text-gray-500.text-right(class="md:table-cell hover:text-gray-900")
