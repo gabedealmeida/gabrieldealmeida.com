@@ -2,14 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
+require("dotenv").config();
+const port = process.env.PORT;
+const host = process.env.HOST;
+const dbURL = process.env.DATABASE_URL;
+
 const TimeAgo = require('javascript-time-ago');
 const en = require('javascript-time-ago/locale/en');
 TimeAgo.addLocale(en);
 const timeAgo = new TimeAgo('en-US');
 
 const app = express();
-const host = 'localhost';
-const port = 3000;
 
 app.set("views", "./views");
 app.set("view engine", "pug");
@@ -21,7 +24,7 @@ app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
   let documents = [];
-  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
 
   try {
     await client.connect();
@@ -42,7 +45,7 @@ app.get('/', async (req, res) => {
 
 // Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
-  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
+  const client = new MongoClient(dbURL, { useNewUrlParser: true, useUnifiedTopology: true });
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
 
@@ -72,6 +75,6 @@ app.use((err, req, res, _next) => {
 });
 
 // Listener
-app.listen(port, () => {
+app.listen(port, host, () => {
   console.log(`Gabrieldelameida.com is listening on port ${port} of ${host}!`);
 });
