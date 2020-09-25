@@ -25,17 +25,16 @@ app.use(bodyParser.json());
 
 app.get('/', async (req, res) => {
   let documents = [];
-  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
+  // const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida', { useNewUrlParser: true, useUnifiedTopology: true });
 
-  try {
-    await client.connect();
-    documents = await client.db('gabrieldealmeida').collection('github').find().sort({ $natural: -1 }).limit(5).toArray();
-
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
-  }
+  // try {
+  //   await client.connect();
+  //   documents = await client.db('gabrieldealmeida').collection('github').find().sort({ $natural: -1 }).limit(5).toArray();
+  // } catch (e) {
+  //   console.log(e);
+  // } finally {
+  //   await client.close();
+  // }
 
   res.render('home', { documents, timeAgo });
 });
