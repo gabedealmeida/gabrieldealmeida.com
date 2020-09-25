@@ -35,8 +35,8 @@ app.get('/', async (req, res) => {
   // } finally {
   //   await client.close();
   // }
-
-  res.render('home', { documents, timeAgo });
+res.send('hello this works')
+  // res.render('home', { documents, timeAgo });
 });
 
 // Endpoint for github webhook
