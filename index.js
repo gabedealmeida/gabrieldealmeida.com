@@ -5,6 +5,11 @@ const app = express();
 const bodyParser = require('body-parser');
 const { MongoClient } = require('mongodb');
 
+const TimeAgo = require('javascript-time-ago');
+const en = require('javascript-time-ago/locale/en');
+TimeAgo.addLocale(en)
+const timeAgo = new TimeAgo('en-US');
+
 const host = 'localhost';
 const port = 3000;
 
@@ -16,42 +21,44 @@ app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-app.get('/pug', async (req, res) => {
-  let commits;
-  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', (err, client) => {
-    if (err) throw err;
+app.get('/', async (req, res) => {
+  let documents = [];
+  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida');
 
-    const db = client.db('gabrieldealmeida');
+  try {
+    await client.connect();
+    documents = await client.db('gabrieldealmeida').collection('github').find().sort({$natural: -1}).limit(4).toArray();
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
 
-    const jsonObj = req.body;
-    const { repository, sender } = jsonObj;
-
-    commits = db.collection('github').find().sort({$natural: -1}).limit(10);
-    });
-    res.send(JSON.stringify(commits));
-  res.render('home');
+  res.render('home', { documents, timeAgo });
 });
 
 // Endpoint for github webhook
 app.post('/endpoint', async (req, res) => {
-  await MongoClient.connect('mongodb://localhost:27017/gabrieldealmeida', (err, client) => {
-    if (err) throw err;
 
-    const db = client.db('gabrieldealmeida');
+  const client = new MongoClient('mongodb://localhost:27017/gabrieldealmeida');
+  const jsonObj = req.body;
+  const { repository, sender } = jsonObj;
 
-    const jsonObj = req.body;
-    const { repository, sender } = jsonObj;
-
-    db.collection('github').insertOne({
+  try {
+    await client.connect();
+    await client.db('gabrieldealmeida').collection('github').insertOne({
       repo: repository.name,
-      repo_url: repository.html_url,
-      sender_avatar: sender.avatar_url,
-      sender_url: sender.html_url,
+      repoPath: repository.full_name,
+      repoUrl: repository.html_url,
+      senderAvatar: sender.avatar_url,
+      senderUrl: sender.html_url,
       commits: jsonObj.commits,
     });
-  });
-
-  await client.close();
+  } catch (e) {
+    console.log(e);
+  } finally {
+    await client.close();
+  }
 
   res.status(202).send();
 });
@@ -64,5 +71,5 @@ app.use((err, req, res, _next) => {
 
 // Listener
 app.listen(port, () => {
-  console.log(`Todos is listening on port ${port} of ${host}!`);
+  console.log(`Gabrieldelameida.com is listening on port ${port} of ${host}!`);
 });
