@@ -49,20 +49,22 @@ app.post('/endpoint', async (req, res) => {
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
 
-  try {
-    await client.connect();
-    await client.db('gabrieldealmeida').collection('github').insertOne({
-      repo: repository.name,
-      repoPath: repository.full_name,
-      repoUrl: repository.html_url,
-      senderAvatar: sender.avatar_url,
-      senderUrl: sender.html_url,
-      commits: jsonObj.commits,
-    });
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await client.close();
+  if (jsonObj.commits) {
+    try {
+      await client.connect();
+      await client.db('gabrieldealmeida').collection('github').insertOne({
+        repo: repository.name,
+        repoPath: repository.full_name,
+        repoUrl: repository.html_url,
+        senderAvatar: sender.avatar_url,
+        senderUrl: sender.html_url,
+        commits: jsonObj.commits,
+      });
+    } catch (e) {
+      console.log(e);
+    } finally {
+      await client.close();
+    }
   }
 
   res.status(202).send();
