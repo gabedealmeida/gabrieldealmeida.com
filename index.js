@@ -53,6 +53,7 @@ app.post('/endpoint', async (req, res) => {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   });
+
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
 
