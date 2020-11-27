@@ -67,9 +67,9 @@ app.post('/endpoint', async (req, res) => {
       commits: jsonObj.commits,
     };
 
-    const commits = data.commits.filter((commit) => {
-      commit.author.username === 'gabedealmeida';
-    });
+    const commits = data.commits.filter(
+      (commit) => commit.author.username === 'gabedealmeida'
+    );
 
     if (commits.length > 0) {
       data.commits = commits;
@@ -85,9 +85,9 @@ app.post('/endpoint', async (req, res) => {
         await client.close();
       }
     }
-  } else {
-    res.status(202).send();
   }
+
+  res.status(202).send();
 });
 
 // Error handler
