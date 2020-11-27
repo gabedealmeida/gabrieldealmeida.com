@@ -55,10 +55,9 @@ app.post('/endpoint', async (req, res) => {
   });
   const jsonObj = req.body;
   const { repository, sender } = jsonObj;
-  let data;
 
   if (jsonObj.commits) {
-    data = {
+    const data = {
       repo: repository.name,
       repoPath: repository.full_name,
       repoUrl: repository.html_url,
@@ -66,27 +65,28 @@ app.post('/endpoint', async (req, res) => {
       senderUrl: sender.html_url,
       commits: jsonObj.commits,
     };
+
+    const commits = data.commits.filter((commit) => {
+      commit.author.username === 'gabedealmeida';
+    });
+
+    if (commits.length > 0) {
+      data.commits = commits;
+      try {
+        await client.connect();
+        await client
+          .db('gabrieldealmeida')
+          .collection('github')
+          .insertOne(data);
+      } catch (e) {
+        console.log(e);
+      } finally {
+        await client.close();
+      }
+    }
   } else {
     res.status(202).send();
   }
-
-  const commits = data.commits.filter((commit) => {
-    commit.author.username === 'gabedealmeida';
-  });
-
-  if (commits.length > 0) {
-    data.commits = commits;
-    try {
-      await client.connect();
-      await client.db('gabrieldealmeida').collection('github').insertOne(data);
-    } catch (e) {
-      console.log(e);
-    } finally {
-      await client.close();
-    }
-  }
-
-  res.status(202).send();
 });
 
 // Error handler
