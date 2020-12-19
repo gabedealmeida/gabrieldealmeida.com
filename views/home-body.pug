@@ -42,14 +42,39 @@
         .flex.items-center.pt-5.pb-4
           svg.animate-bounce.h-15.w-15.text-gray-500.flex-1(xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor")
             path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7")
-.relative.pt-16.pb-20.px-4(class="sm:px-6 lg:pt-24 lg:pb-28 lg:px-8")
+div.pt-20.pb-20.bg-orange-50
+  h2.text-center.text-3xl.font-extrabold.text-orange-400.mb-12(class="sm:text-4xl")
+    | I Co-created Campion
+  .mt-2.grid.gap-5.max-w-lg(class="mx-3 md:mx-5 lg:mx-20 lg:grid-cols-2 lg:max-w-none")
+    .flex.flex-col.justify-between
+      div
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5
+          | Campion is an edge-based serverless framework for implementing circuit-breaking functionality for synchronously called external services.
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5
+          | Campion gives engineers the peace of mind that should their synchronously called services fail, a failure is returned immediately, thereby sheltering their system from cascading failures, giving their failed services time to recover, and providing their end user with a better experience.
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5
+          | Read more about the project:
+          a(href="https://campion-breaker.github.io/")
+            button.inline-flex.items-center.mx-3.px-3.py-2.border.border-transparent.text-sm.leading-4.font-medium.rounded-md.shadow-sm.text-white.bg-orange-500(type="button" class="hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500")
+              | Case Study
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5
+          | Try it out:
+          a(href="https://github.com/campion-breaker/campion")
+            button.inline-flex.items-center.mx-3.px-3.py-2.border.border-transparent.text-sm.leading-4.font-medium.rounded-md.shadow-sm.text-white.bg-orange-500(type="button" class="hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500")
+              | Campion
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-3
+          | Watch the talk I recently gave on Campion:
+        iframe(width="444" height="250" src="https://www.youtube.com/embed/jYcF36WyYWs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="")
+    .flex.flex-col.justify-between
+      img(height="100px" src="images/campion-setup.gif")
+.relative.pt-10.pb-20.px-4(class="sm:px-6 lg:pt-20 lg:pb-28 lg:px-8")
   .absolute.inset-0
     .bg-white(class="h-1/3 sm:h-2/3")
   .relative.max-w-7xl.mx-auto
     .text-center
       .pt-3
         a(name="projects")
-          h2.text-center.text-3xl.font-extrabold.text-orange-400(class="sm:text-4xl")
+          h2.text-center.text-3xl.font-extrabold.text-red-400(class="sm:text-4xl")
             | Projects
       p.mt-3.max-w-2xl.mx-auto.text-xl.leading-7.text-gray-500(class="sm:mt-4")
         | Here's a few of my latest projects.
