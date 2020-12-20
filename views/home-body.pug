@@ -38,16 +38,18 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                     </svg></a>`}`)
                     document.write(arr.join(''));
-      a(href="#projects")
+      a(href="#campion")
         .flex.items-center.pt-5.pb-4
           svg.animate-bounce.h-15.w-15.text-gray-500.flex-1(xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor")
             path(stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13l-7 7-7-7m14-8l-7 7-7-7")
-.relative.pt-10.pb-20.px-4.bg-orange-50(class="sm:px-6 lg:pt-20 lg:pb-28 lg:px-8")
+.relative.pt-20.pb-20.px-4.bg-orange-50(class="sm:px-6 lg:pt-20 lg:pb-28 lg:px-8")
+  .pt-5
   .relative.max-w-7xl.mx-auto
     .text-center
       .pt-3
-      h2.text-center.text-3xl.font-extrabold.text-orange-400.mb-12(class="sm:text-4xl")
-        | I Co-created Campion
+        a(name="campion")
+          h2.text-center.text-3xl.font-extrabold.text-orange-400.mb-12(class="sm:text-4xl pb-5")
+            | I Co-created Campion
     .mt-12.grid.gap-5.max-w-lg.mx-auto(class="lg:grid-cols-2 lg:max-w-6xl")
       .flex.flex-col
         p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="lg:text-left")
