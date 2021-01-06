@@ -5,7 +5,7 @@ module.exports = {
     removeDeprecatedGapUtilities: true,
     purgeLayersByDefault: true,
   },
-  purge: [],
+  purge: { enabled: true, content: ['./views/*.pug'] },
   theme: {
     extend: {
       fontFamily: {
