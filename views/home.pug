@@ -11,128 +11,129 @@ html(lang="en")
     include home-body.pug
 
     .bg-cool-gray-50.py-20
-      .relative.max-w-7xl.mx-auto
-        .text-center
-          .pt-3
-            h2.text-center.text-3xl.font-extrabold.text-green-400(class="sm:text-4xl")
-              | Check Out My Latest Commits
-          p.mt-3.mb-10.max-w-2xl.mx-auto.text-xl.leading-7.text-gray-500(class="sm:mt-4")
-            | Here's what I've been working on...
-      .h-auto.flex.overflow-hidden.bg-white.shadow.rounded-lg.max-w-5xl.mx-auto
-        // Main column
-        .flex.flex-col.w-0.flex-1.overflow-hidden
-          main.relative.flex-1.z-0.overflow-y-auto(class="focus:outline-none" tabindex="0")
-            // Page title & actions
-            .border-b.border-gray-200.px-4.py-8(class="sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8")
-              .flex-1.min-w-0
-                .flex.items-center.space-x-3
-                  a(href="https://github.com/gabedealmeida")
-                    .flex.items-center.space-x-3
-                      .flex-shrink-0.h-12.w-12
-                        img.h-12.w-12.rounded-full(src="https://avatars3.githubusercontent.com/u/52146328?v=4" alt="")
-                      .space-y-1
-                        .text-sm.leading-5.font-medium.text-gray-900 Gabriel De Almeida
-                        .group.flex.items-center(class="space-x-2.5")
-                          svg.w-5.h-5.text-gray-400(class="group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
-                            path(fill-rule="evenodd" clip-rule="evenodd" d="M8.99917 0C4.02996 0 0 4.02545 0 8.99143C0 12.9639 2.57853 16.3336 6.15489 17.5225C6.60518 17.6053 6.76927 17.3277 6.76927 17.0892C6.76927 16.8762 6.76153 16.3104 6.75711 15.5603C4.25372 16.1034 3.72553 14.3548 3.72553 14.3548C3.31612 13.316 2.72605 13.0395 2.72605 13.0395C1.9089 12.482 2.78793 12.4931 2.78793 12.4931C3.69127 12.5565 4.16643 13.4198 4.16643 13.4198C4.96921 14.7936 6.27312 14.3968 6.78584 14.1666C6.86761 13.5859 7.10022 13.1896 7.35713 12.965C5.35873 12.7381 3.25756 11.9665 3.25756 8.52116C3.25756 7.53978 3.6084 6.73667 4.18411 6.10854C4.09129 5.88114 3.78244 4.96654 4.27251 3.72904C4.27251 3.72904 5.02778 3.48728 6.74717 4.65082C7.46487 4.45101 8.23506 4.35165 9.00028 4.34779C9.76494 4.35165 10.5346 4.45101 11.2534 4.65082C12.9717 3.48728 13.7258 3.72904 13.7258 3.72904C14.217 4.96654 13.9082 5.88114 13.8159 6.10854C14.3927 6.73667 14.7408 7.53978 14.7408 8.52116C14.7408 11.9753 12.6363 12.7354 10.6318 12.9578C10.9545 13.2355 11.2423 13.7841 11.2423 14.6231C11.2423 15.8247 11.2313 16.7945 11.2313 17.0892C11.2313 17.3299 11.3937 17.6097 11.8501 17.522C15.4237 16.3303 18 12.9628 18 8.99143C18 4.02545 13.97 0 8.99917 0Z" fill="currentcolor")
-                          .text-sm.leading-5.text-gray-500.font-medium(class="group-hover:text-gray-900") gabedealmeida
-            // Pinned projects
-            .px-4.mt-6(class="sm:px-6 lg:px-8")
-              h2.text-gray-500.text-xs.font-medium.uppercase.tracking-wide Pinned Projects
-              ul.grid.grid-cols-1.gap-4.mt-3(class="sm:gap-6 sm:grid-cols-2 xl:grid-cols-4")
-                li.relative.col-span-1.flex.shadow-sm.rounded-md
-                  .flex-shrink-0.flex.items-center.justify-center.w-16.bg-orange-500.text-white.text-sm.leading-5.font-medium.rounded-l-md
-                    | CA
-                  .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
-                    .flex-1.px-4.py-2.text-sm.leading-5.truncate
-                      a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/campion-breaker" class="hover:text-gray-600")
-                        | Campion 🔶
-                li.relative.col-span-1.flex.shadow-sm.rounded-md
-                  .flex-shrink-0.flex.items-center.justify-center.w-16.bg-yellow-300.text-white.text-sm.leading-5.font-medium.rounded-l-md
-                    | TT
-                  .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
-                    .flex-1.px-4.py-2.text-sm.leading-5.truncate
-                      a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/team-tickets" class="hover:text-gray-600")
-                        | Team Tickets 📝
-                li.relative.col-span-1.flex.shadow-sm.rounded-md
-                  .flex-shrink-0.flex.items-center.justify-center.w-16.bg-blue-500.text-white.text-sm.leading-5.font-medium.rounded-l-md
-                    | AR
-                  .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
-                    .flex-1.px-4.py-2.text-sm.leading-5.truncate
-                      a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/airline-routes" class="hover:text-gray-600")
-                        | Airline Routes ✈️
-                li.relative.col-span-1.flex.shadow-sm.rounded-md
-                  .flex-shrink-0.flex.items-center.justify-center.w-16.bg-green-400.text-white.text-sm.leading-5.font-medium.rounded-l-md
-                    | PM
-                  .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
-                    .flex-1.px-4.py-2.text-sm.leading-5.truncate
-                      a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/peachy-contact-manager" class="hover:text-gray-600")
-                        | Peachy Contact Manager 🍑
-                // More project cards...
-            // Projects list (only on smallest breakpoint)
-            .mt-10(class="sm:hidden")
-              .px-4(class="sm:px-6")
-                h2.text-gray-500.text-xs.font-medium.uppercase.tracking-wide Repos
-                each document in documents
-                  each commit in document.commits
-                    ul.mt-3.border-t.border-gray-200.divide-y.divide-gray-100
-                      li.my-3
-                        a(href=`${commit.url}`)
-                          .flex.items-center.space-x-3.mb-1(class="lg:pl-2")
-                            span.h-4.w-4.bg-green-100.rounded-full.flex.items-center.justify-center(aria-label="Running")
-                              span.h-2.w-2.bg-green-400.rounded-full
-                            span
-                              h2.text-sm.font-medium.leading-5
-                                | #{document.repo}
-                          div.relative.group.flex.items-center.space-x-3(class="lg:pl-2")
-                            svg(class="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
+      .mx-5
+        .relative.max-w-7xl.mx-auto
+          .text-center
+            .pt-3
+              h2.text-center.text-3xl.font-extrabold.text-green-400(class="sm:text-4xl")
+                | Check Out My Latest Commits
+            p.mt-3.mb-10.max-w-2xl.mx-auto.text-xl.leading-7.text-gray-500(class="sm:mt-4")
+              | Here's what I've been working on...
+        .h-auto.flex.overflow-hidden.bg-white.shadow.rounded-lg.max-w-5xl.mx-auto
+          // Main column
+          .flex.flex-col.w-0.flex-1.overflow-hidden
+            main.relative.flex-1.z-0.overflow-y-auto(class="focus:outline-none" tabindex="0")
+              // Page title & actions
+              .border-b.border-gray-200.px-4.py-8(class="sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8")
+                .flex-1.min-w-0
+                  .flex.items-center.space-x-3
+                    a(href="https://github.com/gabedealmeida")
+                      .flex.items-center.space-x-3
+                        .flex-shrink-0.h-12.w-12
+                          img.h-12.w-12.rounded-full(src="https://avatars3.githubusercontent.com/u/52146328?v=4" alt="")
+                        .space-y-1
+                          .text-sm.leading-5.font-medium.text-gray-900 Gabriel De Almeida
+                          .group.flex.items-center(class="space-x-2.5")
+                            svg.w-5.h-5.text-gray-400(class="group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
                               path(fill-rule="evenodd" clip-rule="evenodd" d="M8.99917 0C4.02996 0 0 4.02545 0 8.99143C0 12.9639 2.57853 16.3336 6.15489 17.5225C6.60518 17.6053 6.76927 17.3277 6.76927 17.0892C6.76927 16.8762 6.76153 16.3104 6.75711 15.5603C4.25372 16.1034 3.72553 14.3548 3.72553 14.3548C3.31612 13.316 2.72605 13.0395 2.72605 13.0395C1.9089 12.482 2.78793 12.4931 2.78793 12.4931C3.69127 12.5565 4.16643 13.4198 4.16643 13.4198C4.96921 14.7936 6.27312 14.3968 6.78584 14.1666C6.86761 13.5859 7.10022 13.1896 7.35713 12.965C5.35873 12.7381 3.25756 11.9665 3.25756 8.52116C3.25756 7.53978 3.6084 6.73667 4.18411 6.10854C4.09129 5.88114 3.78244 4.96654 4.27251 3.72904C4.27251 3.72904 5.02778 3.48728 6.74717 4.65082C7.46487 4.45101 8.23506 4.35165 9.00028 4.34779C9.76494 4.35165 10.5346 4.45101 11.2534 4.65082C12.9717 3.48728 13.7258 3.72904 13.7258 3.72904C14.217 4.96654 13.9082 5.88114 13.8159 6.10854C14.3927 6.73667 14.7408 7.53978 14.7408 8.52116C14.7408 11.9753 12.6363 12.7354 10.6318 12.9578C10.9545 13.2355 11.2423 13.7841 11.2423 14.6231C11.2423 15.8247 11.2313 16.7945 11.2313 17.0892C11.2313 17.3299 11.3937 17.6097 11.8501 17.522C15.4237 16.3303 18 12.9628 18 8.99143C18 4.02545 13.97 0 8.99917 0Z" fill="currentcolor")
-                            .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
-                              | #{document.repoPath}
-                            // Heroicon name: chevron-right
-                            svg.ml-4.h-5.w-5.text-gray-400.transition.ease-in-out.duration-150(class="group-hover:text-gray-500 group-focus:text-gray-600" viewbox="0 0 20 20" fill="currentColor")
-                              path(fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd")
-                  // More project rows...
-            // Projects table (small breakpoint and up)
-            .hidden.mt-8(class="sm:block")
-              .align-middle.inline-block.min-w-full.border-b.border-gray-200
-                table.min-w-full
-                  thead
-                    tr.border-t.border-gray-200
-                      th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
-                        span(class="lg:pl-2") Repo
-                      th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
-                        | Commit Message
-                      th.hidden.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-right.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider(class="md:table-cell")
-                        | Timestamp
-                  tbody.bg-white.divide-y.divide-gray-100
-                    each document in documents
-                      each commit in document.commits
-                        tr
-                          td.px-6.py-3.max-w-0.whitespace-no-wrap.text-sm.leading-5.font-medium.text-gray-900(class="w-2/5")
-                            .flex.items-center.space-x-3.my-2(class="lg:pl-2")
+                            .text-sm.leading-5.text-gray-500.font-medium(class="group-hover:text-gray-900") gabedealmeida
+              // Pinned projects
+              .px-4.mt-6(class="sm:px-6 lg:px-8")
+                h2.text-gray-500.text-xs.font-medium.uppercase.tracking-wide Pinned Projects
+                ul.grid.grid-cols-1.gap-4.mt-3(class="sm:gap-6 sm:grid-cols-2 xl:grid-cols-4")
+                  li.relative.col-span-1.flex.shadow-sm.rounded-md
+                    .flex-shrink-0.flex.items-center.justify-center.w-16.bg-orange-500.text-white.text-sm.leading-5.font-medium.rounded-l-md
+                      | CA
+                    .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
+                      .flex-1.px-4.py-2.text-sm.leading-5.truncate
+                        a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/campion-breaker" class="hover:text-gray-600")
+                          | Campion 🔶
+                  li.relative.col-span-1.flex.shadow-sm.rounded-md
+                    .flex-shrink-0.flex.items-center.justify-center.w-16.bg-yellow-300.text-white.text-sm.leading-5.font-medium.rounded-l-md
+                      | TT
+                    .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
+                      .flex-1.px-4.py-2.text-sm.leading-5.truncate
+                        a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/team-tickets" class="hover:text-gray-600")
+                          | Team Tickets 📝
+                  li.relative.col-span-1.flex.shadow-sm.rounded-md
+                    .flex-shrink-0.flex.items-center.justify-center.w-16.bg-blue-500.text-white.text-sm.leading-5.font-medium.rounded-l-md
+                      | AR
+                    .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
+                      .flex-1.px-4.py-2.text-sm.leading-5.truncate
+                        a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/airline-routes" class="hover:text-gray-600")
+                          | Airline Routes ✈️
+                  li.relative.col-span-1.flex.shadow-sm.rounded-md
+                    .flex-shrink-0.flex.items-center.justify-center.w-16.bg-green-400.text-white.text-sm.leading-5.font-medium.rounded-l-md
+                      | PM
+                    .flex-1.flex.items-center.justify-between.border-t.border-r.border-b.border-gray-200.bg-white.rounded-r-md.truncate
+                      .flex-1.px-4.py-2.text-sm.leading-5.truncate
+                        a.text-gray-900.font-medium.transition.ease-in-out.duration-150(href="https://github.com/gabedealmeida/peachy-contact-manager" class="hover:text-gray-600")
+                          | Peachy Contact Manager 🍑
+                  // More project cards...
+              // Projects list (only on smallest breakpoint)
+              .mt-10(class="sm:hidden")
+                .px-4(class="sm:px-6")
+                  h2.text-gray-500.text-xs.font-medium.uppercase.tracking-wide Repos
+                  each document in documents
+                    each commit in document.commits
+                      ul.mt-3.border-t.border-gray-200.divide-y.divide-gray-100
+                        li.my-3
+                          a(href=`${commit.url}`)
+                            .flex.items-center.space-x-3.mb-1(class="lg:pl-2")
                               span.h-4.w-4.bg-green-100.rounded-full.flex.items-center.justify-center(aria-label="Running")
                                 span.h-2.w-2.bg-green-400.rounded-full
                               span
-                                a(href=`${document.repoUrl}`)
-                                  h2.text-sm.font-medium.leading-5
-                                    | #{document.repo}
-                            a(href=`${commit.url}`)
-                              div.relative.group.flex.items-center.space-x-3(class="lg:pl-2")
-                                svg(class="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
-                                  path(fill-rule="evenodd" clip-rule="evenodd" d="M8.99917 0C4.02996 0 0 4.02545 0 8.99143C0 12.9639 2.57853 16.3336 6.15489 17.5225C6.60518 17.6053 6.76927 17.3277 6.76927 17.0892C6.76927 16.8762 6.76153 16.3104 6.75711 15.5603C4.25372 16.1034 3.72553 14.3548 3.72553 14.3548C3.31612 13.316 2.72605 13.0395 2.72605 13.0395C1.9089 12.482 2.78793 12.4931 2.78793 12.4931C3.69127 12.5565 4.16643 13.4198 4.16643 13.4198C4.96921 14.7936 6.27312 14.3968 6.78584 14.1666C6.86761 13.5859 7.10022 13.1896 7.35713 12.965C5.35873 12.7381 3.25756 11.9665 3.25756 8.52116C3.25756 7.53978 3.6084 6.73667 4.18411 6.10854C4.09129 5.88114 3.78244 4.96654 4.27251 3.72904C4.27251 3.72904 5.02778 3.48728 6.74717 4.65082C7.46487 4.45101 8.23506 4.35165 9.00028 4.34779C9.76494 4.35165 10.5346 4.45101 11.2534 4.65082C12.9717 3.48728 13.7258 3.72904 13.7258 3.72904C14.217 4.96654 13.9082 5.88114 13.8159 6.10854C14.3927 6.73667 14.7408 7.53978 14.7408 8.52116C14.7408 11.9753 12.6363 12.7354 10.6318 12.9578C10.9545 13.2355 11.2423 13.7841 11.2423 14.6231C11.2423 15.8247 11.2313 16.7945 11.2313 17.0892C11.2313 17.3299 11.3937 17.6097 11.8501 17.522C15.4237 16.3303 18 12.9628 18 8.99143C18 4.02545 13.97 0 8.99917 0Z" fill="currentcolor")
-                                  .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
-                                    | #{document.repoPath}
-                          td.px-6.py-3.text-sm.leading-5.text-gray-500.font-normal(class="hover:text-gray-900")
-                            - let msg = commit.message.slice(0, 50);
-                            - if (commit.message.length >= 50) msg += '...';
+                                h2.text-sm.font-medium.leading-5
+                                  | #{document.repo}
+                            div.relative.group.flex.items-center.space-x-3(class="lg:pl-2")
+                              svg(class="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
+                                path(fill-rule="evenodd" clip-rule="evenodd" d="M8.99917 0C4.02996 0 0 4.02545 0 8.99143C0 12.9639 2.57853 16.3336 6.15489 17.5225C6.60518 17.6053 6.76927 17.3277 6.76927 17.0892C6.76927 16.8762 6.76153 16.3104 6.75711 15.5603C4.25372 16.1034 3.72553 14.3548 3.72553 14.3548C3.31612 13.316 2.72605 13.0395 2.72605 13.0395C1.9089 12.482 2.78793 12.4931 2.78793 12.4931C3.69127 12.5565 4.16643 13.4198 4.16643 13.4198C4.96921 14.7936 6.27312 14.3968 6.78584 14.1666C6.86761 13.5859 7.10022 13.1896 7.35713 12.965C5.35873 12.7381 3.25756 11.9665 3.25756 8.52116C3.25756 7.53978 3.6084 6.73667 4.18411 6.10854C4.09129 5.88114 3.78244 4.96654 4.27251 3.72904C4.27251 3.72904 5.02778 3.48728 6.74717 4.65082C7.46487 4.45101 8.23506 4.35165 9.00028 4.34779C9.76494 4.35165 10.5346 4.45101 11.2534 4.65082C12.9717 3.48728 13.7258 3.72904 13.7258 3.72904C14.217 4.96654 13.9082 5.88114 13.8159 6.10854C14.3927 6.73667 14.7408 7.53978 14.7408 8.52116C14.7408 11.9753 12.6363 12.7354 10.6318 12.9578C10.9545 13.2355 11.2423 13.7841 11.2423 14.6231C11.2423 15.8247 11.2313 16.7945 11.2313 17.0892C11.2313 17.3299 11.3937 17.6097 11.8501 17.522C15.4237 16.3303 18 12.9628 18 8.99143C18 4.02545 13.97 0 8.99917 0Z" fill="currentcolor")
+                              .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
+                                | #{document.repoPath}
+                              // Heroicon name: chevron-right
+                              svg.ml-4.h-5.w-5.text-gray-400.transition.ease-in-out.duration-150(class="group-hover:text-gray-500 group-focus:text-gray-600" viewbox="0 0 20 20" fill="currentColor")
+                                path(fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd")
+                    // More project rows...
+              // Projects table (small breakpoint and up)
+              .hidden.mt-8(class="sm:block")
+                .align-middle.inline-block.min-w-full.border-b.border-gray-200
+                  table.min-w-full
+                    thead
+                      tr.border-t.border-gray-200
+                        th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
+                          span(class="lg:pl-2") Repo
+                        th.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-left.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider
+                          | Commit Message
+                        th.hidden.px-6.py-3.border-b.border-gray-200.bg-gray-50.text-right.text-xs.leading-4.font-medium.text-gray-500.uppercase.tracking-wider(class="md:table-cell")
+                          | Timestamp
+                    tbody.bg-white.divide-y.divide-gray-100
+                      each document in documents
+                        each commit in document.commits
+                          tr
+                            td.px-6.py-3.max-w-0.whitespace-no-wrap.text-sm.leading-5.font-medium.text-gray-900(class="w-2/5")
+                              .flex.items-center.space-x-3.my-2(class="lg:pl-2")
+                                span.h-4.w-4.bg-green-100.rounded-full.flex.items-center.justify-center(aria-label="Running")
+                                  span.h-2.w-2.bg-green-400.rounded-full
+                                span
+                                  a(href=`${document.repoUrl}`)
+                                    h2.text-sm.font-medium.leading-5
+                                      | #{document.repo}
                               a(href=`${commit.url}`)
-                                | #{msg}
-                          td.hidden.px-6.py-3.whitespace-no-wrap.text-sm.leading-5.text-gray-500.text-right(class="md:table-cell hover:text-gray-900")
-                            - const time = new Date(commit.timestamp);
-                            a(href=`${commit.url}`)
-                              | #{timeAgo.format(time)}
-                        // More project rows...
+                                div.relative.group.flex.items-center.space-x-3(class="lg:pl-2")
+                                  svg(class="flex-shrink-0 w-5 h-5 text-gray-400 group-hover:text-gray-500" viewbox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg")
+                                    path(fill-rule="evenodd" clip-rule="evenodd" d="M8.99917 0C4.02996 0 0 4.02545 0 8.99143C0 12.9639 2.57853 16.3336 6.15489 17.5225C6.60518 17.6053 6.76927 17.3277 6.76927 17.0892C6.76927 16.8762 6.76153 16.3104 6.75711 15.5603C4.25372 16.1034 3.72553 14.3548 3.72553 14.3548C3.31612 13.316 2.72605 13.0395 2.72605 13.0395C1.9089 12.482 2.78793 12.4931 2.78793 12.4931C3.69127 12.5565 4.16643 13.4198 4.16643 13.4198C4.96921 14.7936 6.27312 14.3968 6.78584 14.1666C6.86761 13.5859 7.10022 13.1896 7.35713 12.965C5.35873 12.7381 3.25756 11.9665 3.25756 8.52116C3.25756 7.53978 3.6084 6.73667 4.18411 6.10854C4.09129 5.88114 3.78244 4.96654 4.27251 3.72904C4.27251 3.72904 5.02778 3.48728 6.74717 4.65082C7.46487 4.45101 8.23506 4.35165 9.00028 4.34779C9.76494 4.35165 10.5346 4.45101 11.2534 4.65082C12.9717 3.48728 13.7258 3.72904 13.7258 3.72904C14.217 4.96654 13.9082 5.88114 13.8159 6.10854C14.3927 6.73667 14.7408 7.53978 14.7408 8.52116C14.7408 11.9753 12.6363 12.7354 10.6318 12.9578C10.9545 13.2355 11.2423 13.7841 11.2423 14.6231C11.2423 15.8247 11.2313 16.7945 11.2313 17.0892C11.2313 17.3299 11.3937 17.6097 11.8501 17.522C15.4237 16.3303 18 12.9628 18 8.99143C18 4.02545 13.97 0 8.99917 0Z" fill="currentcolor")
+                                    .text-sm.leading-5.text-gray-500.font-medium.truncate(class="group-hover:text-gray-900")
+                                      | #{document.repoPath}
+                            td.px-6.py-3.text-sm.leading-5.text-gray-500.font-normal(class="hover:text-gray-900")
+                              - let msg = commit.message.slice(0, 50);
+                              - if (commit.message.length >= 50) msg += '...';
+                                a(href=`${commit.url}`)
+                                  | #{msg}
+                            td.hidden.px-6.py-3.whitespace-no-wrap.text-sm.leading-5.text-gray-500.text-right(class="md:table-cell hover:text-gray-900")
+                              - const time = new Date(commit.timestamp);
+                              a(href=`${commit.url}`)
+                                | #{timeAgo.format(time)}
+                          // More project rows...
 
   footer
     include footer.pug

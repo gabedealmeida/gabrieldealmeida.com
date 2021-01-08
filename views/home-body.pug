@@ -2,7 +2,7 @@
   .relative.pb-12
     main(class="mt-16")
       .mx-auto.max-w-screen-xl
-        div
+        div.mb-3
           .px-4(class="sm:px-6 text-center max-w-2xl mx-auto")
             div
               .mt-12(class="lg:mt-0")
@@ -14,9 +14,9 @@
               p.mt-3.text-base.text-gray-300.text-center(class="sm:mt-5 sm:text-xl lg:text-lg xl:text-xl")
                 | I'm a software engineer who currently lives in West Palm Beach, FL. I've worked with multiple technologies across the entire stack and consider myself language and framework agnostic. I'm deeply passionate about my craft and I'm always striving to expand my toolset.
               p.mt-3.text-base.text-gray-300.text-center(class="sm:mt-2 sm:text-xl lg:text-lg xl:text-xl")
-                | Check out my
-                a(class="font-bold text-indigo-400 no-underline hover:underline" href="/images/Gabriel_De_Almeida_Resume.pdf")
-                 |  resume.
+                a(href="/images/Gabriel_De_Almeida_Resume.pdf")
+                  button.inline-flex.items-center.px-3.py-2.border.border-transparent.text-m.leading-4.font-medium.rounded-md.shadow-sm.text-white.bg-indigo-600(type="button" class="hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500")
+                    | resume
       a(href="#campion")
         .flex.items-center.pt-5.pb-4
           svg.animate-bounce.h-15.w-15.text-gray-500.flex-1(xmlns="http://www.w3.org/2000/svg" fill="none" viewbox="0 0 24 24" stroke="currentColor")
@@ -29,20 +29,21 @@
         a(name="campion")
           h2.text-center.text-3xl.font-extrabold.text-orange-400.mb-12(class="sm:text-4xl")
             | I Co-Created Campion
-    .mt-12.grid.gap-5.max-w-lg.mx-auto(class="lg:grid-cols-2 lg:max-w-6xl")
+    .mt-12.grid.gap-5.max-w-lg.mx-auto(class="sm:grid-cols-2 sm:max-w-none")
       .flex.flex-col
-        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="lg:text-left")
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="sm:text-left")
           | Campion is an edge-based serverless framework for implementing circuit-breaking functionality for synchronously called external services.
-        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="lg:text-left")
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="sm:text-left")
           | Campion gives engineers the peace of mind that should their synchronously called services fail, a failure is returned immediately, thereby sheltering their system from cascading failures, giving their failed services time to recover, and providing their end user with a better experience.
-        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="lg:text-left")
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-5.text-center(class="sm:text-left")
           | Read more about the project:
+          span.mx-1
           a(href="https://campion-breaker.github.io/")
-            button.inline-flex.items-center.mx-3.px-3.py-2.border.border-transparent.text-sm.leading-3.font-small.rounded-md.shadow-sm.text-white.bg-orange-400(type="button" class="hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500")
+            button.inline-flex.items-center.px-3.py-2.border.border-transparent.text-sm.leading-3.font-semibold.rounded-md.shadow-sm.text-white.bg-orange-400(type="button" class="hover:bg-orange-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500")
               | Case Study
-        p.mt-1.text-lg.leading-7.text-gray-900.mb-3.text-center(class="lg:text-left")
+        p.mt-1.text-lg.leading-7.text-gray-900.mb-3.text-center(class="sm:text-left")
           | Watch the talk I recently gave on Campion:
-        iframe(src="https://www.youtube.com/embed/jYcF36WyYWs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="mx-auto lg:mx-0 lg:w-1/2")
+        iframe(src="https://www.youtube.com/embed/jYcF36WyYWs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" class="mx-auto sm:mx-0 sm:w-1/2")
       a(href="https://campion-breaker.github.io/")
         .flex.flex-col
           img(src="images/campion-setup.gif")
@@ -57,7 +58,7 @@
             | Projects
       p.mt-3.max-w-2xl.mx-auto.text-xl.leading-7.text-gray-500(class="sm:mt-4")
         | Here's a few of my latest projects.
-    .mt-12.grid.gap-5.max-w-lg.mx-auto(class="lg:grid-cols-3 lg:max-w-none")
+    .mt-12.grid.gap-5.max-w-lg.mx-auto(class="sm:grid-cols-3 sm:max-w-none")
       .flex.flex-col.rounded-lg.shadow-lg.overflow-hidden
         div
           .flex-shrink-0
