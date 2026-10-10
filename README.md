@@ -45,17 +45,17 @@ npm run check     # before going live: is the PDF there, are the Kit settings se
 
 The site is a plain Node server with no dependencies, so Railway needs no build step. It runs `npm start` and checks `/health` before sending visitors to a new version, which means a broken deploy won't replace a working one.
 
-1. **Kit.** Create a free account. Make a form (Grow, then Landing Pages & Forms, then a new form). The form's number is at the end of its address, for example `.../forms/1234567/...`. Then create an API key under Settings, then Developer.
+1. **Kit.** Create a free account, then create an API key under Settings, then Developer.
 2. **Railway variables.** Open your service, go to **Variables**, and add:
-   - `KIT_API_KEY` (your Kit API key, keep it secret)
-   - `KIT_FORM_ID` (the form number)
+   - `KIT_API_KEY` (your Kit API key, keep it secret). This is the only one you need. People are added straight to your Kit list.
+   - `KIT_FORM_ID` (optional). If you also want signups attached to a specific Kit form, add its number, the part at the end of the form's address like `.../forms/1234567/...`.
 
    See `.env.example`. The site listens on port 8080 (or on Railway's `PORT`, if it sets one).
 3. **Deploy.** Railway deploys when `master` changes. Watch the deploy logs. A good start prints `Site running on port ...`.
 4. **Your domain.** If `gabrieldealmeida.com` is already attached to this Railway service, nothing changes. If not, add it under the service's Settings, then Networking.
 5. **Test it for real.** Sign up on the live site with your own email, finish the quiz, and confirm you show up in Kit. Then open `/test?reset=1` and try the `?from=ig` link.
 
-If the form says "Signup is not connected yet," the two variables are missing or wrong.
+If the form says "Signup is not connected yet," `KIT_API_KEY` is missing (or `KIT_FORM_ID` is set but isn't a number).
 
 ## ManyChat (Instagram comment or DM to the scorecard)
 

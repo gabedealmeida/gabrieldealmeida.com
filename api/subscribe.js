@@ -1,6 +1,6 @@
 // POST /api/subscribe
 // Validates the signup again on the server (never trust the browser), then adds
-// the person to Kit: create the subscriber, then put them on the form.
+// the person to Kit: create the subscriber, then, if a form is set, put them on it.
 // The Kit key lives only in this function's environment, never in the page.
 
 import { validateSignup } from '../public/assets/js/validate.js';
@@ -97,8 +97,10 @@ export default async function handler(req, res) {
   const key = process.env.KIT_API_KEY;
   const formId = process.env.KIT_FORM_ID;
   const base = (process.env.KIT_API_BASE || 'https://api.kit.com').replace(/\/$/, '');
-  if (!key || !formId || !/^\d+$/.test(formId)) {
-    console.error('subscribe: KIT_API_KEY or KIT_FORM_ID is missing or invalid');
+  // The key is required. The form is optional: without it people are added to
+  // the Kit list directly. If one is set it must be a number.
+  if (!key || (formId && !/^\d+$/.test(formId))) {
+    console.error('subscribe: KIT_API_KEY is missing, or KIT_FORM_ID is not a number');
     return send(res, 500, {
       ok: false,
       message: 'Signup is not connected yet. Please try again soon.',
@@ -125,17 +127,20 @@ export default async function handler(req, res) {
       });
     }
 
-    const added = await kit(
-      `/v4/forms/${formId}/subscribers`,
-      { email_address: email, referrer: cleanReferrer(body.referrer) },
-      { base, key },
-    );
-    if (![200, 201].includes(added.status)) {
-      console.error(`subscribe: Kit add to form returned ${added.status}`);
-      return send(res, 502, {
-        ok: false,
-        message: 'Something went wrong on our end. Please try again in a minute.',
-      });
+    // Only when a form is set: also attach them to that form.
+    if (formId) {
+      const added = await kit(
+        `/v4/forms/${formId}/subscribers`,
+        { email_address: email, referrer: cleanReferrer(body.referrer) },
+        { base, key },
+      );
+      if (![200, 201].includes(added.status)) {
+        console.error(`subscribe: Kit add to form returned ${added.status}`);
+        return send(res, 502, {
+          ok: false,
+          message: 'Something went wrong on our end. Please try again in a minute.',
+        });
+      }
     }
 
     return send(res, 200, { ok: true });

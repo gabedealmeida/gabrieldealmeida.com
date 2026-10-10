@@ -166,3 +166,20 @@ test('kit errors: an unreachable Kit is a 502', async () => {
   assert.equal(out.status, 502);
   assert.equal(out.json.ok, false);
 });
+
+test('config: the form is optional, and without it people go straight onto the list', async () => {
+  delete process.env.KIT_FORM_ID;
+  const out = await call({ body: good });
+  assert.equal(out.status, 200);
+  assert.deepEqual(calls.map((c) => c.url), ['/v4/subscribers']);
+  calls = [];
+  process.env.KIT_FORM_ID = '';
+  assert.equal((await call({ body: good })).status, 200);
+  assert.deepEqual(calls.map((c) => c.url), ['/v4/subscribers']);
+});
+
+test('config: with no form, a Kit failure is still reported', async () => {
+  delete process.env.KIT_FORM_ID;
+  replies['/v4/subscribers'] = { status: 401, body: {} };
+  assert.equal((await call({ body: good })).status, 502);
+});
