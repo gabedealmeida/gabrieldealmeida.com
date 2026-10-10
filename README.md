@@ -70,15 +70,15 @@ Neither carries a name or email, and the quiz removes the flag from the address 
 
 ### In Kit (about 15 minutes)
 
-1. **Create one form** called "Score My Side Hustle Idea". Under its settings, open **Incentive Email** and choose **auto-confirm new members**, so people don't get a "please confirm" email on top of your welcome email.
+1. **Create a form just for the ManyChat flow**, called "Score My Side Hustle Idea (Instagram)". Under its settings, open **Incentive Email** and choose **auto-confirm new members**, so people don't get a "please confirm" email on top of your welcome email. Use this form for this ManyChat flow only. A future ManyChat flow gets its own form or tag, so it never triggers this welcome email.
 2. **Create an email sequence** called "Welcome" with one email (copy below). Kit adds the unsubscribe link and your address for you.
-3. **Create a visual automation:** when someone **joins the form**, **add them to the Welcome sequence**.
-4. **Add the form's number to Railway** as `KIT_FORM_ID` (the number in the form's address, like `.../forms/1234567/...`). Now website signups join the same form, so they get the same welcome email.
+3. **Create a visual automation.** The entry point is **Joins a form**, and you pick the Instagram form, not "any form." Then add the action **Add subscriber to an email sequence** and choose Welcome. Turn it on.
+4. **Optional, for website signups.** To see website signups in their own form, create a second form, "Score My Side Hustle Idea (Website)", and add its number to Railway as `KIT_FORM_ID` (the number in the form's address, like `.../forms/1234567/...`). Don't connect that form to the welcome automation, since those people already have the scorecard open.
 5. **Check your sending email.** In Kit's settings, verify the address or domain your emails send from, or they may land in spam.
 
 ### In ManyChat
 
-After the step that collects the email, add the **Kit action** that subscribes the person to that same form, sending their email and first name. People from Instagram then join the same automation.
+After the step that collects the email, add the **Kit action** that subscribes the person to the **Instagram form**, sending their email and first name. Only people who go through this flow join that form, so only they get the welcome email.
 
 ### The DM flow (Instagram only lets a comment trigger one automatic reply until the person responds, so the first message ends with a button they tap)
 
