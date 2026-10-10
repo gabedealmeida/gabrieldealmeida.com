@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Score My Side Hustle Idea | Gabe De Almeida</title>
+<style>
+@font-face {
+  font-family: "Inter";
+  src: url("../public/assets/fonts/inter-variable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+}
+
+@page { size: 8.5in 11in; margin: 0; }
+
+:root {
+  --midnight: #0b0b0d;
+  --graphite: #1c1c1f;
+  --paper: #f5f5f7;
+  --ink: #0b0b0d;
+  --grey: #6e6e73;
+  --rule: #d2d2d7;
+  --amber: #f2a541;
+  --fog: #a1a1a6;
+  --soft: #d2d2d7;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body {
+  margin: 0;
+  background: #fff;
+  color: var(--ink);
+  font-family: "Inter", system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 12.5px;
+  line-height: 1.42;
+}
+h1, h2, h3, h4, p, ul, ol { margin: 0; }
+ul, ol { padding: 0; list-style: none; }
+i { font-style: normal; }
+em { font-style: normal; }
+
+.page {
+  position: relative;
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.55in 0.75in 0.8in;
+  page-break-after: always;
+  break-after: page;
+  background: #fff;
+}
+.page:last-child { page-break-after: auto; break-after: auto; }
+
+/* ---------- running header and footer ---------- */
+.top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 18px;
+  font-size: 10.5px;
+  font-weight: 500;
+  color: var(--grey);
+}
+.foot {
+  position: absolute;
+  left: 0.75in;
+  right: 0.75in;
+  bottom: 0.4in;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--grey);
+}
+.dotmark { color: var(--amber); }
+
+/* ---------- cover ---------- */
+.cover {
+  background: var(--midnight);
+  color: var(--paper);
+  padding: 0.85in 0.85in 0.8in;
+  height: 11in;
+  display: flex;
+  flex-direction: column;
+}
+.cover .wm { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+.cover .wm i { color: var(--amber); }
+.cover .main { margin-top: 2.35in; }
+.cover h1 {
+  font-size: 92px;
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 0.97;
+}
+.cover .sub {
+  margin-top: 36px;
+  font-size: 34px;
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  color: var(--soft);
+  max-width: 6.2in;
+}
+.cover .sub b { font-weight: 500; color: var(--amber); }
+.cover .base {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--fog);
+}
+.cover .base p { max-width: 3.9in; }
+.cover .base .h { font-size: 12px; }
+
+/* ---------- headings ---------- */
+.kicker { font-size: 11px; font-weight: 500; color: var(--grey); margin-bottom: 6px; }
+h2.t {
+  font-size: 40px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+h2.t i { color: var(--amber); }
+.lede { margin-top: 12px; font-size: 14.5px; line-height: 1.45; color: #3a3a3d; max-width: 5.6in; }
+
+/* ---------- cards ---------- */
+.card { background: var(--paper); border-radius: 14px; padding: 16px 18px; }
+.note {
+  margin-top: 10px;
+  padding: 8px 14px;
+  border-left: 3px solid var(--amber);
+  background: var(--paper);
+  border-radius: 0 10px 10px 0;
+  font-size: 11.5px;
+  line-height: 1.45;
+  color: #3a3a3d;
+}
+.note b { font-weight: 600; color: var(--ink); }
+.small { font-size: 11.5px; color: var(--grey); line-height: 1.45; }
+
+/* ---------- how it works ---------- */
+.steps { margin-top: 22px; }
+.steps li { display: flex; gap: 14px; align-items: baseline; padding: 9px 0; border-bottom: 1px solid var(--rule); }
+.steps li:first-child { border-top: 1px solid var(--rule); }
+.steps .n { flex: 0 0 22px; font-weight: 600; color: var(--grey); font-variant-numeric: tabular-nums; }
+.steps b { font-weight: 600; font-size: 13.5px; }
+.steps span.d { color: #3a3a3d; }
+.rules { margin-top: 22px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.rules .card { padding: 14px 16px; }
+.rules h4 { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+.rules p { margin-top: 3px; font-size: 11.5px; color: #3a3a3d; line-height: 1.42; }
+
+/* ---------- write-in blanks ---------- */
+.blank { display: inline-block; min-width: 1.1in; border-bottom: 1.3px solid var(--ink); height: 1.1em; vertical-align: baseline; margin: 0 2px; }
+.blank.w2 { min-width: 2.2in; }
+.blank.w3 { min-width: 3.2in; }
+.blank.sm { min-width: 0.55in; }
+.rowline { display: flex; align-items: flex-end; gap: 10px; margin-top: 16px; }
+.rowline label { font-size: 12px; font-weight: 600; white-space: nowrap; }
+.rowline .fill { flex: 1; border-bottom: 1.3px solid var(--ink); height: 20px; }
+.lines .fill { height: 30px; border-bottom: 1.3px solid var(--rule); }
+.sent { margin-top: 8px; }
+.sent .rowline { margin-top: 12px; }
+.sent label { width: 1.35in; line-height: 1.2; }
+.sent label small { display: block; margin-top: 1px; font-size: 10.5px; font-weight: 400; color: var(--grey); }
+.sent .rowline:last-child label { width: auto; }
+.sent label b { font-weight: 600; }
+.sent .rowline:last-child { margin-top: 20px; }
+.sent .fill { height: 30px; }
+.needs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px 26px; margin-top: 12px; }
+.need { display: flex; gap: 10px; align-items: flex-start; font-size: 12px; line-height: 1.35; }
+.box.sm { flex: 0 0 16px; width: 16px; height: 16px; border-radius: 4px; margin-top: 0; }
+
+/* ---------- hard stops ---------- */
+.stops { margin-top: 18px; width: 100%; border-collapse: collapse; }
+.stops td, .stops th { padding: 11px 8px; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.stops thead th { padding: 0 8px 8px; font-size: 10.5px; font-weight: 500; color: var(--grey); text-align: left; }
+.stops tbody tr:first-child td { border-top: 1px solid var(--ink); }
+.stops .no { width: 24px; color: var(--grey); font-weight: 600; font-variant-numeric: tabular-nums; }
+.stops .yn { width: 46px; text-align: center; }
+.stops b { font-weight: 600; font-size: 13px; }
+.stops p { margin-top: 2px; font-size: 11.5px; color: #3a3a3d; line-height: 1.42; }
+.box { display: inline-block; width: 20px; height: 20px; border: 1.5px solid var(--ink); border-radius: 5px; }
+
+/* ---------- tests ---------- */
+.test { margin-top: 0; }
+.test + .test { margin-top: 14px; }
+.test-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  padding-bottom: 8px;
+  border-bottom: 1.5px solid var(--ink);
+}
+.test-head h3 { font-size: 21px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.05; }
+.test-head h3 span { display: block; margin-bottom: 4px; font-size: 10.5px; font-weight: 500; letter-spacing: 0; color: var(--grey); }
+.test-head p { margin-top: 3px; font-size: 12px; color: var(--grey); }
+.total { display: flex; align-items: center; gap: 8px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+.total .sq { display: inline-block; width: 34px; height: 26px; border: 1.5px solid var(--ink); border-radius: 6px; }
+.total em { font-weight: 500; color: var(--grey); }
+
+.q { padding: 6px 0 5px; border-bottom: 1px solid var(--rule); }
+.q:last-of-type { border-bottom: 0; }
+.q h4 { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; line-height: 1.3; }
+.q h4 span { font-weight: 400; color: var(--grey); }
+.q .ctx { margin-top: 1px; font-size: 11.5px; color: var(--grey); }
+.opts { margin-top: 4px; }
+.opt { display: flex; gap: 9px; align-items: flex-start; padding: 1.1px 0; font-size: 11.8px; line-height: 1.38; color: #2a2a2d; }
+.dot {
+  flex: 0 0 17px;
+  height: 17px;
+  margin-top: 0.5px;
+  border: 1.4px solid var(--ink);
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 9.5px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--grey);
+}
+.ins { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 6px 22px; font-size: 12px; font-weight: 500; }
+
+/* napkin */
+.napkin { margin-top: 18px; width: 100%; border-collapse: collapse; }
+.napkin td { padding: 10px 8px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+.napkin tr:first-child td { border-top: 0; }
+.napkin .k { width: 26px; font-weight: 600; color: var(--grey); }
+.napkin .v { width: 1.5in; }
+.napkin .v span { display: block; height: 26px; border-bottom: 1.4px solid var(--ink); }
+.napkin b { font-weight: 600; }
+.napkin small { display: block; font-size: 11px; color: var(--grey); }
+
+/* ---------- verdict ---------- */
+.scores { margin-top: 20px; width: 100%; border-collapse: separate; border-spacing: 8px 0; margin-left: -8px; width: calc(100% + 16px); }
+.scores th { font-size: 10.5px; font-weight: 500; color: var(--grey); text-align: center; padding-bottom: 6px; }
+.scores td { height: 54px; border: 1.5px solid var(--ink); border-radius: 10px; }
+.scores td.low { border-style: dashed; }
+.scores td.tot { background: var(--paper); }
+.verdicts { margin-top: 22px; display: grid; gap: 10px; }
+.verdict { display: grid; grid-template-columns: 26px 1.9in 1fr; gap: 14px; align-items: center; padding: 14px 18px; background: var(--paper); border-radius: 14px; }
+.verdict h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.15; }
+.verdict .when { margin-top: 3px; font-size: 11px; color: var(--grey); }
+.verdict p { font-size: 12px; color: #3a3a3d; line-height: 1.42; }
+
+/* ---------- one-page test ---------- */
+.proof { margin-top: 16px; display: grid; gap: 8px; }
+.proof .card { display: grid; grid-template-columns: 1.15in 1fr 1.7in; gap: 16px; padding: 12px 16px; }
+.proof h4 { font-size: 13px; font-weight: 600; letter-spacing: -0.01em; }
+.proof .lbl { font-size: 10px; font-weight: 500; color: var(--grey); margin-bottom: 2px; }
+.proof p { font-size: 11.3px; line-height: 1.4; color: #2a2a2d; }
+.plan { margin-top: 16px; }
+
+/* ---------- compare ---------- */
+.compare { margin-top: 18px; width: 100%; border-collapse: collapse; }
+.compare th, .compare td { border: 1px solid var(--rule); padding: 0 10px; height: 34px; text-align: left; font-size: 11.5px; }
+.compare thead th { height: 30px; background: var(--paper); font-weight: 600; border-color: var(--rule); }
+.compare td:first-child { width: 1.9in; font-weight: 500; background: var(--paper); }
+.compare tr.strong td { font-weight: 600; }
+.close { margin-top: 30px; font-size: 26px; font-weight: 600; letter-spacing: -0.03em; line-height: 1.1; }
+.close i { color: var(--amber); }
+.legal { margin-top: 14px; font-size: 10.5px; line-height: 1.5; color: var(--grey); max-width: 5.8in; }
+</style>
+</head>
+<body>
+
+<!-- 1. COVER -->
+<section class="page cover">
+  <div class="wm">Gabe De Almeida<i>.</i></div>
+  <div class="main">
+    <h1>Score My<br>Side Hustle<br>Idea</h1>
+    <p class="sub">Will this side hustle fit around your <b>job?</b></p>
+  </div>
+  <div class="base">
+    <p>A scorecard for people who are keeping their job and starting a side hustle.</p>
+    <div class="h">About 15 minutes.<br>Bring a pencil.</div>
+  </div>
+</section>
+
+<!-- 2. HOW IT WORKS -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <h2 class="t">How this works<i>.</i></h2>
+  <p class="lede">Grab a pencil. This takes about 15 minutes. For every question, fill in the circle that fits best.</p>
+
+  <ol class="steps">
+    <li><span class="n">1</span><span><b>Shrink it.</b> <span class="d">Write the smallest version of your idea.</span></span></li>
+    <li><span class="n">2</span><span><b>Check the hard stops.</b> <span class="d">Five yes or no questions. Any yes means pause and think.</span></span></li>
+    <li><span class="n">3</span><span><b>Score the five tests.</b> <span class="d">Three questions each, scored 0, 1, or 2.</span></span></li>
+    <li><span class="n">4</span><span><b>Read your verdict.</b> <span class="d">It comes from your weakest test.</span></span></li>
+    <li><span class="n">5</span><span><b>Run the one-page test.</b> <span class="d">On your weakest spot, this week.</span></span></li>
+  </ol>
+
+  <div class="rules">
+    <div class="card"><h4>Score only what you can show.</h4><p>A name, a number, a link, a date. If you can't show it, it's a 0. A 0 isn't failure. It tells you what to find out.</p></div>
+    <div class="card"><h4>The weakest test decides.</h4><p>An idea breaks at its weakest point, so we don't average.</p></div>
+    <div class="card"><h4>Score the smallest version, not the dream.</h4><p>The same idea can be a great side hustle at one size and a second job at another.</p></div>
+    <div class="card"><h4>This is guidance, not a rulebook.</h4><p>You know your situation better than any scorecard does. If you go against a stop or a verdict, that can be a fine call. Write down why, and what would prove you wrong.</p></div>
+  </div>
+
+  <div class="note"><b>From my misses.</b> I once ran a pool cleaning service. A handful of clients before work, after work, and on weekends would have been a great side hustle. It got too big, too fast. The week stopped belonging to the job.</div>
+  <div class="note"><b>From my wins.</b> I've started things that cost more than I'd normally risk, because the demand was already proven, the distribution was in place, and clients were lined up. This scorecard would have flagged the cost. The evidence is why I went ahead.</div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 3. STEP 1 -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <div class="kicker">Step 1</div>
+  <h2 class="t">Shrink it<i>.</i></h2>
+  <p class="lede">Write the smallest version of this idea you could run on weekends. Everything that follows is scored against this version.</p>
+
+  <div class="rowline"><label>Idea name</label><span class="fill"></span></div>
+
+  <div class="sent">
+    <div class="rowline"><label><b>I will</b><small>what you do</small></label><span class="fill"></span></div>
+    <div class="rowline"><label><b>for</b><small>who pays you</small></label><span class="fill"></span></div>
+    <div class="rowline"><label><b>so they</b><small>what they get</small></label><span class="fill"></span></div>
+    <div class="rowline"><label><b>on</b><small>which days</small></label><span class="fill"></span></div>
+    <div class="rowline"><label><b>Starting with no more than</b></label><span class="blank sm" style="min-width:0.7in"></span><label><b>customers</b></label></div>
+  </div>
+
+  <div class="card" style="margin-top:18px">
+    <div class="small" style="font-weight:600;color:#0b0b0d;margin-bottom:2px">Example</div>
+    <p style="font-size:12.5px;line-height:1.5;color:#2a2a2d">I will clean pools for neighbors within 10 minutes of my house, on Saturday mornings, starting with no more than 5 customers.</p>
+  </div>
+
+  <h3 style="margin-top:26px;font-size:17px;font-weight:600;letter-spacing:-0.02em">What does the smallest version need?</h3>
+  <p class="small" style="margin-top:4px;max-width:5.8in">Tick everything that applies. Fewer is better.</p>
+  <div class="needs-grid">
+    <label class="need"><span class="box sm"></span><span>Hiring or managing other people</span></label>
+    <label class="need"><span class="box sm"></span><span>A license, permit, or insurance</span></label>
+    <label class="need"><span class="box sm"></span><span>Equipment or tools you would have to buy</span></label>
+    <label class="need"><span class="box sm"></span><span>Inventory or supplies you would have to stock</span></label>
+    <label class="need"><span class="box sm"></span><span>A space to rent or store things</span></label>
+    <label class="need"><span class="box sm"></span><span>A website, app, or store you would have to build</span></label>
+    <label class="need"><span class="box sm"></span><span>A business entity, separate bank account, or tax setup</span></label>
+    <label class="need"><span class="box sm"></span><span>Fixed appointments or deadlines you cannot move</span></label>
+  </div>
+  <div class="rowline" style="justify-content:flex-end"><label>Ticked:</label><span class="blank sm" style="min-width:0.6in"></span></div>
+  <p class="small" style="margin-top:10px;max-width:6in">0 to 2 is a light start. 3 to 4 is getting heavy, so can you drop one? 5 or more, shrink it again before you score it.</p>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 4. HARD STOPS -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <div class="kicker">Step 2</div>
+  <h2 class="t">Five hard stops<i>.</i></h2>
+  <p class="lede">Answer yes or no. Any yes means pause and think it through. Usually that means fix it first, then come back. A hard stop is a "not yet," not a "no forever."</p>
+
+  <table class="stops">
+    <thead><tr><th></th><th>Hard stop</th><th class="yn" style="text-align:center">Yes</th><th class="yn" style="text-align:center">No</th></tr></thead>
+    <tbody>
+      <tr>
+        <td class="no">1</td>
+        <td><b>Your work agreement.</b><p>Might your employment agreement or an outside-work policy rule this out, or have you not checked yet? Look for outside work, conflicts of interest, and who owns what you create. This is a planning tool, not legal advice.</p></td>
+        <td class="yn"><span class="box"></span></td><td class="yn"><span class="box"></span></td>
+      </tr>
+      <tr>
+        <td class="no">2</td>
+        <td><b>Reachable 9 to 5.</b><p>Does it need you reachable on weekdays during work hours? Calls, live support, same-day replies, showing up in person.</p></td>
+        <td class="yn"><span class="box"></span></td><td class="yn"><span class="box"></span></td>
+      </tr>
+      <tr>
+        <td class="no">3</td>
+        <td><b>Hard-to-get requirements.</b><p>Does it need a license, insurance, or equipment that is costly or hard to get? Basic tools you already own don't count.</p></td>
+        <td class="yn"><span class="box"></span></td><td class="yn"><span class="box"></span></td>
+      </tr>
+      <tr>
+        <td class="no">4</td>
+        <td><b>Your 2 a.m. number.</b><p>The most you could lose without touching your family's cushion: $ <span class="blank" style="min-width:1in"></span><br>Could finding out if this works cost more than that, after subtracting money customers have already committed (deposits, signed clients, paid orders)?</p></td>
+        <td class="yn"><span class="box"></span></td><td class="yn"><span class="box"></span></td>
+      </tr>
+      <tr>
+        <td class="no">5</td>
+        <td><b>Home.</b><p>Does anyone who would feel the hours or the dollars not know yet, or not agree?</p></td>
+        <td class="yn"><span class="box"></span></td><td class="yn"><span class="box"></span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="card" style="margin-top:20px">
+    <h4 style="font-size:13.5px;font-weight:600;letter-spacing:-0.01em">Going ahead anyway?</h4>
+    <p class="small" style="margin-top:2px">Strong evidence can justify a bigger bet. Real buyers, a real door, and clients lined up (Tests 1 and 2) make a stop 3 or 4 yes much less scary. Thin evidence doesn't.</p>
+    <div class="rowline" style="margin-top:12px"><label>Which stop</label><span class="fill" style="max-width:0.8in"></span><label style="margin-left:10px">Why I'm going ahead</label><span class="fill"></span></div>
+    <div class="rowline" style="margin-top:10px"><label>What would prove me wrong</label><span class="fill"></span></div>
+  </div>
+
+  <div class="note"><b>From my misses.</b> The licenses, insurance, and equipment piled up on my pool business. I could have gotten past it by staying lean. I got over my skis instead.</div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 5. TESTS 1 AND 2 -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Step 3: the five tests</span></div>
+
+  <div class="test">
+    <div class="test-head">
+      <div><h3><span>Test 1</span>Already has buyers</h3><p>Pick a market that already pays.</p></div>
+      <div class="total"><em>Test total</em><span class="sq"></span>/ 6</div>
+    </div>
+    <div class="q">
+      <h4>1a. Have you seen strangers actually pay for something like this?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>No. I think people would want it, or only friends and family say they would.</span></div>
+        <div class="opt"><span class="dot">1</span><span>I've seen it sold, but couldn't tell how often.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Yes, and I can show it. At least 3 recent sales or dated reviews from strangers.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>1b. Have you asked a stranger for money?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>Never asked.</span></div>
+        <div class="opt"><span class="dot">1</span><span>I've asked friends or family.</span></div>
+        <div class="opt"><span class="dot">2</span><span>I've asked strangers. Even if they said no, I know why.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>1c. Why would a stranger pick you over what's already there?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>I'd be about the same as everyone else.</span></div>
+        <div class="opt"><span class="dot">1</span><span>I'd be cheaper or more convenient, but anyone could match that.</span></div>
+        <div class="opt"><span class="dot">2</span><span>I can name one specific thing that's different and hard to copy, in one sentence.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:6px"><b>From my misses.</b> I started a fitness company in a crowded space with nothing that set me apart. I couldn't get people to pay. If you'd be competing with people who have far more money, information, or time than you (trading is one), your 1c is probably a 0.</div>
+  </div>
+
+  <div class="test">
+    <div class="test-head">
+      <div><h3><span>Test 2</span>Already has a door</h3><p>Sell where buyers already are.</p></div>
+      <div class="total"><em>Test total</em><span class="sq"></span>/ 6</div>
+    </div>
+    <div class="q">
+      <h4>2a. Is there a place buyers already go to find this? <span>A marketplace, search, local groups, a platform.</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>I'd have to build an audience or a website first.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Maybe. I know a place but haven't tried it.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Yes. I can name the place and I've seen buyers asking or buying there.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>2b. Could you get your first 10 customers with zero followers?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>Not without ads, an audience, or luck.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Probably, but I'd have to learn a new channel first.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Yes. I can describe the steps in 5 lines or fewer.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>2c. If that door closed, would you have another?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>No. The whole thing runs through one platform or one person.</span></div>
+        <div class="opt"><span class="dot">1</span><span>I could find another, but it would take months.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Yes. I already have a second way in, or it doesn't depend on one platform.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:6px"><b>From my misses.</b> With the fitness company I was starting from the ground up, trying to get people to a website. There was no door already open.</div>
+  </div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 6. TESTS 3 AND 4 -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Step 3: the five tests</span></div>
+
+  <div class="test">
+    <div class="test-head">
+      <div><h3><span>Test 3</span>Fits your week</h3><p>The week belongs to the job.</p></div>
+      <div class="total"><em>Test total</em><span class="sq"></span>/ 6</div>
+    </div>
+    <div class="q">
+      <h4>3a. Do the hours fit?</h4>
+      <div class="ins"><span>Honest hours I can protect each week: <span class="blank sm"></span></span><span>Hours my smallest version needs: <span class="blank sm"></span></span></div>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>It needs more than I have, or I'm not sure.</span></div>
+        <div class="opt"><span class="dot">1</span><span>It needs about what I have, with no slack.</span></div>
+        <div class="opt"><span class="dot">2</span><span>It needs no more than two thirds of what I have.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>3b. If you skipped a week (sick kid, big deadline), what happens?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>Customers leave or things pile up.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Some pain, but it recovers.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Nothing breaks.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>3c. What if it works too well? <span>If it doubled next month, what happens?</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>I couldn't keep up and I'd have no way to say no.</span></div>
+        <div class="opt"><span class="dot">1</span><span>I'd manage for a while but I have no plan.</span></div>
+        <div class="opt"><span class="dot">2</span><span>I can cap it. A waitlist, a customer limit, or a price that slows demand.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:6px"><b>From my misses.</b> My pool business worked, then got too big too quick and collided with my job. I also ran a home wholesaling business. It needed a bigger operation and more of my attention than I had. Check what you ticked in Step 1.</div>
+  </div>
+
+  <div class="test">
+    <div class="test-head">
+      <div><h3><span>Test 4</span>Safe to be wrong</h3><p>Your 2 a.m. number: $ <span class="blank" style="min-width:0.9in"></span></p></div>
+      <div class="total"><em>Test total</em><span class="sq"></span>/ 6</div>
+    </div>
+    <div class="q">
+      <h4>4a. What would it cost to find out if this works? <span>Include the one-page test and the first month, minus money customers already committed.</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>More than my 2 a.m. number, or I don't know.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Within it, but I'd feel it.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Less than half of it.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>4b. Could you stop in one weekend and owe nothing? <span>No leases, unsellable inventory, contracts, or loans.</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>No. I'd be locked into something.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Mostly. One or two things to unwind.</span></div>
+        <div class="opt"><span class="dot">2</span><span>Yes. I could stop Sunday night and owe nothing.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>4c. Could you watch the swings without losing sleep?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>It uses my family's cushion, or I'd check it constantly.</span></div>
+        <div class="opt"><span class="dot">1</span><span>It's my own spare money, but I'd watch it closely.</span></div>
+        <div class="opt"><span class="dot">2</span><span>I'd be fine if it went to zero, and I wouldn't need to check daily.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:6px"><b>From my misses.</b> I dabbled in stock trading. The ups and downs were more than I could stomach, it was my family's money, and the people on the other side had far more resources than I did.</div>
+  </div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 7. TEST 5 -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Step 3: the five tests</span></div>
+
+  <div class="test">
+    <div class="test-head">
+      <div><h3><span>Test 5</span>The math holds</h3><p>Your napkin. This is your own arithmetic, not a forecast.</p></div>
+      <div class="total"><em>Test total</em><span class="sq"></span>/ 6</div>
+    </div>
+
+    <table class="napkin">
+      <tr><td class="k">A</td><td><b>Aim for, per month</b></td><td class="v">$ <span style="display:inline-block;width:1.2in"></span></td></tr>
+      <tr><td class="k">B</td><td><b>Profit per sale</b><small>Price, minus what it costs you to deliver, including fees.</small></td><td class="v">$ <span style="display:inline-block;width:1.2in"></span></td></tr>
+      <tr><td class="k">C</td><td><b>Sales needed per month</b><small>A ÷ B</small></td><td class="v"><span></span></td></tr>
+      <tr><td class="k">D</td><td><b>Hours per sale</b><small>Finding the customer, doing the work, the admin.</small></td><td class="v"><span></span></td></tr>
+      <tr><td class="k">E</td><td><b>Hours needed per month</b><small>C × D</small></td><td class="v"><span></span></td></tr>
+      <tr><td class="k">F</td><td><b>Hours you can protect per month</b><small>Your weekly hours from 3a × 4</small></td><td class="v"><span></span></td></tr>
+    </table>
+
+    <div class="q" style="margin-top:12px">
+      <h4>5a. Do the hours fit? <span>Compare E and F.</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>E is more than F.</span></div>
+        <div class="opt"><span class="dot">1</span><span>E is up to F, with little room.</span></div>
+        <div class="opt"><span class="dot">2</span><span>E is no more than three quarters of F.</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>5b. Is the profit per sale real?</h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>A guess.</span></div>
+        <div class="opt"><span class="dot">1</span><span>Estimated from similar sellers.</span></div>
+        <div class="opt"><span class="dot">2</span><span>From costs I've actually priced out (materials, fees, delivery, my time).</span></div>
+      </div>
+    </div>
+    <div class="q">
+      <h4>5c. Does one source carry the plan? <span>One customer, one platform, or one supplier.</span></h4>
+      <div class="opts">
+        <div class="opt"><span class="dot">0</span><span>One source is more than half.</span></div>
+        <div class="opt"><span class="dot">1</span><span>One source is about half.</span></div>
+        <div class="opt"><span class="dot">2</span><span>No source is more than a third.</span></div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:8px"><b>One paycheck is a single point of failure.</b> Don't build a second one. The math can tell you whether an idea works on paper. It can't tell you whether it will.</div>
+  </div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 8. VERDICT -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <div class="kicker">Step 4</div>
+  <h2 class="t">Your verdict<i>.</i></h2>
+  <p class="lede">Write each test's score (0 to 6) and draw a dashed line around the lowest one. Your verdict comes from that one.</p>
+
+  <table class="scores">
+    <thead><tr><th>Test 1<br>Buyers</th><th>Test 2<br>Door</th><th>Test 3<br>Week</th><th>Test 4<br>Safe</th><th>Test 5<br>Math</th><th>Total<br>out of 30</th></tr></thead>
+    <tbody><tr><td></td><td></td><td></td><td></td><td></td><td class="tot"></td></tr></tbody>
+  </table>
+
+  <div class="verdicts">
+    <div class="verdict"><span class="box"></span><div><h3>Go. Start Saturday.</h3><div class="when">Your lowest test is 4 or more</div></div><p>It passed. Pick a start date and keep the first version small.</p></div>
+    <div class="verdict"><span class="box"></span><div><h3>Fix one thing first.</h3><div class="when">Your lowest test is 2 or 3</div></div><p>One weak spot. Change it, then rescore that test.</p></div>
+    <div class="verdict"><span class="box"></span><div><h3>Prove it before you spend.</h3><div class="when">Your lowest test is 0 or 1</div></div><p>Run the one-page test on that test before you put in money or weekends.</p></div>
+    <div class="verdict"><span class="box"></span><div><h3>Not this one. Next idea.</h3><div class="when">Two or more tests at 0 or 1</div></div><p>Better to know on day one than in month six.</p></div>
+  </div>
+
+  <div class="note" style="margin-top:18px"><b>Any hard stop with a yes?</b> Fix that first, or write down why you're going ahead anyway. The verdict doesn't count until you've dealt with the stops.</div>
+  <div class="note"><b>A verdict is a recommendation, not a ruling.</b> If your gut and the scorecard disagree, don't ignore either one. Find out why. Then decide.</div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 9. ONE-PAGE TEST -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <div class="kicker">Step 5</div>
+  <h2 class="t">The one-page test<i>.</i></h2>
+  <p class="lede">Run only the one for your weakest test. If two are tied, start with the lower number. Keep it under $25 and one week. Then rescore that test.</p>
+
+  <div class="proof">
+    <div class="card"><div><div class="lbl">Weakest test</div><h4>1. Buyers</h4></div><div><div class="lbl">This week, do this</div><p>Write a one-line offer with a price. Put it where buyers already look, or message 10 people who recently bought something similar. Ask 5 for a real commitment, such as a booked time or a pre-order.</p></div><div><div class="lbl">Pass if</div><p>At least 2 say yes with a date or money, or you learn exactly why not.</p></div></div>
+    <div class="card"><div><div class="lbl">Weakest test</div><h4>2. Door</h4></div><div><div class="lbl">This week, do this</div><p>Post one real offer on the place buyers already go. Count messages for 7 days, not likes.</p></div><div><div class="lbl">Pass if</div><p>At least 3 real inquiries from strangers.</p></div></div>
+    <div class="card"><div><div class="lbl">Weakest test</div><h4>3. Week</h4></div><div><div class="lbl">This week, do this</div><p>Run a mock Saturday. Do one customer-sized job in the real time slot you'd use. Time every step, including admin. Note what interrupts you.</p></div><div><div class="lbl">Pass if</div><p>It took no more than the hours you budgeted, and the rest of your week didn't suffer.</p></div></div>
+    <div class="card"><div><div class="lbl">Weakest test</div><h4>4. Safe</h4></div><div><div class="lbl">This week, do this</div><p>Write your 2 a.m. number. Spend 15 minutes with the person at home: the idea, the hours, the most you'll risk, and what would make them uneasy. List every contract, lease, or purchase and check that each can be undone.</p></div><div><div class="lbl">Pass if</div><p>You both agree on the number, and nothing on your list can't be undone.</p></div></div>
+    <div class="card"><div><div class="lbl">Weakest test</div><h4>5. Math</h4></div><div><div class="lbl">This week, do this</div><p>Replace one guess with a real number. Get one real price (a quote or a competitor's published price) and one real cost. Redo the napkin.</p></div><div><div class="lbl">Pass if</div><p>The hours needed fit within the hours you have, using real numbers.</p></div></div>
+  </div>
+
+  <div class="plan">
+    <div class="rowline"><label>The test I'm running</label><span class="fill"></span><label style="margin-left:10px">Start</label><span class="fill" style="max-width:1in"></span><label style="margin-left:10px">Done by</label><span class="fill" style="max-width:1in"></span></div>
+    <div class="rowline"><label>What counts as a pass</label><span class="fill"></span></div>
+    <p class="small" style="margin-top:14px">After the week, rescore that test. If it's now 4 or more, check your next-lowest test.</p>
+  </div>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<!-- 10. COMPARE -->
+<section class="page">
+  <div class="top"><span>Score My Side Hustle Idea</span><span>Gabe De Almeida</span></div>
+  <div class="kicker">Optional</div>
+  <h2 class="t">Comparing ideas<i>.</i></h2>
+  <p class="lede">Most people have two or three ideas. Score each one on its own copy of the scorecard, then fill this in. The lowest test decides. The total only breaks a tie.</p>
+
+  <table class="compare">
+    <thead><tr><th></th><th>Idea A</th><th>Idea B</th><th>Idea C</th></tr></thead>
+    <tbody>
+      <tr><td>Idea name</td><td></td><td></td><td></td></tr>
+      <tr><td>Hard stops clear?</td><td></td><td></td><td></td></tr>
+      <tr><td>Test 1: Buyers</td><td></td><td></td><td></td></tr>
+      <tr><td>Test 2: Door</td><td></td><td></td><td></td></tr>
+      <tr><td>Test 3: Week</td><td></td><td></td><td></td></tr>
+      <tr><td>Test 4: Safe</td><td></td><td></td><td></td></tr>
+      <tr><td>Test 5: Math</td><td></td><td></td><td></td></tr>
+      <tr class="strong"><td>Lowest test</td><td></td><td></td><td></td></tr>
+      <tr><td>Total out of 30</td><td></td><td></td><td></td></tr>
+      <tr class="strong"><td>Verdict</td><td></td><td></td><td></td></tr>
+    </tbody>
+  </table>
+
+  <p class="close">Keep your job. Start a side hustle<i>.</i></p>
+  <p class="legal">Score My Side Hustle Idea is a planning tool, not financial, legal, or tax advice, and nothing here is a promise of income. Made by Gabe De Almeida. Follow along at @itsgabedealmeida.</p>
+
+  <div class="foot"><span>@itsgabedealmeida</span><span class="pg"></span></div>
+</section>
+
+<script>
+  // Page numbers: "2 of 10". Runs before printing, so they are always right.
+  const pages = [...document.querySelectorAll('.page')];
+  pages.forEach((p, i) => {
+    const el = p.querySelector('.pg');
+    if (el) el.textContent = `${i + 1} of ${pages.length}`;
+  });
+</script>
+</body>
+</html>

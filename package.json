@@ -1,33 +1,16 @@
 {
-  "name": "gabedealmeida.com",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "gabrieldealmeida.com",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Landing page and quiz for Score My Side Hustle Idea, a free side hustle scorecard.",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
-    "build": "postcss public/styles/index.css -o public/styles/build/index.css"
+    "dev": "node dev-server.mjs",
+    "test": "node --test",
+    "check": "node scripts/check-ready.mjs",
+    "build:pdf": "node scripts/build-pdf.mjs"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/gabedealmeida/gabedealmeida.com.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/gabedealmeida/gabedealmeida.com/issues"
-  },
-  "homepage": "https://github.com/gabedealmeida/gabedealmeida.com#readme",
-  "dependencies": {
-    "@tailwindcss/ui": "^0.6.2",
-    "autoprefixer": "^9.7.4",
-    "body-parser": "^1.19.0",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "javascript-time-ago": "^2.0.13",
-    "mongodb": "^3.6.2",
-    "postcss-cli": "^7.1.2",
-    "pug": "^3.0.0",
-    "tailwindcss": "^1.8.10"
+  "engines": {
+    "node": ">=20"
   }
 }
