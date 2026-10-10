@@ -85,13 +85,13 @@ After the step that collects the email, add the **Kit action** that subscribes t
 1. **Trigger:** a comment on your reel containing the keyword, or a DM containing it.
 2. **Public reply** (rotate these): "Sent! Check your DMs." / "Just sent it. Check your DMs 🙂" / "On its way. Look in your DMs."
 3. **Message 1:** "Hey {{first_name}}! Glad you want to see if your side hustle idea is worth it 🙂" then "It's a quick scorecard that tells you if it will fit around your job. Takes about 5 minutes." Button: **Send it to me**. Set the first-name fallback to "there".
-4. **Message 2:** "Drop your email below 👇 and I'll send your scorecard." Collect it with ManyChat's email question, which checks the format.
+4. **Message 2:** "Drop your email below 👇 and I'll email you the scorecard." Collect it with ManyChat's email question, which checks the format.
 5. **If the email isn't valid:** "Hmm, that doesn't look like an email. Mind trying once more? 👇"
-6. **When they send a valid email:** the Kit step runs, then "Got it, thank you!" then "Here's your scorecard. I'm also sending a copy to your email so you can find it later. Score one idea at a time, and be honest with every answer." Button: **Score my idea** (opens the `?from=ig` link). Then: "Keep your job. Start a side hustle." followed by "P.S. I might send a short email now and then. Unsubscribe anytime."
-7. **If they go quiet** (about 1 hour): "Hey, still there? 🙂" then "If you still want the scorecard, drop your email below and I'll send it right over 👇"
-8. **Optional last nudge** (about 20 hours, before Instagram's 24-hour window closes): "Last note from me, {{first_name}}. I don't want to clutter your DMs." then "If you still want the scorecard, drop your email here any time. If not, no worries at all."
+6. **When they send a valid email:** the Kit step runs, then three short messages. First: "Got it, thank you!" Second: "I'm emailing your scorecard now. It should land in your inbox in a minute or two. If you don't see it, check your spam or promotions folder." Third: "Keep your job. Start a side hustle." followed by "P.S. I might send a short email now and then. Unsubscribe anytime." Optional but recommended: put a backup button on the second message, **Score my idea**, that opens the `?from=ig` link, in case the email is slow.
+7. **If they go quiet** (about 1 hour): "Hey, still there? 🙂" then "If you still want the scorecard, drop your email below and I'll email it right over 👇"
+8. **Optional last nudge** (about 20 hours, before Instagram's 24-hour window closes): "Last note from me, {{first_name}}. I don't want to clutter your DMs." then "If you still want the scorecard, drop your email here any time and I'll email it to you. If not, no worries at all."
 
-Only say "I'm also sending a copy to your email" once the Kit automation is turned on and you've tested it.
+Only turn this flow on once the Kit welcome automation is live and you've tested it with your own email, since the messages promise an email.
 
 ### The welcome email
 
