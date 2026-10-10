@@ -5,7 +5,8 @@
   "type": "module",
   "description": "Landing page and quiz for Score My Side Hustle Idea, a free side hustle scorecard.",
   "scripts": {
-    "dev": "node dev-server.mjs",
+    "start": "node server.mjs",
+    "dev": "node server.mjs --dev",
     "test": "node --test",
     "check": "node scripts/check-ready.mjs",
     "build:pdf": "node scripts/build-pdf.mjs"

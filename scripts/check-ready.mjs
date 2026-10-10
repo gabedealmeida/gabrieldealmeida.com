@@ -15,7 +15,7 @@ if (!fs.existsSync(path.join(root, pdf))) {
 
 for (const name of ['KIT_API_KEY', 'KIT_FORM_ID']) {
   if (!process.env[name]) {
-    problems.push(`${name} is not set in this shell. Set it in Vercel's project settings (Environment Variables) before going live.`);
+    problems.push(`${name} is not set in this shell. Add it in Railway (your service, then Variables) before going live.`);
   }
 }
 

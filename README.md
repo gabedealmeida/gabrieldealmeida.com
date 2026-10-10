@@ -22,7 +22,8 @@ public/                  the whole site (this is what gets served)
 api/subscribe.js         validates again, then adds the person to Kit
 pdf/                     source for the scorecard PDF (HTML, printed by Chrome)
 content/                 the scorecard's wording as plain text
-dev-server.mjs           local preview
+server.mjs               the web server (what Railway runs, and the local preview)
+railway.json             tells Railway how to start the site and check it is healthy
 ```
 
 ## Try it on your computer
@@ -31,21 +32,30 @@ dev-server.mjs           local preview
 npm run dev -- --mock-kit
 ```
 
-Open http://localhost:3000. `--mock-kit` pretends to be Kit, so you can run the whole flow with no account. Signups print in the terminal and go nowhere else.
+Open http://localhost:8080. `--mock-kit` pretends to be Kit, so you can run the whole flow with no account. Signups print in the terminal and go nowhere else.
 
 ```bash
 npm test          # validation, the Kit handoff, the scoring rules, and your brand rules
 npm run build:pdf # rebuilds the PDF from pdf/score-my-side-hustle-idea.html (needs Chrome)
+npm start         # runs the site the way Railway does
 npm run check     # before going live: is the PDF there, are the Kit settings set?
 ```
 
-## Go live (about 20 minutes)
+## Go live on Railway
+
+The site is a plain Node server with no dependencies, so Railway needs no build step. It runs `npm start` and checks `/health` before sending visitors to a new version, which means a broken deploy won't replace a working one.
 
 1. **Kit.** Create a free account. Make a form (Grow, then Landing Pages & Forms, then a new form). The form's number is at the end of its address, for example `.../forms/1234567/...`. Then create an API key under Settings, then Developer.
-2. **The PDF.** It's already built at `public/downloads/score-my-side-hustle-idea.pdf`. To change the wording, edit `pdf/score-my-side-hustle-idea.html` and run `npm run build:pdf`.
-3. **Vercel.** Import this GitHub repository at vercel.com (the free plan is enough). Leave the framework as "Other". Under Settings, then Environment Variables, add `KIT_API_KEY` and `KIT_FORM_ID` (see `.env.example`).
-4. **Your domain.** In Vercel, add `gabrieldealmeida.com` under Domains and follow its DNS instructions.
+2. **Railway variables.** Open your service, go to **Variables**, and add:
+   - `KIT_API_KEY` (your Kit API key, keep it secret)
+   - `KIT_FORM_ID` (the form number)
+
+   See `.env.example`. The site listens on port 8080 (or on Railway's `PORT`, if it sets one).
+3. **Deploy.** Railway deploys when `master` changes. Watch the deploy logs. A good start prints `Site running on port ...`.
+4. **Your domain.** If `gabrieldealmeida.com` is already attached to this Railway service, nothing changes. If not, add it under the service's Settings, then Networking.
 5. **Test it for real.** Sign up on the live site with your own email, finish the quiz, and confirm you show up in Kit. Then open `/test?reset=1` and try the `?from=ig` link.
+
+If the form says "Signup is not connected yet," the two variables are missing or wrong.
 
 ## ManyChat (Instagram comment or DM to the scorecard)
 
@@ -79,7 +89,7 @@ The scorecard link goes in the DM, not by email. Nothing in this setup sends ema
 The quiz remembers things on the device (saved answers, and whether this person already got in). So once a browser has signed up or used the ManyChat link, it stops asking. To test again, open:
 
 ```
-http://localhost:3000/test?reset=1
+http://localhost:8080/test?reset=1
 ```
 
 That clears what the browser remembers and sends you to the home page form. From there you can test the signup path, or open `/test?from=ig` to test the ManyChat side door.

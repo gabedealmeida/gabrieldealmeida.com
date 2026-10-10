@@ -36,7 +36,7 @@ beforeEach(() => {
   process.env.KIT_API_BASE = kitBase;
 });
 
-// Minimal req/res doubles shaped like Node's, which is what Vercel hands us.
+// Minimal req/res doubles shaped like Node's, which is what the server hands the function.
 function call({ method = 'POST', body, headers = { 'content-type': 'application/json' }, raw } = {}) {
   return new Promise((resolve) => {
     const req = {
