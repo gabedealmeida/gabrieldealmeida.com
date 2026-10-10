@@ -57,32 +57,63 @@ The site is a plain Node server with no dependencies, so Railway needs no build 
 
 If the form says "Signup is not connected yet," `KIT_API_KEY` is missing (or `KIT_FORM_ID` is set but isn't a number).
 
-## ManyChat (Instagram comment or DM to the scorecard)
+## ManyChat and Kit (Instagram DM to scorecard, plus a welcome email)
 
-The keyword is **SCORE**. Set the trigger to "contains" so `score`, `Score`, and `SCORE please` all work. Put the same word in your caption, your bio line, and your pinned post.
+The keyword is **SCORE**. Set the trigger to "contains" so `score`, `Score`, and `SCORE please` all work. Put the same word in your bio and your pinned post.
 
-The link to send in the DM is:
+Two links let people in without the home page form:
 
-```
-https://gabrieldealmeida.com/test?from=ig
-```
+- `https://gabrieldealmeida.com/test?from=ig` is the one ManyChat sends in the DM.
+- `https://gabrieldealmeida.com/test?from=email` is the one in the Kit welcome email. It works on any phone or computer, so people can open it later.
 
-That link tells the quiz the person already gave their email in Instagram, so it lets them in without the home page form. It carries no name or email, and the quiz removes the flag from the address bar after it loads.
+Neither carries a name or email, and the quiz removes the flag from the address bar after it loads.
 
-**The flow** (Instagram only lets a comment trigger one automatic reply until the person responds, so the first message ends with a button they tap):
+### In Kit (about 15 minutes)
+
+1. **Create one form** called "Score My Side Hustle Idea". Under its settings, open **Incentive Email** and choose **auto-confirm new members**, so people don't get a "please confirm" email on top of your welcome email.
+2. **Create an email sequence** called "Welcome" with one email (copy below). Kit adds the unsubscribe link and your address for you.
+3. **Create a visual automation:** when someone **joins the form**, **add them to the Welcome sequence**.
+4. **Add the form's number to Railway** as `KIT_FORM_ID` (the number in the form's address, like `.../forms/1234567/...`). Now website signups join the same form, so they get the same welcome email.
+5. **Check your sending email.** In Kit's settings, verify the address or domain your emails send from, or they may land in spam.
+
+### In ManyChat
+
+After the step that collects the email, add the **Kit action** that subscribes the person to that same form, sending their email and first name. People from Instagram then join the same automation.
+
+### The DM flow (Instagram only lets a comment trigger one automatic reply until the person responds, so the first message ends with a button they tap)
 
 1. **Trigger:** a comment on your reel containing the keyword, or a DM containing it.
 2. **Public reply** (rotate these): "Sent! Check your DMs." / "Just sent it. Check your DMs 🙂" / "On its way. Look in your DMs."
-3. **Message 1:** "Hey {{first_name}}! Glad you want to score your side hustle idea 🙂" then "It's a quick scorecard that tells you if it will fit around your job. Takes about 5 minutes." Button: **Send it to me**. Set the first-name fallback to "there".
-4. **Message 2:** "Drop your email below 👇 and I'll send the scorecard right here in the chat." Collect it with ManyChat's email question, which checks the format.
+3. **Message 1:** "Hey {{first_name}}! Glad you want to see if your side hustle idea is worth it 🙂" then "It's a quick scorecard that tells you if it will fit around your job. Takes about 5 minutes." Button: **Send it to me**. Set the first-name fallback to "there".
+4. **Message 2:** "Drop your email below 👇 and I'll send your scorecard." Collect it with ManyChat's email question, which checks the format.
 5. **If the email isn't valid:** "Hmm, that doesn't look like an email. Mind trying once more? 👇"
-6. **When they send a valid email:** "Got it, thank you!" then "Here's your scorecard. Score one idea at a time, and be honest with every answer." Button: **Score my idea** (opens the link above). Then one more message: "Keep your job. Start a side hustle." followed by "P.S. I might send a short email now and then. Unsubscribe anytime."
+6. **When they send a valid email:** the Kit step runs, then "Got it, thank you!" then "Here's your scorecard. I'm also sending a copy to your email so you can find it later. Score one idea at a time, and be honest with every answer." Button: **Score my idea** (opens the `?from=ig` link). Then: "Keep your job. Start a side hustle." followed by "P.S. I might send a short email now and then. Unsubscribe anytime."
 7. **If they go quiet** (about 1 hour): "Hey, still there? 🙂" then "If you still want the scorecard, drop your email below and I'll send it right over 👇"
 8. **Optional last nudge** (about 20 hours, before Instagram's 24-hour window closes): "Last note from me, {{first_name}}. I don't want to clutter your DMs." then "If you still want the scorecard, drop your email here any time. If not, no worries at all."
 
-The scorecard link goes in the DM, not by email. Nothing in this setup sends email yet, so don't promise one.
+Only say "I'm also sending a copy to your email" once the Kit automation is turned on and you've tested it.
 
-**Getting those emails into Kit.** ManyChat's connection to Kit probably needs a paid ManyChat plan (check their pricing page). Until you connect them, export the emails from ManyChat and import them into Kit.
+### The welcome email
+
+**Subject:** Your scorecard is ready
+
+```
+Hey {first name, fallback "there"},
+
+Thanks for asking for Score My Side Hustle Idea. Here's the link whenever you're ready:
+
+https://gabrieldealmeida.com/test?from=email
+
+It takes about 5 minutes. Pick one idea, answer honestly, and you'll get a verdict and a next step.
+
+Most of my side hustles failed. The ones that worked already had buyers, a door already open, and fit around my job. This scorecard checks for exactly that.
+
+Hit reply and tell me which idea you're scoring. I'd like to know.
+
+Keep your job. Start a side hustle.
+
+Gabe
+```
 
 ## Testing both ways in
 

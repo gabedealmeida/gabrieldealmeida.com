@@ -13,6 +13,15 @@ test('entry: the signup fallback is recognized', () => {
   assert.equal(entrySource('?from=signup'), 'signup');
 });
 
+test('entry: the welcome email link is recognized and lets people in', () => {
+  assert.equal(entrySource('?from=email'), 'email');
+  assert.equal(entrySource('?from=EMAIL'), 'email');
+  const r = resolveEntry('?from=email', {});
+  assert.equal(r.allowed, true);
+  assert.deepEqual(r.profile, { access: true, source: 'email' });
+  assert.equal(entrySource('?from=emails'), null);
+});
+
 test('entry: everything else is an ordinary visit', () => {
   for (const search of ['', '?', '?from=', '?from=tiktok', '?from=igx', '?source=ig', '?from=ig2', 'from=facebook']) {
     assert.equal(entrySource(search), null, search);

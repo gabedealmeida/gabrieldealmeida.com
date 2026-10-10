@@ -1,9 +1,9 @@
 // Who is this visitor, and are they allowed in?
 //
-// Two ways in: sign up on the home page (name and email), or arrive from
-// ManyChat at /test?from=ig, where the email was already collected in the
-// Instagram DM. Anyone else who opens /test is sent back to the home page.
-// The links carry a flag only, never a name or an email.
+// Ways in: sign up on the home page (name and email), arrive from ManyChat at
+// /test?from=ig (email already collected in the Instagram DM), or follow the
+// link in the welcome email at /test?from=email. Anyone else who opens /test is
+// sent back to the home page. The links carry a flag only, never a name or an email.
 
 export function entrySource(search) {
   const from = new URLSearchParams(search ?? '').get('from')?.trim().toLowerCase();
@@ -11,6 +11,9 @@ export function entrySource(search) {
   // Only used right after a home page signup, when the browser could not save
   // the signup (blocked storage), so nobody gets stuck bouncing back to the form.
   if (from === 'signup') return 'signup';
+  // The link in the welcome email. Anyone who gets that email is already on the
+  // list, and they may open it on a different phone or computer.
+  if (from === 'email') return 'email';
   return null;
 }
 
