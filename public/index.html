@@ -28,6 +28,7 @@
   <link rel="stylesheet" href="/assets/css/site.css">
   <script type="module" src="/assets/js/home.js"></script>
   <script type="module" src="/assets/js/reveal.js"></script>
+  <script type="module" src="/assets/js/slider.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to the content</a>
@@ -99,7 +100,7 @@
     <div class="band band-graphite">
     <section class="section wrap story" aria-labelledby="story-title">
       <div class="story-head" data-reveal>
-        <img class="portrait" src="/assets/img/gabe.png" width="120" height="120" alt="Gabe De Almeida smiling in a denim shirt" loading="lazy" decoding="async">
+        <img class="portrait-lg" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="Gabe De Almeida smiling in a denim shirt" loading="lazy" decoding="async">
         <div>
           <h2 id="story-title">Why I built this.</h2>
           <p>I'm Gabe. I've spent more than a decade starting side hustles. Most of them failed, and this scorecard is built from the reasons why.</p>
@@ -135,6 +136,22 @@
         <li class="card"><strong>Most</strong><span>of my side hustles failed. This scorecard is built from why.</span></li>
       </ul>
 
+      <div class="slider" data-reveal role="group" aria-roledescription="carousel" aria-label="Photos of my side hustles">
+        <div class="slider-nav">
+          <button class="slider-btn" type="button" data-dir="-1" aria-label="Previous photos"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+          <button class="slider-btn" type="button" data-dir="1" aria-label="Next photos"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+        </div>
+        <ul class="slider-track" tabindex="0" aria-label="Photo list, scroll sideways">
+          <li><figure><img src="/assets/img/work-event-3.jpg" width="434" height="768" alt="Gabe standing beside a photo booth with a glowing blue ring light" decoding="async"><figcaption>Setting up for an event.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-talking.jpg" width="433" height="768" alt="Gabe talking to the camera while filming a video" decoding="async"><figcaption>Filming a video.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-event-2.jpg" width="576" height="768" alt="Gabe and his wife smiling beside a photo booth and its sign" decoding="async"><figcaption>Photo booth day.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-watch-2.jpg" width="432" height="768" alt="Gabe at the bottom of the frame in a video, with a close-up of a wristwatch behind him" decoding="async"><figcaption>Filming a watch video.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-guest.jpg" width="576" height="768" alt="Gabe taking a selfie with a smiling guest at an event" decoding="async"><figcaption>At an event.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-watches.jpg" width="431" height="768" alt="Gabe in a suit holding up a wristwatch to the camera" decoding="async"><figcaption>Showing a watch on camera.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-event.jpg" width="434" height="768" alt="Gabe setting up a photo booth at an evening event" decoding="async"><figcaption>Working a photo booth event.</figcaption></figure></li>
+        </ul>
+      </div>
+
       <div class="story-body" data-reveal>
         <p>Today my side hustles make at least $250,000 a year, and I still keep my job. I was let go at 27, with a pregnant wife and a mortgage, and a side hustle was the safety net. One paycheck is a single point of failure.</p>
         <p>Score My Side Hustle Idea is the framework I use to assess a side hustle before I take it on. It's built from every miss, so you can skip some of them.</p>
@@ -161,17 +178,35 @@
           </ul>
         </div>
 
-        <div class="mock" data-reveal role="img" aria-label="Example result. Verdict: Fix one thing first. Five scores, with Already has buyers the lowest at 3 of 6. Next step: ask 5 strangers for a booked time or a pre-order.">
-          <div class="mock-top"><span class="mock-tag">Example result</span></div>
-          <p class="mock-verdict" aria-hidden="true">Fix one thing <span class="accent">first.</span></p>
-          <ol class="bars" aria-hidden="true">
-            <li class="bar-row is-weakest"><span class="bar-name">Already has buyers<em>Weakest link</em></span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span><span class="bar-score">3 of 6</span></li>
-            <li class="bar-row"><span class="bar-name">Already has a door</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="bar-score">5 of 6</span></li>
-            <li class="bar-row"><span class="bar-name">Fits your week</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span><span class="bar-score">4 of 6</span></li>
-            <li class="bar-row"><span class="bar-name">Safe to be wrong</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="bar-score">5 of 6</span></li>
-            <li class="bar-row"><span class="bar-name">The math holds</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span><span class="bar-score">5 of 6</span></li>
-          </ol>
-          <div class="mock-next" aria-hidden="true"><span>This week</span><p>Ask 5 strangers for a booked time or a pre-order.</p></div>
+        <div class="phones" data-reveal>
+          <div class="phone phone-back" role="img" aria-label="A question from the scorecard: Have you asked a stranger for money? Three answers to pick from.">
+            <div class="phone-screen" aria-hidden="true">
+              <div class="ph-progress"><i></i></div>
+              <p class="ph-meta">Test 1 of 5 · Already has buyers</p>
+              <p class="ph-q">Have you asked a stranger for money?</p>
+              <ul class="ph-choices">
+                <li>Never asked.</li>
+                <li>I have asked friends or family.</li>
+                <li class="is-picked">I have asked strangers. Even if they said no, I know why.</li>
+              </ul>
+              <span class="ph-btn">Continue</span>
+            </div>
+          </div>
+
+          <div class="phone phone-front" role="img" aria-label="Example result. Verdict: Fix one thing first. Five scores, with Already has buyers the lowest at 3 of 6. Next step: ask 5 strangers for a booked time or a pre-order.">
+            <div class="phone-screen" aria-hidden="true">
+              <p class="ph-meta">Example result</p>
+              <p class="ph-verdict">Fix one thing <span class="accent">first.</span></p>
+              <ol class="ph-bars">
+                <li class="is-weakest"><span>Already has buyers</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></li>
+                <li><span>Already has a door</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+                <li><span>Fits your week</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></li>
+                <li><span>Safe to be wrong</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+                <li><span>The math holds</span><span class="segs"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></li>
+              </ol>
+              <div class="ph-next"><span>This week</span><p>Ask 5 strangers for a booked time or a pre-order.</p></div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -252,9 +287,12 @@
       </ul>
     </section>
     <div class="band band-paper">
-    <section class="closer wrap" aria-labelledby="closer-title" data-reveal>
-      <h2 id="closer-title">Keep your job. Start a side <span class="accent">hustle.</span></h2>
-      <a class="btn btn-inline" href="#get" id="closer-cta">Score my idea</a>
+    <section class="closer wrap closer-photo" aria-labelledby="closer-title" data-reveal>
+      <div class="closer-copy">
+        <h2 id="closer-title">Keep your job. Start a side <span class="accent">hustle.</span></h2>
+        <a class="btn btn-inline" href="#get" id="closer-cta">Score my idea</a>
+      </div>
+      <img class="closer-img" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="" loading="lazy" decoding="async">
     </section>
     </div>
   </main>
