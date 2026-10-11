@@ -720,6 +720,14 @@ main { background: radial-gradient(ellipse 70% 480px at 78% 0, #151518 0%, var(-
 .band-graphite .timeline li:last-child::before { background: var(--amber); }
 .band-graphite .story-body .fine { color: var(--fog); }
 
+.band-paper { background: var(--paper); color: var(--midnight); margin-top: clamp(24px, 4vw, 56px); }
+.band-paper .closer { border-top: 0; }
+.band-paper h2 { color: var(--midnight); }
+.band-paper .accent { color: #b86e00; }
+.band-paper .btn { background: var(--midnight); color: var(--paper); }
+.band-paper .btn:hover { background: var(--graphite); }
+.band-paper .btn:focus-visible { outline-color: var(--midnight); }
+
 .quote { padding-block: clamp(48px, 9vw, 120px); text-align: center; }
 .quote-text { max-width: 14em; margin-inline: auto; font-size: clamp(34px, 6.4vw, 76px); font-weight: 600; letter-spacing: -0.035em; line-height: 1.05; text-wrap: balance; }
 
@@ -746,36 +754,5 @@ html.reveal-ready .mock:not(.in) .segs i.on { transform: scaleX(0); }
 .btn:active { transform: translateY(0) scale(0.99); }
 @media (prefers-reduced-motion: reduce) { .btn:hover { transform: none; } }
 
-
-/* ---------- dawn: amber means the late nights and early mornings ---------- */
-/* Opaque, many-step stops (no see-through amber) plus fine grain, so there is no banding. */
-
-.dawn {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  background: radial-gradient(135% 105% at 50% 135%,
-    #f2a541 0%, #e39a38 9%, #c9812b 18%, #a46722 28%, #7d4e1b 38%,
-    #573615 48%, #3a2511 58%, #25190e 68%, #151009 80%, #0b0b0d 94%);
-}
-.dawn::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 160px 160px;
-  opacity: 0.07;
-  mix-blend-mode: overlay;
-  pointer-events: none;
-}
-
-.dawn-quote { margin-top: clamp(16px, 3vw, 40px); }
-.dawn-quote .quote { padding-block: clamp(72px, 11vw, 140px) clamp(150px, 20vw, 260px); }
-.dawn-quote .quote-text .accent { color: var(--paper); }
-
-.dawn-closer { margin-top: clamp(24px, 4vw, 56px); }
-.dawn-closer .closer { border-top: 0; padding-block: clamp(80px, 11vw, 140px) clamp(160px, 20vw, 260px); }
-.dawn-closer .closer h2 { color: var(--paper); }
-.dawn-closer .closer .accent { color: var(--amber); }
-.dawn .btn { background: var(--paper); color: var(--midnight); }
+.contact { color: var(--soft); font-size: 15px; }
+.contact a { color: var(--paper); font-weight: 500; text-underline-offset: 3px; }
