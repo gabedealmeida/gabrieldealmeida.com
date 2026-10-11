@@ -18,16 +18,17 @@
         <!-- Card -->
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:560px; background-color:#ffffff; border-radius:16px;">
 
-          <!-- Name -->
+          <!-- Branded header: dark band with name and headline (all text, so it still shows when images are blocked) -->
           <tr>
-            <td style="padding:32px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:18px; font-weight:600; color:#0b0b0d;">
-              Gabe De Almeida<span style="color:#f2a541;">.</span>
+            <td bgcolor="#0b0b0d" style="background-color:#0b0b0d; border-radius:16px 16px 0 0; padding:28px 32px 36px 32px;">
+              <div style="font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:16px; line-height:20px; font-weight:600; color:#f5f5f7;">Gabe De Almeida<span style="color:#f2a541;">.</span></div>
+              <div style="margin-top:32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:36px; line-height:40px; font-weight:600; letter-spacing:-1px; color:#f5f5f7;">Your scorecard is <span style="color:#f2a541;">ready.</span></div>
             </td>
           </tr>
 
           <!-- Intro -->
           <tr>
-            <td style="padding:24px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:17px; line-height:26px; color:#0b0b0d;">
+            <td style="padding:32px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:17px; line-height:26px; color:#0b0b0d;">
               <p style="margin:0 0 18px 0;">Hey {{ subscriber.first_name | default: "there" }},</p>
               <p style="margin:0 0 18px 0;">Thanks for asking for <strong>Score My Side Hustle Idea</strong>.</p>
               <p style="margin:0 0 18px 0;">It's the framework I use to assess a side hustle before I take it on. I've started a bunch, and most of them failed. The ones that worked already had buyers, a door already open, and fit around my job. The scorecard checks for exactly that.</p>
@@ -56,25 +57,40 @@
             </td>
           </tr>
 
-          <!-- Reply and sign-off -->
+          <!-- Reply -->
           <tr>
             <td style="padding:32px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:17px; line-height:26px; color:#0b0b0d;">
-              <p style="margin:0 0 18px 0;">Hit reply and tell me which idea you're scoring. I'd like to know.</p>
-              <p style="margin:0 0 18px 0;"><strong>Keep your job. Start a side hustle.</strong></p>
-              <p style="margin:0;">Gabe</p>
+              Hit reply and tell me which idea you're scoring. I'd like to know.
+            </td>
+          </tr>
+
+          <!-- Sign-off with photo -->
+          <tr>
+            <td style="padding:24px 32px 0 32px;">
+              <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td width="56" valign="middle" style="padding-right:16px;">
+                    <img src="https://gabrieldealmeida.com/assets/img/gabe.png" width="56" height="56" alt="Gabe" style="display:block; width:56px; height:56px; border-radius:50%; border:0;">
+                  </td>
+                  <td valign="middle" style="font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:17px; line-height:24px; color:#0b0b0d;">
+                    <strong>Gabe</strong><br>
+                    <span style="font-size:15px; color:#6e6e73;">Keep your job. Start a side hustle.</span>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
 
           <!-- Anything you type in the email itself shows here (use it for the P.S.) -->
           <tr>
-            <td style="padding:24px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:15px; line-height:24px; color:#6e6e73;">
+            <td style="padding:28px 32px 0 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:15px; line-height:24px; color:#6e6e73;">
               {{ message_content }}
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
-            <td style="padding:32px 32px 32px 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:12px; line-height:19px; color:#8e8e93; border-top:0;">
+            <td style="padding:28px 32px 32px 32px; font-family:-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif; font-size:12px; line-height:19px; color:#8e8e93;">
               {{ address }}<br>
               <a href="{{ unsubscribe_url }}" style="color:#8e8e93; text-decoration:underline;">Unsubscribe</a>
             </td>
