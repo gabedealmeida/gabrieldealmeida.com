@@ -1460,3 +1460,62 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
   .lk.weak .lk-name { grid-row: 2; }
   .lk.weak p { grid-row: 3; }
 }
+
+
+/* the question band: a calmer ending, with the fine print under the button */
+.ask-fine { max-width: 34em; margin: 18px auto 0; color: var(--fog); font-size: 13px; line-height: 1.5; text-wrap: balance; }
+.stairs-scale span { white-space: nowrap; }
+.ask-cta { margin-top: clamp(32px, 4vw, 44px); }
+@media (max-width: 880px) {
+  .beyond { gap: 0; margin-top: 40px; }
+  .beyond > div { padding: 18px 0; }
+  .beyond > div + div { margin-top: 0; }
+}
+
+/* on a phone the glow is wider and stronger, so the top of the page still has its warm and cool light */
+@media (max-width: 760px) {
+  body {
+    background:
+      radial-gradient(ellipse 150% 520px at 15% 0, rgba(242, 165, 65, 0.3), transparent 72%),
+      radial-gradient(ellipse 130% 520px at 100% 260px, rgba(124, 196, 180, 0.22), transparent 72%),
+      var(--midnight);
+    background-repeat: no-repeat;
+  }
+  .quiz-page {
+    background:
+      radial-gradient(ellipse 150% 520px at 15% 0, var(--glow), transparent 72%),
+      radial-gradient(ellipse 130% 520px at 100% 260px, rgba(124, 196, 180, 0.22), transparent 72%),
+      var(--midnight);
+    background-repeat: no-repeat;
+  }
+}
+
+/* on a phone the three numbers sit side by side as one compact strip */
+@media (max-width: 560px) {
+  .stats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin-top: 32px; padding-block: 18px; border-block: 1px solid rgba(143, 180, 234, 0.3); }
+  .stats li, .stats li:first-child { padding: 0 10px; border-left: 1px solid rgba(143, 180, 234, 0.3); }
+  .stats li:first-child { padding-left: 0; border-left: 0; }
+  .stats li:last-child { padding-right: 0; }
+  .stats strong { font-size: clamp(30px, 9.4vw, 40px); letter-spacing: -0.04em; }
+  .stats span { margin-top: 8px; font-size: 12.5px; line-height: 1.4; }
+}
+
+/* the story, tightened for a phone */
+@media (max-width: 560px) {
+  .stats { grid-template-columns: 1.55fr 1fr 1fr; }
+  .stats strong { font-size: clamp(26px, 8vw, 34px); }
+  .stats li, .stats li:first-child { padding-inline: 9px; }
+  .stats li:first-child { padding-left: 0; }
+  .story-photo { max-width: 232px; }
+  .story-head { gap: 28px; }
+  .story-head h2 { font-size: 32px; }
+  .story-head p { font-size: 16px; }
+  .timeline { margin-top: 30px; }
+  .timeline li { padding-bottom: 22px; }
+  .timeline h3 { font-size: 18px; }
+  .timeline p { font-size: 14.5px; line-height: 1.45; }
+  .slider-track img { height: 340px; }
+  .story-body { margin-top: 40px; }
+  .story-body .lead { font-size: clamp(26px, 7.4vw, 32px); }
+  .story-body .after { font-size: 17px; }
+}

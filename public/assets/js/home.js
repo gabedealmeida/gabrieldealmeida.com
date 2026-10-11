@@ -8,7 +8,19 @@ import { startLinkFor } from './entry.js';
 
 const form = document.getElementById('signup-form');
 
+// How far this browser got in the scorecard. The quiz page saves its own progress
+// under this key. Zero means they have not started.
+function progressStep() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('gdm:score-idea:v1'));
+    return saved && Number.isInteger(saved.step) ? saved.step : 0;
+  } catch {
+    return 0;
+  }
+}
+
 function welcomeBack(saved) {
+  const started = progressStep() > 0;
   const card = document.createElement('div');
   card.className = 'card form';
 
@@ -18,12 +30,12 @@ function welcomeBack(saved) {
 
   const sub = document.createElement('p');
   sub.className = 'form-sub';
-  sub.textContent = 'Pick up where you left off, or score a new idea.';
+  sub.textContent = started ? 'Pick up where you left off, or score a new idea.' : 'Your scorecard is ready whenever you are.';
 
   const link = document.createElement('a');
   link.className = 'btn';
   link.href = '/test';
-  link.textContent = 'Continue';
+  link.textContent = started ? 'Continue' : 'Start the scorecard';
 
   card.append(title, sub, link);
   return card;
