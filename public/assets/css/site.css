@@ -699,3 +699,8 @@ fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 }
 
 .tests .num { color: var(--soft); }
+
+.mid-cta { display: flex; flex-direction: column; align-items: center; gap: 14px; padding-block: clamp(8px, 3vw, 24px) clamp(48px, 7vw, 88px); text-align: center; }
+.mid-cta .btn { padding-inline: 36px; }
+.mid-cta .fine { margin: 0; }
+@media (max-width: 560px) { .mid-cta .btn { width: 100%; } }
