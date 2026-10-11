@@ -17,6 +17,16 @@ export function entrySource(search) {
   return null;
 }
 
+// People who arrive from the DM or the email already gave their email, so the home
+// page shows them a way straight into the scorecard instead of the signup form.
+// This returns that link, or null for an ordinary visitor.
+export function startLinkFor(search) {
+  const source = entrySource(search);
+  if (source === 'instagram') return '/test?from=ig';
+  if (source === 'email') return '/test?from=email';
+  return null;
+}
+
 // /test?reset=1 clears what this browser remembers (saved answers and the
 // signed-up flag). It only ever affects the device that opens it, and it is
 // how you test both entry paths one after the other.

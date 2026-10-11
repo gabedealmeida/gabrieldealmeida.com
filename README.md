@@ -5,7 +5,7 @@ A landing page and quiz for **Score My Side Hustle Idea**, a free side hustle sc
 Two ways in, and nothing else:
 
 1. **The home page.** A visitor must enter a first name and email, no exceptions. That adds them to your Kit list, and only then can they reach the quiz at `/test`. Anyone who opens `/test` without having signed up is sent back to the home page form.
-2. **The ManyChat link.** `https://gabrieldealmeida.com/test?from=ig` is the side door for people who gave you their email in the Instagram DM. They go straight in without being asked again.
+2. **The ManyChat link.** `https://gabrieldealmeida.com/?from=ig` opens the home page for people who gave you their email in the Instagram DM. They see the whole page, and the signup form is replaced by a "Start the scorecard" button (every start button on the page does the same), so they are never asked again. `https://gabrieldealmeida.com/test?from=ig` still works and skips the home page entirely.
 
 Once in, they answer 17 short screens (progress is saved on their device), see their verdict and five scores, and get the full breakdown, a Save as PDF button, and the printable worksheet.
 
@@ -63,7 +63,7 @@ The keyword is **SCORE**. Set the trigger to "contains" so `score`, `Score`, and
 
 Two links let people in without the home page form:
 
-- `https://gabrieldealmeida.com/test?from=ig` is the one ManyChat sends in the DM.
+- `https://gabrieldealmeida.com/?from=ig` is the one ManyChat sends in the DM. (`/test?from=ig` goes straight to the scorecard if you ever want to skip the home page.)
 - `https://gabrieldealmeida.com/test?from=email` is the one in the Kit welcome email. It works on any phone or computer, so people can open it later.
 
 Neither carries a name or email, and the quiz removes the flag from the address bar after it loads.

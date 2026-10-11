@@ -37,6 +37,7 @@ const TYPES = {
   '.jpg': 'image/jpeg',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
+  '.ttf': 'font/ttf',
   '.pdf': 'application/pdf',
   '.txt': 'text/plain; charset=utf-8',
   '.xml': 'application/xml; charset=utf-8',
@@ -52,7 +53,7 @@ const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '
 // deploy, which breaks the layout for anyone who visited recently.
 function cacheControl(ext, dev) {
   if (dev) return 'no-store';
-  if (ext === '.woff2') return 'public, max-age=31536000, immutable';
+  if (ext === '.woff2' || ext === '.ttf') return 'public, max-age=31536000, immutable';
   return 'no-cache';
 }
 

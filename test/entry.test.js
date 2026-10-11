@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { entrySource, wantsReset, resolveEntry } from '../public/assets/js/entry.js';
+import { entrySource, wantsReset, resolveEntry, startLinkFor } from '../public/assets/js/entry.js';
 
 test('entry: the ManyChat link is recognized', () => {
   assert.equal(entrySource('?from=ig'), 'instagram');
@@ -90,5 +90,17 @@ test('access: only a real true counts, never a string or a number', () => {
 test('access: a wrong or unknown flag in the link does not let anyone in', () => {
   for (const search of ['?from=tiktok', '?access=true', '?from=', '?revealed=1']) {
     assert.equal(resolveEntry(search, {}).allowed, false, search);
+  }
+});
+
+test('home page: people from the DM or the email get a way straight into the scorecard', () => {
+  assert.equal(startLinkFor('?from=ig'), '/test?from=ig');
+  assert.equal(startLinkFor('?from=instagram'), '/test?from=ig');
+  assert.equal(startLinkFor('?from=email'), '/test?from=email');
+});
+
+test('home page: everyone else still sees the signup form', () => {
+  for (const search of ['', '?from=signup', '?from=tiktok', '?reset=1', undefined]) {
+    assert.equal(startLinkFor(search), null, String(search));
   }
 });

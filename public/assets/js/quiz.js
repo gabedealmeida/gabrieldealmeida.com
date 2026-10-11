@@ -152,6 +152,10 @@ function render() {
   progress.setAttribute('aria-valuenow', String(pct));
   progressFill.style.width = `${pct}%`;
 
+  // Each of the five tests has its own colour, which tints the page glow, the progress bar and the answers.
+  if (step.test) document.body.dataset.t = String(step.ti);
+  else delete document.body.dataset.t;
+
   window.scrollTo(0, 0);
   screen.querySelector('[data-focus]')?.focus({ preventScroll: true });
 }
@@ -163,7 +167,13 @@ const backButton = () =>
 
 const metaFor = (step) => (step.test ? `Test ${step.ti + 1} of 5 · ${step.test.name}` : 'Getting started');
 
-const topBar = (step) => el('div', { class: 'q-top' }, backButton(), el('span', { class: 'q-meta' }, metaFor(step)));
+const topBar = (step) =>
+  el(
+    'div',
+    { class: 'q-top' },
+    backButton(),
+    el('span', { class: 'q-meta' }, step.test ? el('b', { class: 'q-badge', 'aria-hidden': 'true' }, String(step.ti + 1)) : null, metaFor(step)),
+  );
 
 function continueButton(label = 'Continue', disabled = false) {
   return el('button', { class: 'btn', type: 'submit', disabled }, label);
@@ -227,13 +237,27 @@ const views = {
       ? 'Welcome back. Your last result is saved on this device.'
       : started
         ? 'Welcome back. Your answers are saved on this device.'
-        : 'Will this side hustle fit around your job? Five quick checks, fifteen short questions, and a verdict you can act on.';
+        : 'Before you spend a weekend or a dollar, find out if the idea fits around your job and your family. Five quick checks, fifteen short questions, and a verdict you can act on.';
 
     return el(
       'section',
-      { class: 'screen' },
+      { class: 'screen intro' },
+      el('p', { class: 'eyebrow' }, 'A free scorecard for working dads'),
       el('h1', { class: 'q-title q-big', tabindex: '-1', 'data-focus': '' }, 'Score My Side Hustle ', el('span', { class: 'accent' }, 'Idea.')),
       el('p', { class: 'lede' }, lede),
+      el('ul', { class: 'test-chips', 'aria-label': 'The five tests' }, TESTS.map((test, i) => el('li', { class: `tc${i}` }, test.name))),
+      el(
+        'div',
+        { class: 'from-gabe' },
+        el('img', { src: '/assets/img/gabe-door.jpg', width: '576', height: '768', alt: '', decoding: 'async' }),
+        el('p', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabe')),
+      ),
+      el(
+        'figure',
+        { class: 'intro-photo' },
+        el('div', { class: 'ip-frame' }, el('img', { src: '/assets/img/gabe-door.jpg', width: '576', height: '768', alt: 'Gabe De Almeida smiling in a denim shirt, leaning against a green door', decoding: 'async' })),
+        el('figcaption', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabe')),
+      ),
       el('ul', { class: 'facts', 'aria-label': 'What to expect' }, el('li', {}, 'About 5 minutes'), el('li', {}, 'Free'), el('li', {}, 'Your answers stay on your device')),
       el('p', { class: 'fine' }, 'Answer for the smallest weekend version of your idea. If you cannot show it, pick the lower answer.'),
       el(
@@ -606,6 +630,7 @@ const views = {
       actions,
       el('p', { class: 'fine' }, 'A verdict is a recommendation, not a ruling. If your gut and the scorecard disagree, do not ignore either one. Find out why. Then decide.'),
       el('p', { class: 'close-line' }, 'Keep your job. Start a side ', el('span', { class: 'accent' }, 'hustle.')),
+      el('p', { class: 'story-link no-print' }, 'Want to know who built this? ', el('a', { href: '/#story' }, 'Read my story.')),
     );
   },
 };
