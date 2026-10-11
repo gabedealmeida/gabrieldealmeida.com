@@ -263,9 +263,9 @@ const views = {
   },
 
   shrink(step) {
-    const idea = el('input', { type: 'text', id: 'idea', name: 'idea', maxlength: '80', autocomplete: 'off', placeholder: 'Pool cleaning for neighbors' });
+    const idea = el('input', { type: 'text', id: 'idea', name: 'idea', maxlength: '80', autocomplete: 'off', placeholder: 'Dog walking for neighbors' });
     idea.value = state.idea;
-    const smallest = el('textarea', { id: 'smallest', name: 'smallest', rows: '3', maxlength: '240', placeholder: 'I will clean pools for 5 neighbors on Saturday mornings.' });
+    const smallest = el('textarea', { id: 'smallest', name: 'smallest', rows: '3', maxlength: '240', placeholder: 'I will walk dogs for 5 neighbors on Saturday mornings.' });
     smallest.value = state.smallest;
 
     // The count only speaks up once they have ticked something.
