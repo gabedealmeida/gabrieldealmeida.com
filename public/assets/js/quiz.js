@@ -1,6 +1,7 @@
 import { STOPS, TESTS, VERDICTS, NEEDS, needsLevel, computeResult, napkin as napkinMath, scoreHours, scoreNapkin } from './scorecard.js';
 import { resolveEntry } from './entry.js';
 import { loadProfile, saveProfile, clearProfile } from './profile.js';
+import { track } from './track.js';
 
 const KEY = 'gdm:score-idea:v1';
 const WORKSHEET = '/downloads/score-my-side-hustle-idea.pdf';
@@ -142,6 +143,28 @@ window.addEventListener('popstate', (event) => {
   if (Number.isInteger(step)) go(step, { push: false });
 });
 
+// What gets counted: starting, reaching each of the five tests, and finishing.
+// Nothing about the person or their answers is sent, only the verdict's name.
+let lastTest = -1;
+let counted = false;
+let finishedCounted = false;
+function noteProgress(step) {
+  if (!counted) {
+    counted = true;
+    track('Quiz Opened', { source: profile.source || 'direct' });
+  }
+  if (step.test && step.ti !== lastTest) {
+    lastTest = step.ti;
+    if (step.ti === 0) track('Quiz Started', { source: profile.source || 'direct' });
+    track('Quiz Test', { n: String(step.ti + 1) });
+  }
+  if (step.kind === 'results' && !finishedCounted) {
+    finishedCounted = true;
+    const r = computeResult(state);
+    track('Quiz Finished', { verdict: r.verdict, weakest: TESTS[r.lowestIndex].name });
+  }
+}
+
 function render() {
   const step = steps[index];
   screen.replaceChildren(views[step.kind](step));
@@ -151,6 +174,8 @@ function render() {
   const pct = Math.round((index / RESULTS) * 100);
   progress.setAttribute('aria-valuenow', String(pct));
   progressFill.style.width = `${pct}%`;
+
+  noteProgress(step);
 
   // Each of the five tests has its own colour, which tints the page glow, the progress bar and the answers.
   if (step.test) document.body.dataset.t = String(step.ti);
@@ -602,14 +627,15 @@ const views = {
     const actions = el(
       'div',
       { class: 'actions no-print' },
-      el('button', { class: 'btn', type: 'button', onclick: () => window.print() }, 'Save as PDF'),
-      el('a', { class: 'btn btn-secondary', href: WORKSHEET, download: '' }, 'Download the printable worksheet'),
+      el('button', { class: 'btn', type: 'button', onclick: () => { track('Result Action', { action: 'save-pdf' }); window.print(); } }, 'Save as PDF'),
+      el('a', { class: 'btn btn-secondary', href: WORKSHEET, download: '', onclick: () => track('Result Action', { action: 'worksheet' }) }, 'Download the printable worksheet'),
       el(
         'button',
         {
           class: 'btn btn-secondary',
           type: 'button',
           onclick: () => {
+            track('Result Action', { action: 'score-another' });
             reset();
             go(1);
           },
@@ -628,12 +654,56 @@ const views = {
       napkinPanel,
       fullBreakdown(r, weak),
       actions,
+      interestPoll(),
       el('p', { class: 'fine' }, 'A verdict is a recommendation, not a ruling. If your gut and the scorecard disagree, do not ignore either one. Find out why. Then decide.'),
       el('p', { class: 'close-line' }, 'Keep your job. Start a side ', el('span', { class: 'accent' }, 'hustle.')),
       el('p', { class: 'story-link no-print' }, 'Want to know who built this? ', el('a', { href: '/#story' }, 'Read my story.')),
     );
   },
 };
+
+// ---- a small demand test: what would help most next? ------------------------
+
+const INTEREST_KEY = 'gdm:interest:v1';
+const INTEREST = [
+  { id: 'course', label: 'A step-by-step course' },
+  { id: 'community', label: 'A community of working dads' },
+  { id: 'review', label: 'A review of my idea' },
+  { id: 'none', label: 'Nothing. The scorecard is enough.' },
+];
+
+function interestPoll() {
+  const answered = store.get(INTEREST_KEY);
+  const thanks = el('p', { class: 'poll-thanks', role: 'status', hidden: !answered }, 'Thank you. That helps me decide what to build, if anything.');
+  const options = el(
+    'div',
+    { class: 'poll-options', hidden: !!answered },
+    INTEREST.map((item) =>
+      el(
+        'button',
+        {
+          class: 'poll-btn',
+          type: 'button',
+          onclick: () => {
+            track('Interest', { choice: item.id });
+            store.set(INTEREST_KEY, item.id);
+            options.hidden = true;
+            thanks.hidden = false;
+          },
+        },
+        item.label,
+      ),
+    ),
+  );
+  return el(
+    'section',
+    { class: 'panel poll no-print' },
+    el('h2', {}, 'What would help you most next?'),
+    el('p', { class: 'fine' }, "I'm not selling anything right now. If I built something to help after the scorecard, which would you want most?"),
+    options,
+    thanks,
+  );
+}
 
 // ---- results: the full breakdown ------------------------------------------
 

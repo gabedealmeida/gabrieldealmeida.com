@@ -29,6 +29,8 @@
   <script type="module" src="/assets/js/home.js"></script>
   <script type="module" src="/assets/js/reveal.js"></script>
   <script type="module" src="/assets/js/slider.js"></script>
+  <script defer data-domain="gabrieldealmeida.com" src="https://plausible.io/js/script.js"></script>
+  <script type="module" src="/assets/js/mail.js"></script>
 </head>
 <body>
   <a class="skip" href="#main">Skip to the content</a>
@@ -36,7 +38,7 @@
   <header class="bar">
     <div class="wrap bar-inner">
       <a class="wordmark" href="/" aria-label="Gabe De Almeida, home"><img class="wordmark-photo" src="/assets/img/gabe.png" width="44" height="44" alt="" decoding="async"><span>Gabe De Almeida<span class="dot">.</span></span></a>
-      <a class="bar-link" href="#get">Free scorecard</a>
+      <a class="bar-link" href="#get" data-cta="header">Free scorecard</a>
     </div>
   </header>
 
@@ -47,8 +49,18 @@
         <h1 id="hero-title">Keep your job. Start a side <span class="accent">hustle.</span></h1>
         <p class="lede">I'm Gabe. I help working dads build a second source of income without giving up the job or the time at home.</p>
         <div class="hero-actions">
-          <a class="btn btn-inline" href="#get">Start with the free scorecard</a>
-          <a class="btn btn-inline btn-secondary" href="#story">Read my story</a>
+          <a class="btn btn-inline" href="#get" data-cta="hero">Start with the free scorecard</a>
+          <a class="btn btn-inline btn-secondary" href="#story" data-cta="hero-story">Read my story</a>
+        </div>
+        <div class="hero-offer" role="group" aria-label="What the free scorecard is">
+          <p class="ho-label">The free scorecard</p>
+          <p class="ho-what">Will your side hustle idea fit around your job and your family?</p>
+          <p class="ho-why">Find out before you spend a weekend or a dollar.</p>
+          <ul class="ho-facts">
+            <li><b>15</b><span>short questions</span></li>
+            <li><b>5</b><span>minutes</span></li>
+            <li><b>1</b><span>verdict<i class="ho-more">, and one thing to do this week</i></span></li>
+          </ul>
         </div>
         <ul class="pills" aria-label="About Gabe">
           <li><i class="dot-a"></i>Full-time job</li>
@@ -73,7 +85,7 @@
       </div>
     </div>
 
-    <section class="section wrap mirror" aria-labelledby="mirror-title">
+    <section data-seen="mirror" class="section wrap mirror" aria-labelledby="mirror-title">
       <div class="section-head" data-reveal>
         <p class="eyebrow">Sound familiar?</p>
         <h2 id="mirror-title">If you're a working dad, you probably know this feeling.</h2>
@@ -96,7 +108,7 @@
     </section>
 
     <div class="band band-teal">
-    <section class="section wrap stakes" aria-labelledby="stakes-title">
+    <section data-seen="stakes" class="section wrap stakes" aria-labelledby="stakes-title">
       <div class="split stakes-split">
         <div data-reveal>
           <h2 id="stakes-title" class="stakes-title">One paycheck is a single point of <span class="accent">failure.</span></h2>
@@ -132,7 +144,7 @@
     </div>
 
     <div class="band band-amber">
-    <section class="wrap ask" aria-labelledby="ask-title" data-reveal>
+    <section data-seen="question" class="wrap ask" aria-labelledby="ask-title" data-reveal>
       <p class="eyebrow">Picture it</p>
       <h2 id="ask-title">How much would an extra few hundred, or even a few thousand, dollars a month <span class="accent">mean for your family?</span></h2>
       <ol class="stairs">
@@ -147,13 +159,13 @@
         <div><h3>A calmer 2 a.m.</h3><p>Options quiet the calculator.</p></div>
         <div><h3>Something that's yours.</h3><p>New skills, and an example for your kids.</p></div>
       </div>
-      <a class="btn btn-inline ask-cta" href="#get">Start with the free scorecard</a>
+      <a class="btn btn-inline ask-cta" href="#get" data-cta="question">Start with the free scorecard</a>
       <p class="ask-fine">That's what I'd aim for, and it's not a promise. It can cost evenings and weekends, and most side hustles earn little or nothing. Most of mine failed.</p>
     </section>
     </div>
 
     <div class="band band-paper">
-    <section class="section wrap" aria-labelledby="stand-title">
+    <section data-seen="rules" class="section wrap" aria-labelledby="stand-title">
       <div class="section-head" data-reveal>
         <p class="eyebrow eyebrow-dark">What I stand for</p>
         <h2 id="stand-title">Four rules I won't bend.</h2>
@@ -168,7 +180,7 @@
     </div>
 
     <div class="band band-denim" id="story">
-    <section class="section wrap story" aria-labelledby="story-title">
+    <section data-seen="story" class="section wrap story" aria-labelledby="story-title">
       <div class="story-head" data-reveal>
         <div class="story-photo"><img class="portrait-lg" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="Gabe De Almeida smiling in a denim shirt, in black and white" loading="lazy" decoding="async"></div>
         <div>
@@ -218,14 +230,14 @@
         <p class="fine">That $250,000 is my result, not a promise and not a typical outcome. Most side hustles earn little or nothing, and most of mine failed. Everything here helps you choose better. It can't promise a result.</p>
       </div>
       <div class="story-cta" data-reveal>
-        <a class="btn btn-inline" href="#get">Start with the free scorecard</a>
+        <a class="btn btn-inline" href="#get" data-cta="story">Start with the free scorecard</a>
         <p class="fine">Free. About 5 minutes. Your answers stay on your device.</p>
       </div>
     </section>
     </div>
 
     <div class="band band-cream" id="why-job">
-    <section class="section wrap whyjob" aria-labelledby="whyjob-title">
+    <section data-seen="why-job" class="section wrap whyjob" aria-labelledby="whyjob-title">
       <div class="split whyjob-split">
         <div class="whyjob-head" data-reveal>
           <p class="eyebrow">The question I get</p>
@@ -244,7 +256,7 @@
     </section>
     </div>
 
-    <section class="section wrap scorecard" id="scorecard" aria-labelledby="get-title">
+    <section data-seen="scorecard" class="section wrap scorecard" id="scorecard" aria-labelledby="get-title">
       <div class="split scorecard-split">
         <div class="sc-left">
           <div class="section-head" data-reveal>
@@ -348,7 +360,7 @@
       </div>
     </section>
 
-    <section class="section wrap faq" aria-labelledby="faq-title">
+    <section data-seen="faq" class="section wrap faq" aria-labelledby="faq-title">
       <div class="section-head" data-reveal>
         <h2 id="faq-title">Questions you might have.</h2>
       </div>
@@ -362,11 +374,11 @@
     </section>
 
     <div class="band band-paper">
-    <section class="closer wrap closer-photo" aria-labelledby="closer-title" data-reveal>
+    <section data-seen="closer" class="closer wrap closer-photo" aria-labelledby="closer-title" data-reveal>
       <div class="closer-copy">
         <h2 id="closer-title">Keep your job. Start a side <span class="accent">hustle.</span></h2>
         <p class="closer-sub">For the dad who just wants his family taken care of.</p>
-        <a class="btn btn-inline" href="#get" id="closer-cta">Start with the free scorecard</a>
+        <a class="btn btn-inline" href="#get" id="closer-cta" data-cta="closer">Start with the free scorecard</a>
       </div>
       <img class="closer-img" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="" loading="lazy" decoding="async">
     </section>
@@ -381,7 +393,7 @@
         <a href="https://www.youtube.com/@GabrielDeAlmeida" rel="noopener">YouTube</a>
         <a href="/privacy">Privacy</a>
       </nav>
-      <p class="contact">Questions? <a href="https://www.instagram.com/itsgabedealmeida" rel="noopener">Message me on Instagram.</a></p>
+      <p class="contact">Questions? <button type="button" class="reveal-mail">Email me</button><noscript>hello [at] gabrieldealmeida [dot] com</noscript> or <a href="https://www.instagram.com/itsgabedealmeida" rel="noopener">message me on Instagram.</a></p>
       <p class="disclaimer">Score My Side Hustle Idea is a planning tool, not financial, legal, or tax advice, and nothing here is a promise of income.</p>
     </div>
   </footer>

@@ -4,7 +4,8 @@
 
 import { initSignupForm } from './signup.js';
 import { loadProfile, grantAccess } from './profile.js';
-import { startLinkFor } from './entry.js';
+import { startLinkFor, entrySource } from './entry.js';
+import { track } from './track.js';
 
 const form = document.getElementById('signup-form');
 
@@ -65,11 +66,16 @@ function readyCard(saved, href) {
 }
 
 const arrival = startLinkFor(window.location.search);
+if (arrival) track('Arrival', { source: entrySource(window.location.search) });
 
 if (form && arrival) {
   form.replaceWith(readyCard(loadProfile(), arrival));
   // Every "start" button on the page goes straight into the scorecard.
   document.querySelectorAll('a[href="#get"]').forEach((a) => a.setAttribute('href', arrival));
+  // They already asked for it, so the hero says so plainly instead of explaining the scorecard.
+  const heroStart = document.querySelector('.hero-actions [data-cta="hero"]');
+  if (heroStart) heroStart.textContent = 'Start your scorecard';
+  document.querySelector('.hero-offer')?.setAttribute('hidden', '');
 } else if (form) {
   const saved = loadProfile();
   if (saved.access) {
@@ -77,9 +83,34 @@ if (form && arrival) {
   } else {
     initSignupForm(form, {
       onSuccess: ({ firstName }) => {
+        track('Signup', { from: 'home' });
         const kept = grantAccess({ name: firstName, source: 'signup' });
         window.location.assign(kept ? '/test' : '/test?from=signup');
       },
     });
   }
+}
+
+// ---- counting what people do (no names, no emails) --------------------------
+
+// Which button they tapped.
+document.addEventListener('click', (event) => {
+  const target = event.target.closest('[data-cta]');
+  if (target) track('CTA Click', { where: target.dataset.cta });
+});
+
+// How far down the page they got, each section counted once.
+const seenSections = document.querySelectorAll('[data-seen]');
+if ('IntersectionObserver' in window && seenSections.length) {
+  const seen = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        track('Section Seen', { section: entry.target.dataset.seen });
+        seen.unobserve(entry.target);
+      }
+    },
+    { threshold: 0.25 },
+  );
+  seenSections.forEach((section) => seen.observe(section));
 }

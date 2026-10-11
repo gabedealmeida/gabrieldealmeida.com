@@ -19,7 +19,7 @@ const publicDir = path.join(root, 'public');
 
 export const SECURITY_HEADERS = {
   'Content-Security-Policy':
-    "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'",
+    "default-src 'self'; script-src 'self' https://plausible.io; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://plausible.io; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'",
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',

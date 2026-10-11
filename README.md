@@ -64,7 +64,7 @@ The keyword is **SCORE**. Set the trigger to "contains" so `score`, `Score`, and
 Two links let people in without the home page form:
 
 - `https://gabrieldealmeida.com/?from=ig` is the one ManyChat sends in the DM. (`/test?from=ig` goes straight to the scorecard if you ever want to skip the home page.)
-- `https://gabrieldealmeida.com/test?from=email` is the one in the Kit welcome email. It works on any phone or computer, so people can open it later.
+- `https://gabrieldealmeida.com/?from=email` is the one in the Kit welcome email. It opens the home page with a "Your scorecard is ready" button instead of the signup form, so people see the whole page and are never asked for their email again. It works on any phone or computer. (`/test?from=email` goes straight to the scorecard if you ever want to skip the home page.)
 
 Neither carries a name or email, and the quiz removes the flag from the address bar after it loads.
 
@@ -102,7 +102,7 @@ Hey {first name, fallback "there"},
 
 Thanks for asking for Score My Side Hustle Idea. Here's the link whenever you're ready:
 
-https://gabrieldealmeida.com/test?from=email
+https://gabrieldealmeida.com/?from=email
 
 It takes about 5 minutes. Pick one idea, answer honestly, and you'll get a verdict and a next step.
 
@@ -132,6 +132,8 @@ That clears what the browser remembers and sends you to the home page form. From
 - **Answers stay on the visitor's device** (browser local storage). Only the name and email go anywhere, to Kit.
 - **Nothing is cached without asking.** Pages, styles, scripts, images and the PDF are re-checked on every visit (a cheap 304 when unchanged), so a deploy never leaves a visitor with a new page and an old stylesheet. Only the font is cached for a year. Keep it that way: giving styles or scripts a max-age brings back half-styled pages after every deploy.
 - **The quiz and the printable PDF share the same rules.** If you change a question or a verdict rule, change `scorecard.js` and `pdf/score-my-side-hustle-idea.html` together, then run `npm test` and `npm run build:pdf`.
-- **No analytics or cookies.** The privacy page says so. If you add analytics, update `public/privacy/index.html` the same day.
+- **Analytics: Plausible, no cookies.** The site loads Plausible and sends only event names and plain labels (never a name, an email or an answer). To turn it on: create a Plausible account, add the site `gabrieldealmeida.com`, then add these custom event goals so they show up: `Arrival`, `CTA Click`, `Section Seen`, `Signup`, `Quiz Opened`, `Quiz Started`, `Quiz Test`, `Quiz Finished`, `Result Action`, `Interest`. Until the account exists the calls do nothing. The privacy page already describes it.
+- **The contact email is hidden on purpose.** The footer shows an "Email me" button that writes the address into the page when tapped (`public/assets/js/mail.js`), so scrapers do not collect it. With scripts off it shows `hello [at] gabrieldealmeida [dot] com`.
+- **The demand test.** The results page asks which of four things would help most next (a course, a community, an idea review, nothing). It sends only the choice, as the `Interest` event, once per device.
 - **Brand colors and type** live at the top of `public/assets/css/site.css` (Midnight, Graphite, Paper, Amber, Inter).
 - **The old site** (Express, Pug, MongoDB) is untouched on the `master` branch.
