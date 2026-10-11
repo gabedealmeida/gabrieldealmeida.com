@@ -108,12 +108,45 @@ test('only GET and HEAD are allowed on pages', async () => {
   assert.equal(await head.text(), '');
 });
 
-test('caching: fonts for a year, pages always re-checked, nothing cached in dev', async () => {
+test('caching: only the font is cached for long, everything else is re-checked', async () => {
   const font = await fetch(`${base}/assets/fonts/inter-variable.woff2`);
   assert.match(font.headers.get('cache-control'), /max-age=31536000, immutable/);
-  const page = await fetch(base);
-  assert.match(page.headers.get('cache-control'), /max-age=0, must-revalidate/);
+  for (const route of ['/', '/test', '/assets/css/site.css', '/assets/js/quiz.js', '/assets/js/scorecard.js', '/assets/img/gabe.png', '/downloads/score-my-side-hustle-idea.pdf']) {
+    const res = await fetch(base + route);
+    assert.equal(res.headers.get('cache-control'), 'no-cache', route);
+    assert.ok(res.headers.get('etag'), `${route} needs an ETag`);
+  }
+});
 
+test('caching: an unchanged file gets a 304 with no body, a changed one gets the file', async () => {
+  const first = await fetch(`${base}/assets/css/site.css`);
+  const tag = first.headers.get('etag');
+  assert.ok(tag);
+  const again = await fetch(`${base}/assets/css/site.css`, { headers: { 'if-none-match': tag } });
+  assert.equal(again.status, 304);
+  assert.equal(await again.text(), '');
+  assert.equal(again.headers.get('etag'), tag);
+  assert.equal(again.headers.get('cache-control'), 'no-cache');
+  const stale = await fetch(`${base}/assets/css/site.css`, { headers: { 'if-none-match': 'W/"old-version"' } });
+  assert.equal(stale.status, 200);
+  assert.ok((await stale.text()).length > 1000);
+});
+
+test('caching: the same ETag works with and without compression', async () => {
+  const plain = await fetch(`${base}/assets/css/site.css`, { headers: { 'accept-encoding': 'identity' } });
+  const tag = plain.headers.get('etag');
+  const zipped = await fetch(`${base}/assets/css/site.css`, { headers: { 'accept-encoding': 'gzip', 'if-none-match': tag } });
+  assert.equal(zipped.status, 304);
+});
+
+test('caching: a 404 page is never cached or tagged', async () => {
+  const res = await fetch(`${base}/no-such-page`);
+  assert.equal(res.status, 404);
+  assert.equal(res.headers.get('cache-control'), 'no-store');
+  assert.equal(res.headers.get('etag'), null);
+});
+
+test('caching: dev mode keeps everything uncached', async () => {
   const dev = createServer({ dev: true });
   await new Promise((resolve) => dev.listen(0, '127.0.0.1', resolve));
   const res = await fetch(`http://127.0.0.1:${dev.address().port}/`);

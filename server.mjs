@@ -10,6 +10,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import zlib from 'node:zlib';
+import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import subscribe from './api/subscribe.js';
 
@@ -44,12 +45,34 @@ const TYPES = {
 
 const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.txt', '.xml', '.webmanifest']);
 
+// Pages, styles, scripts, images and the PDF are always re-checked with the
+// server (a cheap "has this changed?" question, answered with a 304 when not).
+// Only the font, which never changes, is cached for a year. Caching styles or
+// scripts for even an hour pairs a fresh page with a stale stylesheet after a
+// deploy, which breaks the layout for anyone who visited recently.
 function cacheControl(ext, dev) {
   if (dev) return 'no-store';
   if (ext === '.woff2') return 'public, max-age=31536000, immutable';
-  if (ext === '.html') return 'public, max-age=0, must-revalidate';
-  if (ext === '.css' || ext === '.js') return 'public, max-age=3600, must-revalidate';
-  return 'public, max-age=3600';
+  return 'no-cache';
+}
+
+const etagCache = new Map();
+function etagFor(file, stat) {
+  const key = `${file}:${stat.mtimeMs}:${stat.size}`;
+  let tag = etagCache.get(key);
+  if (!tag) {
+    const digest = crypto.createHash('sha1').update(fs.readFileSync(file)).digest('hex').slice(0, 20);
+    tag = `W/"${digest}"`;
+    etagCache.set(key, tag);
+  }
+  return tag;
+}
+
+function notModified(req, tag) {
+  const sent = String(req.headers['if-none-match'] || '');
+  if (!sent) return false;
+  const bare = (value) => value.trim().replace(/^W\//, '');
+  return sent.split(',').some((candidate) => candidate.trim() === '*' || bare(candidate) === bare(tag));
 }
 
 // Finds the file for a URL path, or null. Never leaves public/, and never
@@ -89,6 +112,16 @@ function sendFile(req, res, file, { dev, status = 200 }) {
   res.statusCode = status;
   res.setHeader('Content-Type', TYPES[ext] || 'application/octet-stream');
   res.setHeader('Cache-Control', status === 200 ? cacheControl(ext, dev) : 'no-store');
+
+  if (status === 200 && !dev) {
+    const tag = etagFor(file, stat);
+    res.setHeader('ETag', tag);
+    if (COMPRESSIBLE.has(ext) && stat.size > 512) res.setHeader('Vary', 'Accept-Encoding');
+    if (notModified(req, tag)) {
+      res.statusCode = 304;
+      return res.end();
+    }
+  }
 
   const wantsGzip = /\bgzip\b/.test(String(req.headers['accept-encoding'] || ''));
   if (COMPRESSIBLE.has(ext) && stat.size > 512) {
