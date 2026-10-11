@@ -18,6 +18,7 @@ function walk(dir) {
 const files = [
   ...walk(path.join(root, 'public')),
   ...walk(path.join(root, 'pdf')),
+  ...walk(path.join(root, 'email')),
   path.join(root, 'content', 'score-my-side-hustle-idea.md'),
   path.join(root, 'README.md'),
 ];
@@ -50,8 +51,8 @@ test('no guru language, wrong terms, or names that must stay private', () => {
   }
 });
 
-test('no income promises or earnings claims on the site', () => {
-  const claims = [/\$\s?250/i, /250,?000/, /six[- ]figure/i, /guarantee/i, /quit your job/i];
+test('no income promises or guarantees anywhere', () => {
+  const claims = [/six[- ]figure/i, /guarantee/i, /quit your job/i, /get rich/i, /passive income/i];
   for (const file of files) {
     if (file.endsWith('brand.test.js')) continue;
     const text = fs.readFileSync(file, 'utf8');
@@ -61,10 +62,35 @@ test('no income promises or earnings claims on the site', () => {
   }
 });
 
+test('the $250K claim lives only on the home page, framed as his result and not a promise', () => {
+  for (const file of files) {
+    const text = fs.readFileSync(file, 'utf8');
+    if (!/\$\s?250|250,?000/.test(text)) continue;
+    assert.ok(file.endsWith(path.join('public', 'index.html')), `$250K claim in ${path.relative(root, file)}`);
+    assert.match(text, /my result, not a promise/i, 'the claim needs its framing');
+    assert.match(text, /not a typical outcome/i, 'the claim needs the typical-outcome disclaimer');
+    assert.match(text, /most of mine failed/i, 'the claim needs the honesty line next to it');
+  }
+});
+
 test('the old name is gone from everything a visitor or a file path can show', () => {
   for (const file of files) {
     const text = fs.readFileSync(file, 'utf8');
     assert.ok(!/saturday test/i.test(text), `old name in ${path.relative(root, file)}`);
     assert.ok(!/saturday-test/i.test(text), `old file name in ${path.relative(root, file)}`);
+  }
+});
+
+test('no company, employer, or product names anywhere a visitor can read', () => {
+  // Gabe's call: keep the story general. No names, even for past ventures.
+  const names = [
+    /booklybox/i, /quarterly/i, /pagehabit/i, /books for africa/i, /occuspace/i,
+    /storj/i, /upstream/i, /campion/i, /tempus/i, /beacon hill/i, /bon ?bon/i, /fortuna/i,
+  ];
+  for (const file of files) {
+    const text = fs.readFileSync(file, 'utf8');
+    for (const re of names) {
+      assert.ok(!re.test(text), `${re} found in ${path.relative(root, file)}`);
+    }
   }
 });
