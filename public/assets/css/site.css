@@ -100,6 +100,8 @@ a:hover { text-decoration-color: var(--paper); }
   text-decoration: none;
 }
 .wordmark .dot { color: var(--amber); }
+.wordmark { display: inline-flex; align-items: center; gap: 12px; }
+.wordmark-photo { display: block; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; border: 1px solid var(--line-strong); }
 
 /* ---------- hero ---------- */
 
