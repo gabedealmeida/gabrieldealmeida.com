@@ -652,7 +652,7 @@ fieldset { min-width: 0; margin: 0; padding: 0; border: 0; }
 
 
 .story-head { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); align-items: center; gap: clamp(28px, 5vw, 64px); }
-.portrait-lg { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 28px; border: 1px solid var(--line-strong); }
+.portrait-lg { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 28px; border: 1px solid var(--line-strong); }
 .story-head h2 { font-size: clamp(30px, 4.6vw, 48px); }
 .story-head p { margin-top: 12px; max-width: 34em; color: var(--soft); font-size: clamp(17px, 2vw, 19px); }
 
