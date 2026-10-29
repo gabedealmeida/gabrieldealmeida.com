@@ -1631,3 +1631,5 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .cn-ok::before { content: "\2713"; margin-right: 5px; color: var(--amber); font-weight: 800; }
 .band-paper .cn-ok { color: var(--midnight); }
 .band-paper .cn-ok::before { color: var(--midnight); }
+
+.cn-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
