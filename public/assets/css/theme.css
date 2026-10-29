@@ -93,7 +93,8 @@ html[data-head] :is(h1, h2, .mirror-close, .q-big) .accent,
 html[data-head] .story-body .lead .big {
   font-family: var(--font-accent); font-style: var(--accent-style); font-weight: var(--accent-weight); font-size: var(--accent-size); line-height: inherit; letter-spacing: 0;
 }
-html[data-head="newsreader"] :is(.ho-facts b, .whyjob-lead, .ed-n), 
+html[data-head="newsreader"] :is(.ho-facts b, .whyjob-lead, .ed-n) { font-style: italic; }
+
 /* ---- hero picture: the photo collage, or the designer's cut-out portrait ---- */
 .hero-cutout { display: none; }
 html[data-hero="cutout"] .collage { display: none; }
