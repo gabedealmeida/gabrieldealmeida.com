@@ -113,14 +113,18 @@ html[data-hero="cutout"] .hero-cutout img { position: absolute; z-index: 1; left
 @media (min-width: 881px) {
   html[data-hero="cutout"] .hero .eyebrow, html[data-hero="cutout"] .hero h1, html[data-hero="cutout"] .hero .lede, html[data-hero="cutout"] .hero .capture
   html[data-hero="cutout"] .hero { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr); }
-  /* the hero fills the screen: the header above it and the ticker below it add up to about 120px,
-     so the ticker lands on the bottom edge and the spare height is spread between the lines */
-  html[data-hero="cutout"] .hero { min-height: calc(100vh - 120px); min-height: min(calc(100svh - 120px), 1000px); align-content: space-between; }
+  /* the hero fills the screen: the header above it and the ticker below it add up to about 120px, so the
+     ticker lands on the bottom edge. The headline grows with the screen height (two lines, across both
+     columns) and the block of lines sits in the middle with an even, modest gap between them. */
+  html[data-hero="cutout"] .hero { min-height: calc(100vh - 120px); min-height: min(calc(100svh - 120px), 1000px); grid-template-rows: 1fr auto auto auto 1fr; row-gap: clamp(20px, 3.4vh, 36px); }
+  html[data-hero="cutout"] .hero .capture { margin-top: 0; margin-bottom: 0; }
+  html[data-hero="cutout"] .hero .lede { margin-top: 0; }
+  html[data-hero="cutout"] .hero h1 { grid-column: 1 / span 2; font-size: clamp(56px, 10.5vh, 112px); }
   html[data-hero="cutout"] .hero .eyebrow { grid-row: 1; margin-top: 0; }
   html[data-hero="cutout"] .hero h1 { grid-row: 2; }
   html[data-hero="cutout"] .hero .lede { grid-row: 3; }
   html[data-hero="cutout"] .hero .capture { grid-row: 4; }
-  html[data-hero="cutout"] .hero-cutout { grid-column: 2; grid-row: 1 / span 4; align-self: end; margin: 0 0 0 auto; max-width: 520px; }
+  html[data-hero="cutout"] .hero-cutout { grid-column: 2; grid-row: 1 / span 5; align-self: end; margin: 0 0 0 auto; max-width: 520px; }
 }
 
 /* ---- scope: the headline font is for short section titles and statements; card titles, numbers and long headlines use the body font ---- */
