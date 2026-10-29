@@ -1,9 +1,9 @@
 // The site server. Serves public/ with clean URLs and runs api/subscribe.js.
 // No dependencies: it only uses what comes with Node.
 //
-//   npm start                    what Railway runs (reads PORT and the Kit variables)
+//   npm start                    what Railway runs (reads PORT and the Flodesk variables)
 //   npm run dev                  local preview, nothing cached
-//   npm run dev -- --mock-kit    local preview that pretends to be Kit, so you can
+//   npm run dev -- --mock-flodesk  local preview that pretends to be Flodesk, so you can
 //                                try the whole signup flow with no account
 
 import http from 'node:http';
@@ -35,6 +35,7 @@ const TYPES = {
   '.svg': 'image/svg+xml',
   '.png': 'image/png',
   '.jpg': 'image/jpeg',
+  '.webp': 'image/webp',
   '.ico': 'image/x-icon',
   '.woff2': 'font/woff2',
   '.ttf': 'font/ttf',
@@ -190,22 +191,27 @@ function loadEnvFile() {
   }
 }
 
-async function startMockKit() {
+async function startMockFlodesk() {
   const mock = http.createServer((req, res) => {
     let raw = '';
     req.on('data', (c) => (raw += c));
     req.on('end', () => {
-      console.log(`[mock kit] ${req.method} ${req.url} ${raw}`);
-      res.statusCode = 201;
+      console.log(`[mock flodesk] ${req.method} ${req.url} ${raw}`);
+      if (req.url.startsWith('/workflows/')) {
+        res.statusCode = 204;
+        return res.end();
+      }
+      res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.end('{}');
     });
   });
   await new Promise((resolve) => mock.listen(0, '127.0.0.1', resolve));
-  process.env.KIT_API_BASE = `http://127.0.0.1:${mock.address().port}`;
-  process.env.KIT_API_KEY = 'mock-key';
-  process.env.KIT_FORM_ID = '1';
-  console.log('Mock Kit is on. Signups are logged here and go nowhere else.');
+  process.env.FLODESK_API_BASE = `http://127.0.0.1:${mock.address().port}`;
+  process.env.FLODESK_API_KEY = 'mock-key';
+  process.env.FLODESK_SEGMENT_ID = 'mocksegment';
+  process.env.FLODESK_WORKFLOW_ID = 'mockworkflow';
+  console.log('Mock Flodesk is on. Signups are logged here and go nowhere else.');
 }
 
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
@@ -213,13 +219,13 @@ const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv
 if (isMain) {
   loadEnvFile();
 
-  if (process.argv.includes('--mock-kit')) {
-    // A fake Kit on the live site would quietly throw real signups away.
+  if (process.argv.includes('--mock-flodesk')) {
+    // A fake Flodesk on the live site would quietly throw real signups away.
     if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT) {
-      console.error('--mock-kit is for local use only. Refusing to start.');
+      console.error('--mock-flodesk is for local use only. Refusing to start.');
       process.exit(1);
     }
-    await startMockKit();
+    await startMockFlodesk();
   }
 
   // 8080 unless the host hands us a PORT. Railway's PORT variable wins if it is set.

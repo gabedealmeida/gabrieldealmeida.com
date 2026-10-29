@@ -30,7 +30,9 @@ export function clearProfile() {
 }
 
 // Returns true only if the browser really kept it.
-export function grantAccess({ name = '', source = 'signup' } = {}) {
-  saveProfile({ name, access: true, source });
+// The email is kept here only so a first name given later, inside the scorecard,
+// can be saved against the same subscriber.
+export function grantAccess({ name = '', email = '', source = 'signup' } = {}) {
+  saveProfile(email ? { name, email, access: true, source } : { name, access: true, source });
   return loadProfile().access === true;
 }

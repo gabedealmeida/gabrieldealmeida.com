@@ -2,6 +2,7 @@ import { STOPS, TESTS, VERDICTS, NEEDS, needsLevel, computeResult, napkin as nap
 import { resolveEntry } from './entry.js';
 import { loadProfile, saveProfile, clearProfile } from './profile.js';
 import { track } from './track.js';
+import { validateName } from './validate.js';
 
 const KEY = 'gdm:score-idea:v1';
 const WORKSHEET = '/downloads/score-my-side-hustle-idea.pdf';
@@ -252,6 +253,38 @@ function screenForm(step, ...kids) {
   );
 }
 
+// ---- first name (asked once, on the first screen, and optional) --------------
+
+// Saves the first name on this device so the result can say hi. If we also have the
+// email they signed up with, the name goes to the same subscriber, so emails can say
+// hi too. A name sent this way never starts the welcome email again.
+// Returns false (and shows why) only when something was typed that is not a name.
+function rememberName(input, errorNode) {
+  const typed = input.value.trim();
+  errorNode.hidden = true;
+  input.removeAttribute('aria-invalid');
+  if (!typed) return true;
+  const checked = validateName(typed);
+  if (!checked.ok) {
+    errorNode.textContent = checked.message;
+    errorNode.hidden = false;
+    input.setAttribute('aria-invalid', 'true');
+    input.focus();
+    return false;
+  }
+  profile.name = checked.value;
+  saveProfile({ ...loadProfile(), name: checked.value });
+  if (profile.email) {
+    fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+      body: JSON.stringify({ firstName: checked.value, email: profile.email, skipWelcome: true, hp: '' }),
+      keepalive: true,
+    }).catch(() => {});
+  }
+  return true;
+}
+
 // ---- views -----------------------------------------------------------------
 
 const views = {
@@ -264,6 +297,13 @@ const views = {
         ? 'Welcome back. Your answers are saved on this device.'
         : 'Before you spend a weekend or a dollar, find out if the idea fits around your job and your family. Five quick checks, fifteen short questions, and a verdict you can act on.';
 
+    // Asked once. Skipping it is fine; the result just will not say your name.
+    const nameInput = el('input', { type: 'text', id: 'first-name', name: 'first-name', autocomplete: 'given-name', autocapitalize: 'words', spellcheck: 'false', maxlength: '60', placeholder: 'So I can say hi on your result', 'aria-describedby': 'first-name-error' });
+    const nameError = el('p', { class: 'error', id: 'first-name-error', hidden: true });
+    const nameField = !profile.name && !finished
+      ? el('div', { class: 'field name-field' }, el('label', { for: 'first-name' }, 'First name (optional)'), nameInput, nameError)
+      : null;
+
     return el(
       'section',
       { class: 'screen intro' },
@@ -275,22 +315,30 @@ const views = {
         'div',
         { class: 'from-gabe' },
         el('img', { src: '/assets/img/gabe-door.jpg', width: '576', height: '768', alt: '', decoding: 'async' }),
-        el('p', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabe')),
+        el('p', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabriel')),
       ),
       el(
         'figure',
         { class: 'intro-photo' },
-        el('div', { class: 'ip-frame' }, el('img', { src: '/assets/img/gabe-door.jpg', width: '576', height: '768', alt: 'Gabe De Almeida smiling in a denim shirt, leaning against a green door', decoding: 'async' })),
-        el('figcaption', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabe')),
+        el('div', { class: 'ip-frame' }, el('img', { src: '/assets/img/gabe-door.jpg', width: '576', height: '768', alt: 'Gabriel De Almeida smiling in a denim shirt, leaning against a green door', decoding: 'async' })),
+        el('figcaption', {}, 'This is the scorecard I use before I take on a side hustle. Answer honestly. It is built to tell you the truth, not what you want to hear.', el('span', {}, 'Gabriel')),
       ),
       el('ul', { class: 'facts', 'aria-label': 'What to expect' }, el('li', {}, 'About 5 minutes'), el('li', {}, 'Free'), el('li', {}, 'Your answers stay on your device')),
       el('p', { class: 'fine' }, 'Answer for the smallest weekend version of your idea. If you cannot show it, pick the lower answer.'),
+      nameField,
       el(
         'div',
         { class: 'actions' },
         el(
           'button',
-          { class: 'btn', type: 'button', onclick: () => go(finished ? RESULTS : started ? state.step : 1) },
+          {
+            class: 'btn',
+            type: 'button',
+            onclick: () => {
+              if (nameField && !rememberName(nameInput, nameError)) return;
+              go(finished ? RESULTS : started ? state.step : 1);
+            },
+          },
           finished ? 'See my result' : started ? 'Continue' : 'Start',
         ),
         started || finished
@@ -647,7 +695,7 @@ const views = {
     return el(
       'section',
       { class: 'screen results' },
-      el('p', { class: 'print-only print-brand' }, 'Score My Side Hustle Idea | Gabe De Almeida'),
+      el('p', { class: 'print-only print-brand' }, 'Score My Side Hustle Idea | Gabriel De Almeida'),
       hero,
       stopsBanner,
       bars,

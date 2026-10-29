@@ -13,8 +13,8 @@ if (!fs.existsSync(path.join(root, pdf))) {
   problems.push(`Missing ${pdf}. The quiz links to it, so people would hit a 404.`);
 }
 
-if (!process.env.KIT_API_KEY) {
-  problems.push('KIT_API_KEY is not set in this shell. Add it in Railway (your service, then Variables) before going live. KIT_FORM_ID is optional.');
+if (!process.env.FLODESK_API_KEY) {
+  problems.push('FLODESK_API_KEY is not set in this shell. Add it in Railway (your service, then Variables) before going live. FLODESK_SEGMENT_ID and FLODESK_WORKFLOW_ID are optional.');
 }
 
 if (problems.length) {

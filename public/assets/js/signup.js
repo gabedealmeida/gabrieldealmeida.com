@@ -5,12 +5,15 @@ const TIMEOUT_MS = 15000;
 // Wires up a signup form: validation as you type, the "did you mean" nudge,
 // the call to /api/subscribe, and honest error messages. When a signup
 // succeeds it calls onSuccess({ firstName, email }) and leaves the page alone.
-export function initSignupForm(form, { onSuccess } = {}) {
-  const $ = (id) => form.querySelector(`#${id}`);
+// A form without a first name field asks for an email only. `prefix` lets a second
+// form on the same page use its own element ids (hero-email-error and so on).
+export function initSignupForm(form, { onSuccess, prefix = '' } = {}) {
+  const $ = (id) => form.querySelector(`#${prefix}${id}`);
+  const askName = Boolean(form.elements.firstName);
   const fields = {
-    firstName: { input: form.elements.firstName, error: $('firstName-error'), validate: validateName },
     email: { input: form.elements.email, error: $('email-error'), validate: validateEmail },
   };
+  if (askName) fields.firstName = { input: form.elements.firstName, error: $('firstName-error'), validate: validateName };
   const hint = $('email-hint');
   const suggestionButton = $('email-suggestion');
   const status = $('form-status');
@@ -111,15 +114,15 @@ export function initSignupForm(form, { onSuccess } = {}) {
     hideStatus();
 
     const raw = {
-      firstName: fields.firstName.input.value,
+      firstName: askName ? fields.firstName.input.value : '',
       email: fields.email.input.value,
     };
-    const checked = validateSignup(raw);
+    const checked = validateSignup(raw, { requireName: askName });
 
-    clearError('firstName');
+    if (askName) clearError('firstName');
     clearError('email');
     if (!checked.ok) {
-      for (const [name, message] of Object.entries(checked.errors)) showError(name, message);
+      for (const [name, message] of Object.entries(checked.errors)) if (fields[name]) showError(name, message);
       const first = checked.errors.firstName ? 'firstName' : 'email';
       fields[first].input.focus();
       return;
@@ -169,7 +172,7 @@ export function initSignupForm(form, { onSuccess } = {}) {
         for (const [name, message] of Object.entries(data.errors)) {
           if (fields[name]) showError(name, message);
         }
-        const first = data.errors.firstName ? 'firstName' : 'email';
+        const first = data.errors.firstName && fields.firstName ? 'firstName' : 'email';
         fields[first].input.focus();
         return;
       }

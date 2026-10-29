@@ -100,3 +100,12 @@ test('signup: tolerates non-string input without throwing', () => {
   assert.equal(validateSignup({ firstName: { a: 1 }, email: ['x'] }).ok, false);
   assert.equal(validateSignup({}).ok, false);
 });
+
+test('validateSignup without a required name accepts an email alone', () => {
+  assert.deepEqual(validateSignup({ email: ' SAM@Example.com ' }, { requireName: false }), {
+    ok: true,
+    value: { firstName: '', email: 'sam@example.com' },
+  });
+  assert.equal(validateSignup({ firstName: '', email: 'nope' }, { requireName: false }).ok, false);
+  assert.equal(validateSignup({ firstName: '123', email: 'sam@example.com' }, { requireName: false }).ok, false);
+});

@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-head="newsreader" data-body="sourcesans" data-palette="espresso" data-hero="cutout" data-long="body" data-scope="signature">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Keep your job. Start a side hustle. | Gabe De Almeida</title>
+  <title>Keep your job. Start a side hustle. | Gabriel De Almeida</title>
   <meta name="description" content="Side hustles for working dads. Keep your job, start a side hustle, and build a second source of income for your family. Start with a free scorecard.">
   <link rel="canonical" href="https://gabrieldealmeida.com/">
-  <meta name="theme-color" content="#0B0B0D">
+  <meta name="theme-color" content="#1E1611">
   <meta name="color-scheme" content="dark">
 
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="Gabe De Almeida">
+  <meta property="og:site_name" content="Gabriel De Almeida">
   <meta property="og:title" content="Keep your job. Start a side hustle. For working dads.">
   <meta property="og:description" content="Side hustles for working dads. Start with a free scorecard.">
   <meta property="og:url" content="https://gabrieldealmeida.com/">
@@ -24,8 +24,12 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <link rel="manifest" href="/site.webmanifest">
 
-  <link rel="preload" href="/assets/fonts/inter-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Newsreader-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/Newsreader-Italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/SourceSans3-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/css/site.css">
+  <link rel="stylesheet" href="/assets/css/theme.css">
+  <script src="/assets/js/theme.js" defer></script>
   <script type="module" src="/assets/js/home.js"></script>
   <script type="module" src="/assets/js/reveal.js"></script>
   <script type="module" src="/assets/js/slider.js"></script>
@@ -37,8 +41,11 @@
 
   <header class="bar">
     <div class="wrap bar-inner">
-      <a class="wordmark" href="/" aria-label="Gabe De Almeida, home"><img class="wordmark-photo" src="/assets/img/gabe.png" width="44" height="44" alt="" decoding="async"><span>Gabe De Almeida<span class="dot">.</span></span></a>
-      <a class="bar-link" href="#get" data-cta="header">Free scorecard</a>
+      <a class="wordmark" href="/" aria-label="Gabriel De Almeida, home"><svg class="wordmark-g" viewBox="0 0 180 180" width="44" height="44" aria-hidden="true" focusable="false"><circle cx="90" cy="90" r="90"/><path transform="translate(90 90) scale(0.68) translate(-89 -88)" d="M145.75 85.63L145.75 92.03L137.53 92.21L137.53 149.07L131.68 149.07L118.33 139.93C113.58 143.71 108.43 146.63 102.88 148.70C97.34 150.78 91.70 151.81 85.97 151.81C75.25 151.81 65.80 149.34 57.64 144.41C49.47 139.47 43.13 132.52 38.62 123.57C34.11 114.61 31.86 104.22 31.86 92.40C31.86 81.18 33.90 70.58 37.98 60.59C42.07 50.59 47.28 42.61 53.61 36.64C59.83 32.62 66.50 29.54 73.63 27.41C80.76 25.27 87.80 24.21 94.75 24.21C104.01 24.21 112.51 26.19 120.25 30.15C127.99 34.11 134.11 39.62 138.62 46.69L116.14 65.52C109.43 54.19 101.82 42.12 93.28 29.33C84.88 32.98 77.99 39.75 72.63 49.62C67.26 59.49 64.58 70.70 64.58 83.26C64.58 98.73 68.09 110.89 75.09 119.73C82.10 128.56 91.70 132.98 103.89 132.98C105.84 132.98 107.30 132.92 108.28 132.80L108.28 92.21L99.32 92.03L99.32 85.63L145.75 85.63Z"/></svg><span>Gabriel De Almeida<span class="dot">.</span></span></a>
+      <nav class="bar-actions" aria-label="Main">
+        <a class="bar-link-quiet" href="#story" data-cta="header-story">My story</a>
+        <a class="bar-cta" href="#get" data-cta="header">Test my idea</a>
+      </nav>
     </div>
   </header>
 
@@ -47,39 +54,53 @@
       <div class="hero-copy">
         <p class="eyebrow">Side hustles for working dads</p>
         <h1 id="hero-title">Keep your job. Start a side <span class="accent">hustle.</span></h1>
-        <p class="lede">I'm Gabe. I help working dads build a second source of income without giving up the job or the time at home.</p>
-        <div class="hero-actions">
-          <a class="btn btn-inline" href="#get" data-cta="hero">Start with the free scorecard</a>
-          <a class="btn btn-inline btn-secondary" href="#story" data-cta="hero-story">Read my story</a>
-        </div>
-        <div class="hero-offer" role="group" aria-label="What the free scorecard is">
-          <p class="ho-label">The free scorecard</p>
-          <p class="ho-what">Will your side hustle idea fit around your job and your family?</p>
-          <p class="ho-why">Find out before you spend a weekend or a dollar.</p>
-          <ul class="ho-facts">
-            <li><b>15</b><span>short questions</span></li>
-            <li><b>5</b><span>minutes</span></li>
-            <li><b>1</b><span>verdict<i class="ho-more">, and one thing to do this week</i></span></li>
+        <p class="lede">I'm Gabriel. I help working dads build a second source of income without giving up the job or the time at home.</p>
+        <form id="hero-form" class="capture" novalidate>
+          <p class="capture-lead">Will your side hustle idea fit your job and family?</p>
+          <label class="sr-only" for="hero-email">Your email</label>
+          <div class="capture-row">
+            <input id="hero-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="Your email" required aria-describedby="hero-email-error hero-email-hint hero-note">
+            <button class="btn" type="submit" id="hero-submit" data-cta="hero">
+              <span class="btn-label">Test my idea</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <ul class="capture-facts" aria-label="What the check is">
+            <li>Free</li>
+            <li>5 minutes</li>
+            <li>15 short questions</li>
           </ul>
-        </div>
-        <ul class="pills" aria-label="About Gabe">
-          <li><i class="dot-a"></i>Full-time job</li>
-          <li><i class="dot-b"></i>Husband and dad of two girls</li>
-          <li><i class="dot-c"></i>Side hustles since high school</li>
-        </ul>
+          <p class="error" id="hero-email-error" hidden></p>
+          <p class="hint" id="hero-email-hint" hidden>Did you mean <button type="button" class="linkish" id="hero-email-suggestion"></button>?</p>
+          <div class="hp" aria-hidden="true">
+            <label>Leave this empty <input type="text" name="hp" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <p class="form-status" id="hero-form-status" role="alert" hidden></p>
+          <noscript><p class="form-status">Please turn on JavaScript to sign up.</p></noscript>
+          <p class="capture-note" id="hero-note">You also get a weekly email with tips, stories, and side hustles worth a look. Unsubscribe anytime. <a href="/privacy">Privacy</a></p>
+        </form>
       </div>
 
       <div class="collage">
         <div class="collage-frame">
-          <img class="collage-main" src="/assets/img/gabe-door.jpg" width="576" height="768" alt="Gabe De Almeida smiling in a denim shirt, leaning against a green door" decoding="async" fetchpriority="high">
+          <img class="collage-main" src="/assets/img/gabe-door.jpg" width="576" height="768" alt="Gabriel De Almeida smiling in a denim shirt, leaning against a green door" decoding="async" fetchpriority="high">
         </div>
-        <img class="collage-a" src="/assets/img/work-event.jpg" width="434" height="768" alt="Gabe setting up a photo booth at an evening event" decoding="async">
-        <img class="collage-b" src="/assets/img/work-talking.jpg" width="433" height="768" alt="Gabe talking to the camera while filming a video" decoding="async">
+        <img class="collage-a" src="/assets/img/work-event.jpg" width="434" height="768" alt="Gabriel setting up a photo booth at an evening event" decoding="async">
+        <img class="collage-b" src="/assets/img/work-talking.jpg" width="433" height="768" alt="Gabriel talking to the camera while filming a video" decoding="async">
+      </div>
+      <div class="hero-cutout">
+        <img src="/assets/img/gabriel-cutout.webp" width="847" height="847" alt="Gabriel De Almeida smiling in a denim shirt" decoding="async">
       </div>
     </section>
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
+        <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
         <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
         <div class="ticker-set"><span>Keep your job</span><span>Family comes first</span><span>Start small</span><span>Prove it before you spend</span></div>
       </div>
@@ -182,7 +203,7 @@
     <div class="band band-denim" id="story">
     <section data-seen="story" class="section wrap story" aria-labelledby="story-title">
       <div class="story-head" data-reveal>
-        <div class="story-photo"><img class="portrait-lg" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="Gabe De Almeida smiling in a denim shirt, in black and white" loading="lazy" decoding="async"></div>
+        <div class="story-photo"><img class="portrait-lg" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="Gabriel De Almeida smiling in a denim shirt, in black and white" loading="lazy" decoding="async"></div>
         <div>
           <p class="eyebrow">My story</p>
           <h2 id="story-title">Why I do this.</h2>
@@ -215,12 +236,12 @@
         </div>
         </div>
         <ul class="slider-track" tabindex="0" aria-label="Photo list, scroll sideways">
-          <li><figure><img src="/assets/img/work-event-3.jpg" width="434" height="768" alt="Gabe standing beside a photo booth with a glowing blue ring light" decoding="async"><figcaption>Setting up for an event.</figcaption></figure></li>
-          <li><figure><img src="/assets/img/work-talking.jpg" width="433" height="768" alt="Gabe talking to the camera while filming a video" decoding="async"><figcaption>Filming a video.</figcaption></figure></li>
-          <li><figure><img src="/assets/img/work-watch-2.jpg" width="432" height="768" alt="Gabe at the bottom of the frame in a video, with a close-up of a wristwatch behind him" decoding="async"><figcaption>Filming a watch video.</figcaption></figure></li>
-          <li><figure><img src="/assets/img/work-guest.jpg" width="576" height="768" alt="Gabe taking a selfie with a smiling guest at an event" decoding="async"><figcaption>At an event.</figcaption></figure></li>
-          <li><figure><img src="/assets/img/work-watches.jpg" width="431" height="768" alt="Gabe in a suit holding up a wristwatch to the camera" decoding="async"><figcaption>Showing a watch on camera.</figcaption></figure></li>
-          <li><figure><img src="/assets/img/work-event.jpg" width="434" height="768" alt="Gabe setting up a photo booth at an evening event" decoding="async"><figcaption>Working a photo booth event.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-event-3.jpg" width="434" height="768" alt="Gabriel standing beside a photo booth with a glowing blue ring light" decoding="async"><figcaption>Setting up for an event.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-talking.jpg" width="433" height="768" alt="Gabriel talking to the camera while filming a video" decoding="async"><figcaption>Filming a video.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-watch-2.jpg" width="432" height="768" alt="Gabriel at the bottom of the frame in a video, with a close-up of a wristwatch behind him" decoding="async"><figcaption>Filming a watch video.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-guest.jpg" width="576" height="768" alt="Gabriel taking a selfie with a smiling guest at an event" decoding="async"><figcaption>At an event.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-watches.jpg" width="431" height="768" alt="Gabriel in a suit holding up a wristwatch to the camera" decoding="async"><figcaption>Showing a watch on camera.</figcaption></figure></li>
+          <li><figure><img src="/assets/img/work-event.jpg" width="434" height="768" alt="Gabriel setting up a photo booth at an evening event" decoding="async"><figcaption>Working a photo booth event.</figcaption></figure></li>
         </ul>
       </div>
 
@@ -261,8 +282,16 @@
         <div class="sc-left">
           <div class="section-head" data-reveal>
             <p class="eyebrow">Step one</p>
-            <h2 id="get-title">Before you spend a weekend or a dollar, score the idea.</h2>
-            <p>Fifteen short questions, about five minutes. You get a verdict and one thing to do this week.</p>
+            <h2 id="get-title">Will your side hustle idea fit around your job and your family?</h2>
+            <div class="hero-offer" role="group" aria-label="What the free scorecard is">
+              <p class="ho-label">The free scorecard</p>
+              <p class="ho-why">Find out before you spend a weekend or a dollar.</p>
+              <ul class="ho-facts">
+                <li><b>15</b><span>short questions</span></li>
+                <li><b>5</b><span>minutes</span></li>
+                <li><b>1</b><span>verdict<i class="ho-more">, and one thing to do this week</i></span></li>
+              </ul>
+            </div>
             <ul class="check-list">
               <li>Free, and nothing to buy</li>
               <li>Built for a full-time job and a family</li>
@@ -272,13 +301,7 @@
           <div class="hero-form" id="get">
         <form id="signup-form" class="card form" novalidate>
           <h2 class="form-title">Score my idea</h2>
-          <p class="form-sub">Enter your name and email to start. It takes about 5 minutes.</p>
-
-          <div class="field">
-            <label for="firstName">First name</label>
-            <input id="firstName" name="firstName" type="text" autocomplete="given-name" autocapitalize="words" spellcheck="false" maxlength="80" required aria-describedby="firstName-error">
-            <p class="error" id="firstName-error" hidden></p>
-          </div>
+          <p class="form-sub">Enter your email to start. It takes about 5 minutes.</p>
 
           <div class="field">
             <label for="email">Email</label>
@@ -298,7 +321,7 @@
           <p class="form-status" id="form-status" role="alert" hidden></p>
           <noscript><p class="form-status">Please turn on JavaScript to sign up.</p></noscript>
 
-          <p class="fine">I might send a short email now and then. Unsubscribe anytime. <a href="/privacy">Privacy</a></p>
+          <p class="fine">Free scorecard now, then a weekly note: tips, stories, and side hustles worth a look. Unsubscribe anytime. <a href="/privacy">Privacy</a></p>
         </form>
           </div>
         </div>
@@ -378,9 +401,31 @@
       <div class="closer-copy">
         <h2 id="closer-title">Keep your job. Start a side <span class="accent">hustle.</span></h2>
         <p class="closer-sub">For the dad who just wants his family taken care of.</p>
-        <a class="btn btn-inline" href="#get" id="closer-cta" data-cta="closer">Start with the free scorecard</a>
+        <form id="closer-form" class="capture" novalidate>
+          <label class="sr-only" for="closer-email">Your email</label>
+          <div class="capture-row">
+            <input id="closer-email" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="none" spellcheck="false" placeholder="Your email" required aria-describedby="closer-email-error closer-email-hint">
+            <button class="btn" type="submit" id="closer-submit" data-cta="closer">
+              <span class="btn-label">Test my idea</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+          <ul class="capture-facts" aria-label="What the check is">
+            <li>Free</li>
+            <li>5 minutes</li>
+            <li>15 short questions</li>
+          </ul>
+          <p class="error" id="closer-email-error" hidden></p>
+          <p class="hint" id="closer-email-hint" hidden>Did you mean <button type="button" class="linkish" id="closer-email-suggestion"></button>?</p>
+          <div class="hp" aria-hidden="true">
+            <label>Leave this empty <input type="text" name="hp" tabindex="-1" autocomplete="off"></label>
+          </div>
+          <p class="form-status" id="closer-form-status" role="alert" hidden></p>
+          <noscript><p class="form-status">Please turn on JavaScript to sign up.</p></noscript>
+          <p class="capture-note">You also get a weekly email with tips, stories, and side hustles worth a look. Unsubscribe anytime. <a href="/privacy">Privacy</a></p>
+        </form>
       </div>
-      <img class="closer-img" src="/assets/img/gabe-portrait.jpg" width="800" height="800" alt="" loading="lazy" decoding="async">
+      <img class="closer-img" src="/assets/img/gabe-portrait-ink.webp" width="800" height="800" alt="" loading="lazy" decoding="async">
     </section>
     </div>
   </main>
@@ -397,5 +442,6 @@
       <p class="disclaimer">Score My Side Hustle Idea is a planning tool, not financial, legal, or tax advice, and nothing here is a promise of income.</p>
     </div>
   </footer>
+  <div class="sticky-cta" id="sticky-cta" hidden><a class="btn" href="#get" data-cta="sticky">Test my idea</a></div>
 </body>
 </html>

@@ -1,0 +1,143 @@
+/* The live look: Espresso & brass, Newsreader headlines, Source Sans 3 text, the cut-out portrait.
+   Set by the data-* attributes on <html>. looks.css (the Looks panel) can override them for testing. */
+
+/* ---- the fonts ---- */
+@font-face { font-family: "Source Sans 3"; src: url("/assets/fonts/SourceSans3-latin.woff2") format("woff2"); font-weight: 400 800; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("/assets/fonts/Newsreader-latin.woff2") format("woff2"); font-weight: 400 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Newsreader"; src: url("/assets/fonts/Newsreader-Italic-latin.woff2") format("woff2"); font-weight: 400 700; font-style: italic; font-display: swap; }
+
+/* ---- base values (the palette below overrides the colours) ---- */
+:root {
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-accent: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --accent-style: italic;
+  --rscale: 1;
+  --font-display: "Inter", system-ui, sans-serif; --fw-display: 600; --ls-display: -0.03em; --fw-ui: 600; --accent-weight: 400; --accent-size: 1.12em; --wordmark-size: 18px; --body-size: 17px;
+  --r-ink: 11 11 13; --r-graphite: 28 28 31; --r-paper: 245 245 247; --r-soft: 210 210 215; --r-fog: 161 161 166;
+  --r-accent: 242 165 65; --r-accent-text: 184 110 0; --r-terra: 180 85 45; --r-btn: 245 245 247;
+  --r-teal: 124 196 180; --r-blue: 143 180 234; --r-coral: 242 144 127;
+  --r-band-a: 13 34 32; --r-band-b: 15 25 42; --r-card-b: 22 35 58; --r-cream: 244 236 220; --r-qbg: 29 20 7;
+  --r-phone-screen: 16 16 18; --r-phone-frame: 44 44 48; --r-night: 12 18 34; --r-calc: 19 26 46;
+  --r-muted-light: 85 85 91; --r-notif: 46 46 52; --r-error-soft: 255 138 128;
+}
+
+/* the primary button takes the palette's accent (the current look keeps the white button) */
+.btn { background: rgb(var(--r-btn)); }
+.btn:hover { background: rgb(var(--r-btn)); filter: brightness(1.07); }
+.band-paper .btn:hover { filter: none; }
+.btn.btn-secondary { background: transparent; filter: none; }
+.btn.btn-secondary:hover { background: var(--graphite); filter: none; }
+
+/* ---- palette: Espresso & brass ---- */
+html[data-palette="espresso"] {
+  --r-ink: 30 22 17;
+  --r-paper: 242 232 213;
+  --r-accent: 212 168 87;
+  --r-accent-text: 121 97 50;
+  --r-terra: 121 97 50;
+  --r-btn: 212 168 87;
+  --r-graphite: 48 41 36;
+  --r-soft: 221 211 193;
+  --r-fog: 161 152 139;
+  --r-teal: 176 180 120;
+  --r-blue: 160 165 160;
+  --r-coral: 212 128 84;
+  --r-band-a: 22 16 13;
+  --r-band-b: 19 14 11;
+  --r-card-b: 57 50 46;
+  --r-cream: 236 222 196;
+  --r-qbg: 16 12 9;
+  --r-phone-screen: 20 15 11;
+  --r-phone-frame: 77 68 60;
+  --r-night: 20 15 11;
+  --r-calc: 52 45 41;
+  --r-muted-light: 111 102 91;
+  --r-notif: 59 52 48;
+}
+
+/* ---- exact accent on light bands ----
+   A palette's accent is bright, so on paper it cannot be text. Instead of a darkened
+   look-alike, the words stay ink and sit on the palette's real accent colour. */
+html[data-palette] :is(.band-paper .accent, .band-cream h2 .accent, .rule-n, .ed-n, .whyjob-lead) {
+  color: rgb(var(--r-ink));
+  background-image: linear-gradient(transparent 58%, rgb(var(--r-accent)) 58% 94%, transparent 94%);
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  padding-inline: 0.1em; margin-inline: -0.1em;
+}
+html[data-palette] :is(.rule-n, .ed-n) { width: max-content; justify-self: start; align-self: start; padding-inline: 0.14em !important; margin-inline: 0 !important; }
+html[data-palette] .story-photo::before { background: rgb(var(--r-accent)); }
+html[data-palette] :is(.band-paper .eyebrow-dark, .band-cream .eyebrow) {
+  display: inline-block; padding: 3px 10px; border-radius: 6px;
+  background: rgb(var(--r-accent)); color: rgb(var(--r-ink));
+}
+
+/* ---- typography: the headline font and the body font are chosen separately ---- */
+html[data-head="newsreader"] { --font-display: "Newsreader", Georgia, serif; --fw-display: 600; --ls-display: -0.01em; --font-accent: "Newsreader", Georgia, serif; --accent-style: italic; --accent-weight: 500; --accent-size: 1em; --wordmark-size: 26px; }
+
+html[data-body="sourcesans"] { --font-body: "Source Sans 3", system-ui, sans-serif; --body-size: 18px; --fw-ui: 600; }
+
+/* body font */
+html[data-body] body { font-family: var(--font-body); font-size: var(--body-size); }
+html[data-body] :is(.eyebrow, .ho-label, .q-meta, .sc-label, .stairs-scale, .n-top, .weak-tag, .btn, .bar-link, .bar-link-quiet, .bar-cta,  .chips li, .test-chips li, .poll-btn, label, .field legend, .stats span, .ticker-set span, .when) {
+  font-family: var(--font-body); font-weight: var(--fw-ui); letter-spacing: 0;
+}
+/* small headings always follow the body font, so they stay readable */
+html:is([data-head], [data-body]) :is(.notif h3, .timeline h3, .beyond h3, .lk-name, .ho-what, .faq-list summary) { font-family: var(--font-body) !important; font-weight: var(--fw-ui, 600) !important; letter-spacing: 0 !important; font-style: normal !important; }
+
+/* headline font */
+html[data-head] :is(h1, h2, h3, .q-title, .form-title, .stats strong, .mirror-close, .stakes-title, .story-body .lead, .whyjob-close, .close-line, .full-title, .how-title, .slider-title, .wordmark, .whyjob-lead, .rule-n, .ho-facts b, .ed-n) {
+  font-family: var(--font-display); font-weight: var(--fw-display); letter-spacing: var(--ls-display);
+}
+html[data-head] .wordmark { font-size: var(--wordmark-size); }
+html[data-head] :is(h1, h2, .mirror-close, .q-big) .accent,
+html[data-head] .story-body .lead .big {
+  font-family: var(--font-accent); font-style: var(--accent-style); font-weight: var(--accent-weight); font-size: var(--accent-size); line-height: inherit; letter-spacing: 0;
+}
+html[data-head="newsreader"] :is(.ho-facts b, .whyjob-lead, .ed-n), 
+/* ---- hero picture: the photo collage, or the designer's cut-out portrait ---- */
+.hero-cutout { display: none; }
+html[data-hero="cutout"] .collage { display: none; }
+/* the portrait stands on the bottom edge of the hero, so the hero has no bottom padding of its own */
+html[data-hero="cutout"] .hero { row-gap: 0; padding-top: clamp(24px, 3.5vw, 48px); padding-bottom: 0; }
+html[data-hero="cutout"] .hero-copy { display: contents; }
+html[data-hero="cutout"] .hero .eyebrow { order: 1; }
+html[data-hero="cutout"] .hero h1 { order: 2; }
+html[data-hero="cutout"] .hero .lede { order: 3; }
+html[data-hero="cutout"] .hero .capture { order: 4; margin-bottom: clamp(32px, 4vw, 48px); }
+html[data-hero="cutout"] .hero-cutout { order: 7; display: block; position: relative; width: 100%; max-width: 440px; aspect-ratio: 1 / 0.98; margin: 8px 0 0; }
+html[data-hero="cutout"] .hero-cutout::before { content: ""; position: absolute; left: 24%; right: 8%; top: 1%; bottom: 38%; background: rgb(var(--r-accent)); clip-path: polygon(0 14%, 100% 0, 100% 100%, 0 100%); }
+html[data-hero="cutout"] .hero-cutout::after { content: ""; position: absolute; right: 0; bottom: 0; width: 22%; height: 44%; background: rgb(var(--r-paper)); }
+html[data-hero="cutout"] .hero-cutout img { position: absolute; z-index: 1; left: 0; bottom: 0; width: 96%; height: auto; }
+/* on a wide screen: words on the left, the portrait on the right, standing on the bottom edge of the hero */
+@media (min-width: 881px) {
+  html[data-hero="cutout"] .hero .eyebrow, html[data-hero="cutout"] .hero h1, html[data-hero="cutout"] .hero .lede, html[data-hero="cutout"] .hero .capture
+  html[data-hero="cutout"] .hero { grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr); }
+  html[data-hero="cutout"] .hero .eyebrow { grid-row: 1; margin-top: 0; }
+  html[data-hero="cutout"] .hero h1 { grid-row: 2; }
+  html[data-hero="cutout"] .hero .lede { grid-row: 3; }
+  html[data-hero="cutout"] .hero .capture { grid-row: 4; }
+  html[data-hero="cutout"] .hero-cutout { grid-column: 2; grid-row: 1 / span 4; align-self: end; margin: 0 0 0 auto; max-width: 520px; }
+}
+
+/* ---- scope: the headline font is for short section titles and statements; card titles, numbers and long headlines use the body font ---- */
+html[data-head][data-scope="signature"] :is(h3, .q-title, .form-title, .stats strong, .story-body .lead, .whyjob-lead, .rule-n, .ho-facts b, .ed-n, .slider-title, .full-title):not(.how-title) {
+  font-family: var(--font-body); font-weight: 700; letter-spacing: -0.01em; font-style: normal;
+}
+html[data-head][data-scope="signature"] .q-title .accent,
+html[data-head][data-scope="signature"] .story-body .lead .big { font-family: var(--font-body); font-style: normal; font-weight: inherit; font-size: 1em; }
+html[data-head][data-scope="signature"] .whyjob-lead { font-weight: 700; font-size: clamp(28px, 3.6vw, 44px); line-height: 1.12; }
+html[data-head][data-scope="signature"] .ho-facts b { font-size: 34px; font-weight: 700; }
+html[data-head][data-scope="signature"] .rule-n { font-weight: 800; letter-spacing: -0.03em; }
+
+/* ---- long headlines: past about nine words, a display face gets hard to read, so they use the body font ---- */
+html[data-head][data-long="body"] .long-head,
+html[data-head][data-long="body"] .long-head .accent {
+  font-family: var(--font-body); font-style: normal; font-weight: 700; letter-spacing: -0.015em; font-size: clamp(28px, 3.4vw, 42px); line-height: 1.18;
+}
+html[data-head][data-long="body"] .long-head .accent { font-size: 1em; }
+html[data-head][data-long="body"] .q-title.long-head { font-size: clamp(24px, 4.2vw, 34px); }
+html[data-head][data-long="body"] .story-body .lead.long-head { font-size: clamp(26px, 3.2vw, 38px); }
+html[data-head][data-long="body"] .story-body .lead.long-head .big { font-family: var(--font-body); font-style: normal; font-weight: 700; font-size: 1em; }
+
+/* SVG labels follow the text font */
+svg text { font-family: var(--font-body); }

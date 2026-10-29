@@ -10,25 +10,30 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 let server;
 let base;
-let kit;
-let kitCalls;
+let flodesk;
+let flodeskCalls;
 
 before(async () => {
-  kitCalls = [];
-  kit = http.createServer((req, res) => {
+  flodeskCalls = [];
+  flodesk = http.createServer((req, res) => {
     let raw = '';
     req.on('data', (c) => (raw += c));
     req.on('end', () => {
-      kitCalls.push({ url: req.url, body: JSON.parse(raw || '{}') });
-      res.statusCode = 201;
+      flodeskCalls.push({ url: req.url, body: JSON.parse(raw || '{}') });
+      if (req.url.startsWith('/workflows/')) {
+        res.statusCode = 204;
+        return res.end();
+      }
+      res.statusCode = 200;
       res.setHeader('Content-Type', 'application/json');
       res.end('{}');
     });
   });
-  await new Promise((resolve) => kit.listen(0, '127.0.0.1', resolve));
-  process.env.KIT_API_BASE = `http://127.0.0.1:${kit.address().port}`;
-  process.env.KIT_API_KEY = 'test-key';
-  process.env.KIT_FORM_ID = '42';
+  await new Promise((resolve) => flodesk.listen(0, '127.0.0.1', resolve));
+  process.env.FLODESK_API_BASE = `http://127.0.0.1:${flodesk.address().port}`;
+  process.env.FLODESK_API_KEY = 'test-key';
+  process.env.FLODESK_SEGMENT_ID = 'seg42';
+  process.env.FLODESK_WORKFLOW_ID = 'wf42';
 
   server = createServer();
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
@@ -37,7 +42,7 @@ before(async () => {
 
 after(() => {
   server.close();
-  kit.close();
+  flodesk.close();
 });
 
 test('pages: home, quiz and privacy are served, with clean addresses', async () => {
@@ -174,8 +179,8 @@ test('pdf and images are served untouched with the right type', async () => {
   assert.equal(bytes.subarray(0, 4).toString(), '%PDF');
 });
 
-test('signup: the real server passes a good signup to Kit in the right order', async () => {
-  kitCalls.length = 0;
+test('signup: the real server passes a good signup to Flodesk in the right order', async () => {
+  flodeskCalls.length = 0;
   const res = await fetch(`${base}/api/subscribe`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
@@ -183,18 +188,18 @@ test('signup: the real server passes a good signup to Kit in the right order', a
   });
   assert.equal(res.status, 200);
   assert.deepEqual(await res.json(), { ok: true });
-  assert.deepEqual(kitCalls.map((c) => c.url), ['/v4/subscribers', '/v4/forms/42/subscribers']);
+  assert.deepEqual(flodeskCalls.map((c) => c.url), ['/subscribers', '/workflows/wf42/subscribers']);
 });
 
-test('signup: a bad signup is refused before it reaches Kit', async () => {
-  kitCalls.length = 0;
+test('signup: a bad signup is refused before it reaches Flodesk', async () => {
+  flodeskCalls.length = 0;
   const res = await fetch(`${base}/api/subscribe`, {
     method: 'POST',
     headers: { 'content-type': 'application/json' },
     body: JSON.stringify({ firstName: '', email: 'nope' }),
   });
   assert.equal(res.status, 422);
-  assert.equal(kitCalls.length, 0);
+  assert.equal(flodeskCalls.length, 0);
 });
 
 test('signup: the address only accepts POST', async () => {

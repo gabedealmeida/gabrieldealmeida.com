@@ -68,27 +68,74 @@ function readyCard(saved, href) {
 const arrival = startLinkFor(window.location.search);
 if (arrival) track('Arrival', { source: entrySource(window.location.search) });
 
-if (form && arrival) {
-  form.replaceWith(readyCard(loadProfile(), arrival));
+// The hero and the closing section each ask for an email and nothing else. Someone
+// who is already in gets a button straight to the scorecard instead.
+const captureForms = [
+  { form: document.getElementById('hero-form'), prefix: 'hero-', where: 'hero' },
+  { form: document.getElementById('closer-form'), prefix: 'closer-', where: 'closer' },
+].filter((c) => c.form);
+
+function startButton(href, label, where) {
+  const link = document.createElement('a');
+  link.className = 'btn btn-inline';
+  link.href = href;
+  link.dataset.cta = where;
+  link.textContent = label;
+  return link;
+}
+
+// A signup from any form: remember it on this device, then into the scorecard.
+function enter(from) {
+  return ({ email }) => {
+    track('Signup', { from });
+    const kept = grantAccess({ name: '', email, source: 'signup' });
+    window.location.assign(kept ? '/test' : '/test?from=signup');
+  };
+}
+
+const stickyLink = document.querySelector('#sticky-cta a');
+
+if ((form || captureForms.length) && arrival) {
+  form?.replaceWith(readyCard(loadProfile(), arrival));
+  for (const c of captureForms) c.form.replaceWith(startButton(arrival, 'Start your scorecard', c.where));
   // Every "start" button on the page goes straight into the scorecard.
   document.querySelectorAll('a[href="#get"]').forEach((a) => a.setAttribute('href', arrival));
-  // They already asked for it, so the hero says so plainly instead of explaining the scorecard.
-  const heroStart = document.querySelector('.hero-actions [data-cta="hero"]');
-  if (heroStart) heroStart.textContent = 'Start your scorecard';
-  document.querySelector('.hero-offer')?.setAttribute('hidden', '');
-} else if (form) {
+} else if (form || captureForms.length) {
   const saved = loadProfile();
   if (saved.access) {
-    form.replaceWith(welcomeBack(saved));
+    const label = progressStep() > 0 ? 'Continue your scorecard' : 'Start your scorecard';
+    form?.replaceWith(welcomeBack(saved));
+    for (const c of captureForms) c.form.replaceWith(startButton('/test', label, c.where));
+    if (stickyLink) { stickyLink.setAttribute('href', '/test'); stickyLink.textContent = label; }
   } else {
-    initSignupForm(form, {
-      onSuccess: ({ firstName }) => {
-        track('Signup', { from: 'home' });
-        const kept = grantAccess({ name: firstName, source: 'signup' });
-        window.location.assign(kept ? '/test' : '/test?from=signup');
-      },
-    });
+    if (form) initSignupForm(form, { onSuccess: enter('scorecard') });
+    for (const c of captureForms) initSignupForm(c.form, { prefix: c.prefix, onSuccess: enter(c.where) });
   }
+}
+
+// ---- a button that follows people down the page on a phone -------------------
+// It shows once the top of the page has scrolled away, and steps aside whenever a
+// signup form (or the footer) is already on screen.
+const sticky = document.getElementById('sticky-cta');
+if (sticky) {
+  const watch = [document.querySelector('.hero'), document.getElementById('scorecard'), document.querySelector('.closer'), document.querySelector('.footer')].filter(Boolean);
+  const onScreen = (el) => {
+    const r = el.getBoundingClientRect();
+    return r.bottom > 0 && r.top < window.innerHeight;
+  };
+  let queued = false;
+  const update = () => {
+    queued = false;
+    sticky.hidden = window.scrollY < 200 || watch.some(onScreen);
+  };
+  const queue = () => {
+    if (queued) return;
+    queued = true;
+    window.requestAnimationFrame(update);
+  };
+  window.addEventListener('scroll', queue, { passive: true });
+  window.addEventListener('resize', queue);
+  update();
 }
 
 // ---- counting what people do (no names, no emails) --------------------------

@@ -1,12 +1,14 @@
 // POST /api/subscribe
 // Validates the signup again on the server (never trust the browser), then adds
-// the person to Kit: create the subscriber, then, if a form is set, put them on it.
-// The Kit key lives only in this function's environment, never in the page.
+// the person to Flodesk: create or update the subscriber (put on a segment if one
+// is set), then, if a workflow is set, start the welcome workflow for them.
+// The Flodesk key lives only in this function's environment, never in the page.
 
 import { validateSignup } from '../public/assets/js/validate.js';
 
-const KIT_TIMEOUT_MS = 8000;
+const FLODESK_TIMEOUT_MS = 8000;
 const MAX_BODY_BYTES = 4096;
+const ID_PATTERN = /^[A-Za-z0-9]+$/;
 
 function send(res, status, body) {
   res.statusCode = status;
@@ -33,35 +35,31 @@ async function readJson(req) {
   return JSON.parse(Buffer.concat(chunks).toString('utf8') || '{}');
 }
 
-function cleanReferrer(value) {
-  if (typeof value !== 'string' || value.length > 2048) return undefined;
-  try {
-    const url = new URL(value);
-    return url.protocol === 'https:' || url.protocol === 'http:' ? url.href : undefined;
-  } catch {
-    return undefined;
-  }
-}
-
-async function kit(path, payload, { base, key }) {
+// Flodesk wants the key as the username of a Basic login, with no password,
+// and an app name in the User-Agent.
+async function flodesk(path, payload, { base, key }) {
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), KIT_TIMEOUT_MS);
+  const timer = setTimeout(() => controller.abort(), FLODESK_TIMEOUT_MS);
   try {
-    const response = await fetch(`${base}${path}`, {
+    return await fetch(`${base}${path}`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Accept: 'application/json',
-        'X-Kit-Api-Key': key,
+        'User-Agent': 'gabrieldealmeida.com (https://gabrieldealmeida.com)',
+        Authorization: `Basic ${Buffer.from(`${key}:`).toString('base64')}`,
       },
       body: JSON.stringify(payload),
       signal: controller.signal,
     });
-    return response;
   } finally {
     clearTimeout(timer);
   }
 }
+
+// A rejected key, a busy service or a Flodesk outage are our problem, not the
+// visitor's. Any other refusal is about this one person and is not worth a failed signup.
+const isOurProblem = (status) => status === 401 || status === 403 || status === 429 || status >= 500;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -88,19 +86,20 @@ export default async function handler(req, res) {
     return send(res, 200, { ok: true });
   }
 
-  const checked = validateSignup({ firstName: body.firstName, email: body.email });
+  const checked = validateSignup({ firstName: body.firstName, email: body.email }, { requireName: false });
   if (!checked.ok) {
     return send(res, 422, { ok: false, errors: checked.errors });
   }
   const { firstName, email } = checked.value;
 
-  const key = process.env.KIT_API_KEY;
-  const formId = process.env.KIT_FORM_ID;
-  const base = (process.env.KIT_API_BASE || 'https://api.kit.com').replace(/\/$/, '');
-  // The key is required. The form is optional: without it people are added to
-  // the Kit list directly. If one is set it must be a number.
-  if (!key || (formId && !/^\d+$/.test(formId))) {
-    console.error('subscribe: KIT_API_KEY is missing, or KIT_FORM_ID is not a number');
+  const key = process.env.FLODESK_API_KEY;
+  const segmentId = process.env.FLODESK_SEGMENT_ID;
+  const workflowId = process.env.FLODESK_WORKFLOW_ID;
+  const base = (process.env.FLODESK_API_BASE || 'https://api.flodesk.com/v1').replace(/\/$/, '');
+  // The key is required. The segment and the workflow are optional, but if one is
+  // set it must look like a Flodesk id.
+  if (!key || (segmentId && !ID_PATTERN.test(segmentId)) || (workflowId && !ID_PATTERN.test(workflowId))) {
+    console.error('subscribe: FLODESK_API_KEY is missing, or FLODESK_SEGMENT_ID / FLODESK_WORKFLOW_ID is malformed');
     return send(res, 500, {
       ok: false,
       message: 'Signup is not connected yet. Please try again soon.',
@@ -108,44 +107,43 @@ export default async function handler(req, res) {
   }
 
   try {
-    const created = await kit(
-      '/v4/subscribers',
-      { email_address: email, first_name: firstName },
-      { base, key },
-    );
-    if (created.status === 422) {
+    const person = { email };
+    if (firstName) person.first_name = firstName;
+    if (segmentId) person.segment_ids = [segmentId];
+    const created = await flodesk('/subscribers', person, { base, key });
+    if (created.status === 400 || created.status === 422) {
       return send(res, 422, {
         ok: false,
         errors: { email: 'That email does not look right. Check for typos.' },
       });
     }
-    if (![200, 201, 202].includes(created.status)) {
-      console.error(`subscribe: Kit create subscriber returned ${created.status}`);
+    if (created.status !== 200 && created.status !== 201) {
+      console.error(`subscribe: Flodesk create subscriber returned ${created.status}`);
       return send(res, 502, {
         ok: false,
         message: 'Something went wrong on our end. Please try again in a minute.',
       });
     }
 
-    // Only when a form is set: also attach them to that form.
-    if (formId) {
-      const added = await kit(
-        `/v4/forms/${formId}/subscribers`,
-        { email_address: email, referrer: cleanReferrer(body.referrer) },
-        { base, key },
-      );
-      if (![200, 201].includes(added.status)) {
-        console.error(`subscribe: Kit add to form returned ${added.status}`);
+    // Only when a workflow is set: start the welcome email for them. A person who
+    // already finished it may be refused, and that should not break their signup.
+    // A name sent on its own later (from the scorecard) only updates the subscriber, so it
+    // must not start the welcome email a second time.
+    if (workflowId && body.skipWelcome !== true) {
+      const started = await flodesk(`/workflows/${workflowId}/subscribers`, { email }, { base, key });
+      if (isOurProblem(started.status)) {
+        console.error(`subscribe: Flodesk add to workflow returned ${started.status}`);
         return send(res, 502, {
           ok: false,
           message: 'Something went wrong on our end. Please try again in a minute.',
         });
       }
+      if (started.status >= 400) console.error(`subscribe: Flodesk did not restart the workflow (${started.status}), signup kept`);
     }
 
     return send(res, 200, { ok: true });
   } catch (err) {
-    console.error(`subscribe: Kit request failed (${err.name})`);
+    console.error(`subscribe: Flodesk request failed (${err.name})`);
     return send(res, 502, {
       ok: false,
       message: 'We could not reach the signup service. Please try again in a minute.',

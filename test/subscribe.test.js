@@ -3,15 +3,15 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import handler from '../api/subscribe.js';
 
-// A stand-in for Kit that records what it receives and answers however the
+// A stand-in for Flodesk that records what it receives and answers however the
 // current test tells it to.
-let kitServer;
-let kitBase;
+let flodeskServer;
+let flodeskBase;
 let calls;
 let replies;
 
 before(async () => {
-  kitServer = http.createServer((req, res) => {
+  flodeskServer = http.createServer((req, res) => {
     let raw = '';
     req.on('data', (c) => (raw += c));
     req.on('end', () => {
@@ -22,18 +22,19 @@ before(async () => {
       res.end(JSON.stringify(reply.body ?? {}));
     });
   });
-  await new Promise((resolve) => kitServer.listen(0, '127.0.0.1', resolve));
-  kitBase = `http://127.0.0.1:${kitServer.address().port}`;
+  await new Promise((resolve) => flodeskServer.listen(0, '127.0.0.1', resolve));
+  flodeskBase = `http://127.0.0.1:${flodeskServer.address().port}`;
 });
 
-after(() => kitServer.close());
+after(() => flodeskServer.close());
 
 beforeEach(() => {
   calls = [];
   replies = {};
-  process.env.KIT_API_KEY = 'secret-test-key';
-  process.env.KIT_FORM_ID = '12345';
-  process.env.KIT_API_BASE = kitBase;
+  process.env.FLODESK_API_KEY = 'secret-test-key';
+  process.env.FLODESK_SEGMENT_ID = 'seg123';
+  process.env.FLODESK_WORKFLOW_ID = 'wf456';
+  process.env.FLODESK_API_BASE = flodeskBase;
 });
 
 // Minimal req/res doubles shaped like Node's, which is what the server hands the function.
@@ -59,51 +60,70 @@ function call({ method = 'POST', body, headers = { 'content-type': 'application/
 
 const good = { firstName: 'Sam', email: 'sam@example.com' };
 
-test('success: creates the subscriber, then adds them to the form', async () => {
+test('success: creates the subscriber on the segment, then starts the welcome workflow', async () => {
+  replies['/workflows/wf456/subscribers'] = { status: 204, body: null };
   const out = await call({ body: good });
   assert.equal(out.status, 200);
   assert.deepEqual(out.json, { ok: true });
   assert.equal(calls.length, 2);
-  assert.equal(calls[0].url, '/v4/subscribers');
-  assert.deepEqual(calls[0].body, { email_address: 'sam@example.com', first_name: 'Sam' });
-  assert.equal(calls[1].url, '/v4/forms/12345/subscribers');
-  assert.equal(calls[1].body.email_address, 'sam@example.com');
+  assert.equal(calls[0].url, '/subscribers');
+  assert.deepEqual(calls[0].body, { email: 'sam@example.com', first_name: 'Sam', segment_ids: ['seg123'] });
+  assert.equal(calls[1].url, '/workflows/wf456/subscribers');
+  assert.deepEqual(calls[1].body, { email: 'sam@example.com' });
 });
 
-test('success: sends the key as a header, never in the body or the reply', async () => {
+test('success: logs in the way Flodesk asks, and never puts the key in a body or a reply', async () => {
   const out = await call({ body: good });
+  const expected = `Basic ${Buffer.from('secret-test-key:').toString('base64')}`;
   for (const c of calls) {
-    assert.equal(c.headers['x-kit-api-key'], 'secret-test-key');
+    assert.equal(c.headers.authorization, expected);
+    assert.match(c.headers['user-agent'], /gabrieldealmeida\.com/);
     assert.ok(!JSON.stringify(c.body).includes('secret-test-key'));
   }
   assert.ok(!JSON.stringify(out.json).includes('secret-test-key'));
 });
 
-test('success: cleans the input before it reaches Kit', async () => {
+test('success: cleans the input before it reaches Flodesk', async () => {
   await call({ body: { firstName: '  Sam  ', email: '  SAM@Example.COM ' } });
-  assert.deepEqual(calls[0].body, { email_address: 'sam@example.com', first_name: 'Sam' });
+  assert.equal(calls[0].body.email, 'sam@example.com');
+  assert.equal(calls[0].body.first_name, 'Sam');
 });
 
 test('success: an existing subscriber (200) still counts', async () => {
-  replies['/v4/subscribers'] = { status: 200, body: {} };
-  replies['/v4/forms/12345/subscribers'] = { status: 200, body: {} };
+  replies['/subscribers'] = { status: 200, body: {} };
   assert.equal((await call({ body: good })).status, 200);
 });
 
-test('success: passes a valid referrer through and drops a bad one', async () => {
-  await call({ body: { ...good, referrer: 'https://gabrieldealmeida.com/?utm_source=ig' } });
-  assert.equal(calls[1].body.referrer, 'https://gabrieldealmeida.com/?utm_source=ig');
-  calls = [];
-  await call({ body: { ...good, referrer: 'javascript:alert(1)' } });
-  assert.equal(calls[1].body.referrer, undefined);
-});
-
-test('validation: bad input is refused and Kit is never called', async () => {
-  const out = await call({ body: { firstName: '', email: 'nope' } });
+test('validation: bad input is refused and Flodesk is never called', async () => {
+  const out = await call({ body: { firstName: '12345', email: 'nope' } });
   assert.equal(out.status, 422);
   assert.ok(out.json.errors.firstName);
   assert.ok(out.json.errors.email);
   assert.equal(calls.length, 0);
+});
+
+test('email only: the home page asks for no name, and no name is sent to Flodesk', async () => {
+  replies['/workflows/wf456/subscribers'] = { status: 204, body: null };
+  const out = await call({ body: { email: 'sam@example.com' } });
+  assert.equal(out.status, 200);
+  assert.deepEqual(calls[0].body, { email: 'sam@example.com', segment_ids: ['seg123'] });
+  assert.equal(calls[1].url, '/workflows/wf456/subscribers');
+});
+
+test('email only: a missing email is still refused', async () => {
+  const out = await call({ body: { firstName: '', email: '' } });
+  assert.equal(out.status, 422);
+  assert.ok(out.json.errors.email);
+  assert.ok(!out.json.errors.firstName);
+  assert.equal(calls.length, 0);
+});
+
+test('name later: skipWelcome saves the name and does not start the welcome email again', async () => {
+  const out = await call({ body: { firstName: 'Sam', email: 'sam@example.com', skipWelcome: true } });
+  assert.equal(out.status, 200);
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, '/subscribers');
+  assert.equal(calls[0].body.first_name, 'Sam');
 });
 
 test('honeypot: a filled trap field looks like success but does nothing', async () => {
@@ -129,57 +149,75 @@ test('request shape: unreadable and oversized bodies are rejected', async () => 
   assert.equal(calls.length, 0);
 });
 
-test('config: missing or malformed Kit settings fail loudly, not silently', async () => {
-  delete process.env.KIT_API_KEY;
+test('config: a missing key or a malformed id fails loudly, not silently', async () => {
+  delete process.env.FLODESK_API_KEY;
   assert.equal((await call({ body: good })).status, 500);
-  process.env.KIT_API_KEY = 'k';
-  process.env.KIT_FORM_ID = 'abc';
+  process.env.FLODESK_API_KEY = 'k';
+  process.env.FLODESK_SEGMENT_ID = 'not a valid id!';
+  assert.equal((await call({ body: good })).status, 500);
+  process.env.FLODESK_SEGMENT_ID = 'seg123';
+  process.env.FLODESK_WORKFLOW_ID = '../x';
   assert.equal((await call({ body: good })).status, 500);
   assert.equal(calls.length, 0);
 });
 
-test('kit errors: a rejected email becomes a field error', async () => {
-  replies['/v4/subscribers'] = { status: 422, body: {} };
+test('flodesk errors: a rejected email becomes a field error', async () => {
+  replies['/subscribers'] = { status: 400, body: {} };
   const out = await call({ body: good });
   assert.equal(out.status, 422);
   assert.ok(out.json.errors.email);
 });
 
-test('kit errors: a bad key returns a calm message and no details', async () => {
-  replies.default = { status: 401, body: { errors: ['The access token is invalid'] } };
+test('flodesk errors: a bad key returns a calm message and no details', async () => {
+  replies.default = { status: 401, body: { message: 'Invalid API key' } };
   const out = await call({ body: good });
   assert.equal(out.status, 502);
   assert.equal(out.json.ok, false);
-  assert.ok(!JSON.stringify(out.json).toLowerCase().includes('token'));
+  assert.ok(!JSON.stringify(out.json).toLowerCase().includes('key'));
   assert.equal(calls.length, 1);
 });
 
-test('kit errors: a missing form id (404) is reported, not swallowed', async () => {
-  replies['/v4/forms/12345/subscribers'] = { status: 404, body: {} };
-  const out = await call({ body: good });
-  assert.equal(out.status, 502);
+test('flodesk errors: a busy Flodesk (429) is our problem, not a field error', async () => {
+  replies['/subscribers'] = { status: 429, body: {} };
+  assert.equal((await call({ body: good })).status, 502);
 });
 
-test('kit errors: an unreachable Kit is a 502', async () => {
-  process.env.KIT_API_BASE = 'http://127.0.0.1:1';
+test('flodesk errors: an unreachable Flodesk is a 502', async () => {
+  process.env.FLODESK_API_BASE = 'http://127.0.0.1:1';
   const out = await call({ body: good });
   assert.equal(out.status, 502);
   assert.equal(out.json.ok, false);
 });
 
-test('config: the form is optional, and without it people go straight onto the list', async () => {
-  delete process.env.KIT_FORM_ID;
-  const out = await call({ body: good });
-  assert.equal(out.status, 200);
-  assert.deepEqual(calls.map((c) => c.url), ['/v4/subscribers']);
-  calls = [];
-  process.env.KIT_FORM_ID = '';
-  assert.equal((await call({ body: good })).status, 200);
-  assert.deepEqual(calls.map((c) => c.url), ['/v4/subscribers']);
+test('workflow: a server error starting the workflow fails the signup so they can retry', async () => {
+  replies['/workflows/wf456/subscribers'] = { status: 500, body: {} };
+  assert.equal((await call({ body: good })).status, 502);
 });
 
-test('config: with no form, a Kit failure is still reported', async () => {
-  delete process.env.KIT_FORM_ID;
-  replies['/v4/subscribers'] = { status: 401, body: {} };
+test('workflow: a refusal about this person (already finished it) keeps the signup', async () => {
+  replies['/workflows/wf456/subscribers'] = { status: 409, body: {} };
+  const out = await call({ body: good });
+  assert.equal(out.status, 200);
+  assert.deepEqual(out.json, { ok: true });
+});
+
+test('config: the segment and the workflow are each optional', async () => {
+  delete process.env.FLODESK_SEGMENT_ID;
+  delete process.env.FLODESK_WORKFLOW_ID;
+  const out = await call({ body: good });
+  assert.equal(out.status, 200);
+  assert.deepEqual(calls.map((c) => c.url), ['/subscribers']);
+  assert.equal(calls[0].body.segment_ids, undefined);
+  calls = [];
+  process.env.FLODESK_SEGMENT_ID = '';
+  process.env.FLODESK_WORKFLOW_ID = '';
+  assert.equal((await call({ body: good })).status, 200);
+  assert.deepEqual(calls.map((c) => c.url), ['/subscribers']);
+});
+
+test('config: with neither set, a Flodesk failure is still reported', async () => {
+  delete process.env.FLODESK_SEGMENT_ID;
+  delete process.env.FLODESK_WORKFLOW_ID;
+  replies['/subscribers'] = { status: 401, body: {} };
   assert.equal((await call({ body: good })).status, 502);
 });

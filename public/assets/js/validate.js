@@ -110,8 +110,10 @@ export function suggestEmail(raw) {
   return best ? `${local}@${best.domain}` : null;
 }
 
-export function validateSignup({ firstName, email }) {
-  const name = validateName(firstName);
+// The home page only asks for an email. The first name comes later, in the scorecard,
+// so the server accepts a signup with no name, but still rejects one that is malformed.
+export function validateSignup({ firstName, email }, { requireName = true } = {}) {
+  const name = !requireName && !cleanName(firstName) ? { ok: true, value: '' } : validateName(firstName);
   const mail = validateEmail(email);
   const errors = {};
   if (!name.ok) errors.firstName = name.message;

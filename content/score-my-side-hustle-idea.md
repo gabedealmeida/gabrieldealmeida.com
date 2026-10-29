@@ -3,7 +3,7 @@
 **Will this side hustle fit around your job?**
 A scorecard for people who are keeping their job and starting a side hustle.
 
-DRAFT v1 for Gabe's review. Voice rules applied: plain words, "side hustle," no em dashes, no income promises, no employer named. Lines marked "From my misses" are only things Gabe has said himself.
+DRAFT v1 for Gabriel's review. Voice rules applied: plain words, "side hustle," no em dashes, no income promises, no employer named. Lines marked "From my misses" are only things Gabriel has said himself.
 
 ---
 
