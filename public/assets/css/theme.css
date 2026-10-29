@@ -156,4 +156,6 @@ svg text { font-family: var(--font-body); }
   .wordmark-g { width: 30px; height: 30px; transform: translateY(-2px); }
   .bar-inner { gap: 10px; }
   .bar-cta { height: 36px; padding: 0 14px; font-size: 14px; }
+  .hero { padding-top: 36px; }
+  html[data-hero="cutout"] .hero { padding-top: 36px; }
 }
