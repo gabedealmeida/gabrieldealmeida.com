@@ -1595,9 +1595,6 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .bar-cta:hover { filter: brightness(1.08); }
 .capture-lead { margin-bottom: 14px; color: var(--paper); font-size: clamp(20px, 2vw, 24px); font-weight: 700; line-height: 1.25; letter-spacing: -0.015em; }
 .capture-row input[type="email"] { background: rgba(255, 255, 255, 0.08); border-color: rgba(245, 245, 247, 0.4); }
-.capture-facts { display: flex; flex-wrap: wrap; gap: 6px 20px; margin-top: 14px; color: var(--soft); font-size: 14.5px; font-weight: 600; }
-.capture-facts li { display: inline-flex; align-items: center; gap: 7px; }
-.capture-facts li::before { content: "\2713"; color: var(--amber); font-weight: 800; }
 @media (max-width: 560px) { .bar-link-quiet { display: none; } }
 
 /* ---- the G avatar from the brand guide, in place of the photo next to the name ---- */
@@ -1607,8 +1604,7 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 
 /* ---- a signup form on a light band ---- */
 .band-paper .capture-lead { color: var(--midnight); }
-.band-paper .capture-facts, .band-paper .capture-note { color: rgb(var(--r-muted-light)); }
-.band-paper .capture-facts li::before { color: var(--midnight); }
+.band-paper .capture-note { color: rgb(var(--r-muted-light)); }
 .band-paper .capture-note a { color: inherit; }
 .band-paper .error { color: #a23935; }
 .band-paper .hint { color: rgb(var(--r-muted-light)); }
@@ -1628,3 +1624,10 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 
 /* ---- the line above the headline: big enough to read at a glance ---- */
 .hero .eyebrow { margin-bottom: 20px; font-size: clamp(17px, 1.6vw, 20px); font-weight: 700; letter-spacing: 0.01em; }
+
+/* ---- the one small line under the email field ---- */
+.capture-note { margin-top: 12px; font-size: 13.5px; line-height: 1.55; }
+.cn-ok { display: inline-block; margin-right: 12px; color: var(--soft); font-weight: 600; }
+.cn-ok::before { content: "\2713"; margin-right: 5px; color: var(--amber); font-weight: 800; }
+.band-paper .cn-ok { color: var(--midnight); }
+.band-paper .cn-ok::before { color: var(--midnight); }
