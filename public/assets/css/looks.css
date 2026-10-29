@@ -1235,3 +1235,10 @@ html[data-head][data-long="body"] .story-body .lead.long-head .big { font-family
 .looks-preset:hover { background: rgba(255,255,255,.22); }
 .looks-reset { margin-top: 12px; padding: 0; background: none; border: 0; color: #b5b5ba; font: inherit; text-decoration: underline; cursor: pointer; }
 @media print { .looks { display: none; } }
+
+/* ---- the hero button a signed-in visitor sees in place of the email form ---- */
+html[data-hero="cutout"] .hero .hero-start { order: 4; justify-self: start; margin-top: 28px; }
+@media (max-width: 520px) { html[data-hero="cutout"] .hero .hero-start { justify-self: stretch; } }
+@media (min-width: 881px) {
+  html[data-hero="cutout"] .hero .hero-start { grid-column: 1; grid-row: 4; margin-top: clamp(32px, 6vh, 60px); }
+}

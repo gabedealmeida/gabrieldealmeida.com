@@ -80,6 +80,7 @@ function startButton(href, label, where) {
   link.className = 'btn btn-inline';
   link.href = href;
   link.dataset.cta = where;
+  if (where === 'hero') link.classList.add('hero-start');
   link.textContent = label;
   return link;
 }
