@@ -1633,3 +1633,5 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .band-paper .cn-ok::before { color: var(--midnight); }
 
 .cn-link { color: inherit; text-decoration: underline; text-underline-offset: 3px; white-space: nowrap; }
+
+@media (max-width: 520px) { .capture-note { font-size: 13px; } .cn-ok { margin-right: 9px; } .cn-ok::before { margin-right: 4px; } }
