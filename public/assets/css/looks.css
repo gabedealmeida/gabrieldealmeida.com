@@ -1190,10 +1190,10 @@ html[data-hero="cutout"] .hero-cutout img { position: absolute; z-index: 1; left
   /* the hero fills the screen: the header above it and the ticker below it add up to about 120px, so the
      ticker lands on the bottom edge. The headline grows with the screen (two lines, and never wider than the space left of the
      portrait) and the block of lines sits in the middle with an even, modest gap between them. */
-  html[data-hero="cutout"] .hero { min-height: calc(100vh - 120px); min-height: min(calc(100svh - 120px), 1000px); grid-template-rows: 1fr auto auto auto 1fr; row-gap: clamp(20px, 3.4vh, 36px); }
+  html[data-hero="cutout"] .hero { min-height: calc(100vh - 120px); min-height: min(calc(100svh - 120px), 1000px); grid-template-rows: 1fr auto auto auto 0.5fr; row-gap: clamp(20px, 3.4vh, 36px); }
   html[data-hero="cutout"] .hero .capture { margin-top: 0; margin-bottom: 0; }
-  html[data-hero="cutout"] .hero .lede { margin-top: 0; }
-  html[data-hero="cutout"] .hero h1 { grid-column: 1 / span 2; font-size: clamp(48px, min(8.6vh, 5.5vw), 92px); }
+  html[data-hero="cutout"] .hero .lede { margin-top: 0; font-size: clamp(18px, 2.3vh, 21px); }
+  html[data-hero="cutout"] .hero h1 { grid-column: 1 / span 2; font-size: clamp(52px, min(9.8vh, 6.3vw), 108px); }
   html[data-hero="cutout"] .hero .eyebrow { grid-row: 1; margin-top: 0; }
   html[data-hero="cutout"] .hero h1 { grid-row: 2; }
   html[data-hero="cutout"] .hero .lede { grid-row: 3; }
