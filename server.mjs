@@ -17,9 +17,12 @@ import subscribe from './api/subscribe.js';
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
 
+// Where the analytics live: our own Plausible, on Railway. The pages load its script and send events to it.
+export const PLAUSIBLE_ORIGIN = 'https://plausible-analytics-ce-production-e4fe.up.railway.app';
+
 export const SECURITY_HEADERS = {
   'Content-Security-Policy':
-    "default-src 'self'; script-src 'self' https://plausible.io; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://plausible.io; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'",
+    `default-src 'self'; script-src 'self' ${PLAUSIBLE_ORIGIN}; style-src 'self'; img-src 'self' data:; font-src 'self'; connect-src 'self' ${PLAUSIBLE_ORIGIN}; form-action 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'`,
   'X-Content-Type-Options': 'nosniff',
   'X-Frame-Options': 'DENY',
   'Referrer-Policy': 'strict-origin-when-cross-origin',

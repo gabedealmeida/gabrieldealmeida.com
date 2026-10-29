@@ -4,7 +4,7 @@ import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { createServer, resolveFile, SECURITY_HEADERS } from '../server.mjs';
+import { createServer, resolveFile, SECURITY_HEADERS, PLAUSIBLE_ORIGIN } from '../server.mjs';
 
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
@@ -80,6 +80,8 @@ test('security headers are on every kind of response', async () => {
   assert.match(csp, /default-src 'self'/);
   assert.match(csp, /frame-ancestors 'none'/);
   assert.ok(!/unsafe-inline/.test(csp));
+  assert.ok(csp.includes(PLAUSIBLE_ORIGIN), 'the policy must allow our Plausible');
+  assert.ok(!csp.includes('plausible.io'), 'nothing should still point at the hosted Plausible');
 });
 
 test('files outside public/ can never be reached', async () => {
@@ -204,4 +206,15 @@ test('signup: a bad signup is refused before it reaches Flodesk', async () => {
 
 test('signup: the address only accepts POST', async () => {
   assert.equal((await fetch(`${base}/api/subscribe`)).status, 405);
+});
+
+test('every page loads the analytics script from our own Plausible, and the policy allows it', () => {
+  const pages = ['index.html', 'test/index.html', 'privacy/index.html', '404.html'];
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(root, 'public', page), 'utf8');
+    const tag = html.match(/<script defer data-domain="gabrieldealmeida\.com" src="([^"]+)"><\/script>/);
+    assert.ok(tag, `${page} has no analytics tag`);
+    assert.ok(tag[1].startsWith(`${PLAUSIBLE_ORIGIN}/js/`), `${page} loads analytics from somewhere else`);
+    assert.ok(!/\.hash\./.test(tag[1]), `${page} counts every #anchor as a page view`);
+  }
 });
