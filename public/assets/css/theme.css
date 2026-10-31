@@ -178,3 +178,14 @@ html[data-hero="cutout"] .hero .hero-start { order: 4; justify-self: start; marg
 .pl-pillar.pl-brass { fill: rgb(var(--r-accent)); }
 .pl-crack { stroke: rgb(var(--r-ink)); }
 .pl-label { font-family: var(--font-body); }
+
+/* ---- the staircase on a phone: the amounts read top to bottom, with the smallest above and the biggest below ---- */
+.stairs-top { display: none; }
+@media (max-width: 880px) {
+  .stairs-top { display: block; text-align: left; margin-top: clamp(32px, 6vw, 48px); margin-bottom: -22px; color: var(--soft); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
+  .stairs-top::after { content: " \2193"; color: var(--amber); }
+  .stairs { margin-top: 32px; }
+  .stairs-scale { justify-content: flex-end; border-top: 0; padding-top: 0; margin-top: 14px; }
+  .stairs-scale .ss-low { display: none; }
+  .stairs-scale span:last-child::before { content: "\2193  "; color: var(--amber); }
+}
