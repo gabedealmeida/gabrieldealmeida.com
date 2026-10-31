@@ -58,12 +58,13 @@ html[data-palette="espresso"] {
 /* ---- exact accent on light bands ----
    A palette's accent is bright, so on paper it cannot be text. Instead of a darkened
    look-alike, the words stay ink and sit on the palette's real accent colour. */
-html[data-palette] :is(.band-paper .accent, .band-cream h2 .accent, .rule-n, .ed-n, .whyjob-lead) {
+html[data-palette] :is(.band-paper .accent, .band-cream h2 .accent, .rule-n, .ed-n, .whyjob-lead .mark) {
   color: rgb(var(--r-ink));
   background-image: linear-gradient(transparent 58%, rgb(var(--r-accent)) 58% 94%, transparent 94%);
   -webkit-box-decoration-break: clone; box-decoration-break: clone;
   padding-inline: 0.1em; margin-inline: -0.1em;
 }
+html[data-palette] .whyjob-lead { color: rgb(var(--r-ink)); }
 html[data-palette] :is(.rule-n, .ed-n) { width: max-content; justify-self: start; align-self: start; padding-inline: 0.14em !important; margin-inline: 0 !important; }
 html[data-palette] .story-photo::before { background: rgb(var(--r-accent)); }
 html[data-palette] :is(.band-paper .eyebrow-dark, .band-cream .eyebrow) {
