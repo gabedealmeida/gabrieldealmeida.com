@@ -133,22 +133,22 @@
           <svg viewBox="0 0 580 310" role="img" aria-label="Two pictures. With one paycheck, the family home sits on a single cracked pillar and leans. With a paycheck and a side hustle, it sits on two steady pillars.">
             <g class="scene">
               <g class="tilt">
-                <rect x="30" y="156" width="230" height="14" rx="7" fill="#f5f5f7" opacity="0.28"/>
-                <path d="M74 118L145 70l71 48z" fill="#4f9a8a"/>
-                <rect x="88" y="116" width="114" height="40" rx="4" fill="#7cc4b4"/>
-                <rect x="133" y="128" width="24" height="28" rx="3" fill="#0b0b0d"/>
+                <rect class="pl-ground" x="30" y="156" width="230" height="14" rx="7"/>
+                <path class="pl-roof" d="M74 118L145 70l71 48z"/>
+                <rect class="pl-wall" x="88" y="116" width="114" height="40" rx="4"/>
+                <rect class="pl-door" x="133" y="128" width="24" height="28" rx="3"/>
               </g>
-              <rect x="130" y="172" width="30" height="96" rx="6" fill="#f5f5f7"/>
-              <path d="M130 200l12 10-10 8 14 12" fill="none" stroke="#f2a541" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect class="pl-pillar" x="130" y="172" width="30" height="96" rx="6"/>
+              <path class="pl-crack" d="M130 200l12 10-10 8 14 12" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               <text x="145" y="296" text-anchor="middle" class="pl-label">One paycheck</text>
             </g>
             <g class="scene" transform="translate(300 0)">
-              <rect x="30" y="156" width="230" height="14" rx="7" fill="#f5f5f7" opacity="0.28"/>
-              <path d="M74 118L145 70l71 48z" fill="#4f9a8a"/>
-              <rect x="88" y="116" width="114" height="40" rx="4" fill="#7cc4b4"/>
-              <rect x="133" y="128" width="24" height="28" rx="3" fill="#0b0b0d"/>
-              <rect x="70" y="172" width="30" height="96" rx="6" fill="#f5f5f7"/>
-              <rect x="190" y="172" width="30" height="96" rx="6" fill="#f2a541"/>
+              <rect class="pl-ground" x="30" y="156" width="230" height="14" rx="7"/>
+              <path class="pl-roof" d="M74 118L145 70l71 48z"/>
+              <rect class="pl-wall" x="88" y="116" width="114" height="40" rx="4"/>
+              <rect class="pl-door" x="133" y="128" width="24" height="28" rx="3"/>
+              <rect class="pl-pillar" x="70" y="172" width="30" height="96" rx="6"/>
+              <rect class="pl-pillar pl-brass" x="190" y="172" width="30" height="96" rx="6"/>
               <text x="85" y="296" text-anchor="middle" class="pl-label">Paycheck</text>
               <text x="205" y="296" text-anchor="middle" class="pl-label amber">Side hustle</text>
             </g>

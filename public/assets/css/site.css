@@ -1606,7 +1606,7 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .band-paper .capture-lead { color: var(--midnight); }
 .band-paper .capture-note { color: rgb(var(--r-muted-light)); }
 .band-paper .capture-note a { color: inherit; }
-.band-paper .error { color: #a23935; }
+.band-paper .error { color: #983C35; }
 .band-paper .hint { color: rgb(var(--r-muted-light)); }
 .band-paper .linkish { color: var(--midnight); }
 .closer .capture { margin-top: 28px; max-width: 520px; margin-inline: auto; }
