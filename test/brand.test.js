@@ -95,13 +95,16 @@ test('no company, employer, or product names anywhere a visitor can read', () =>
   }
 });
 
-test('a dollar goal on the home page is always a goal, with its limits written next to it', () => {
+test('a dollar goal on the home page is always a goal, and its note is one tap away', () => {
   const html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
-  const lede = html.match(/<h1 id="hero-title">.*?<\/h1>/s)?.[0] ?? '';
-  if (/\$\s?\d/.test(lede)) {
-    assert.match(lede, /aim for/i, 'the hero number must be framed as something to aim for');
-    assert.match(lede, /not a promise/i, 'the hero number needs "not a promise" beside it');
-    assert.match(lede, /typical result/i, 'the hero number needs "typical result" beside it');
+  const h1 = html.match(/<h1 id="hero-title">.*?<\/h1>/s)?.[0] ?? '';
+  if (/\$\s?\d/.test(h1)) {
+    assert.match(h1, /aim for/i, 'the hero number must be framed as something to aim for');
+    assert.match(h1, /href="#goal-note"/, 'the hero number needs its asterisk linked to the note');
+    const note = html.match(/<p class="disclaimer" id="goal-note">.*?<\/p>/s)?.[0] ?? '';
+    assert.match(note, /not a promise/i, 'the note must say it is not a promise');
+    assert.match(note, /typical result/i, 'the note must say it is not a typical result');
+    assert.match(note, /little or nothing/i, 'the note must carry the honest line about most side hustles');
   }
   for (const page of ['index.html', 'test/index.html', 'privacy/index.html']) {
     const text = fs.readFileSync(path.join(root, 'public', page), 'utf8');
