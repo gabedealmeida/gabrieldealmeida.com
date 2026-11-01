@@ -1638,7 +1638,7 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 
 
 /* ---- the goal under the headline, with its limits right beneath ---- */
-.hero h1 .aim { display: block; margin-top: 0.34em; color: var(--amber); font-family: var(--font-body); font-size: max(17px, 0.36em); font-style: normal; font-weight: 600; letter-spacing: 0; line-height: 1.2; }
+.hero h1 .aim { display: block; margin-top: 0.34em; color: var(--paper); font-family: var(--font-body); font-size: max(17px, 0.43em); font-style: normal; font-weight: 600; letter-spacing: 0; line-height: 1.2; }
 .hero h1 .aim-fine { display: block; margin-top: 0.7em; color: var(--fog); font-family: var(--font-body); font-size: max(12px, 0.17em); font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1.45; text-wrap: pretty; }
 
 /* ---- the asterisk after the goal links to the full note in the footer ---- */
@@ -1646,3 +1646,5 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .aim-star:hover, .aim-star:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 .disclaimer:target { color: var(--soft); outline: 1px solid rgb(var(--r-accent) / 0.6); outline-offset: 6px; border-radius: 6px; }
 .disclaimer strong { color: var(--soft); font-weight: 600; }
+
+.hero h1 .aim .amt { color: var(--amber); font-weight: 700; }
