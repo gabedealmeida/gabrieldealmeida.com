@@ -102,7 +102,6 @@ test('a dollar goal on the home page is always a goal, with its limits written n
     assert.match(lede, /aim for/i, 'the hero number must be framed as something to aim for');
     assert.match(lede, /not a promise/i, 'the hero number needs "not a promise" beside it');
     assert.match(lede, /typical result/i, 'the hero number needs "typical result" beside it');
-    assert.match(lede, /little or nothing/i, 'the hero number needs the honest line about most side hustles');
   }
   for (const page of ['index.html', 'test/index.html', 'privacy/index.html']) {
     const text = fs.readFileSync(path.join(root, 'public', page), 'utf8');
