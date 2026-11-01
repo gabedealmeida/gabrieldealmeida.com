@@ -1636,5 +1636,7 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 
 @media (max-width: 520px) { .capture-note { font-size: 13px; } .cn-ok { margin-right: 9px; } .cn-ok::before { margin-right: 4px; } }
 
-/* ---- the goal in the hero comes with its limits, right underneath ---- */
-.lede-fine { display: block; margin-top: 10px; color: var(--fog); font-size: 13px; font-weight: 400; line-height: 1.45; }
+
+/* ---- the goal under the headline, with its limits right beneath ---- */
+.hero h1 .aim { display: block; margin-top: 0.34em; color: var(--amber); font-family: var(--font-body); font-size: max(17px, 0.36em); font-style: normal; font-weight: 600; letter-spacing: 0; line-height: 1.2; }
+.hero h1 .aim-fine { display: block; margin-top: 0.7em; color: var(--fog); font-family: var(--font-body); font-size: max(12px, 0.17em); font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1.45; text-wrap: pretty; }

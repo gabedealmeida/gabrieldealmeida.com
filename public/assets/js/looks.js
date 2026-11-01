@@ -77,7 +77,9 @@
   // Mark headings that run long, so the CSS can set them in the body font.
   function mark() {
     document.querySelectorAll('h1, h2, .q-title, .story-body .lead').forEach(function (h) {
-      var words = (h.textContent || '').trim().split(/\s+/).filter(Boolean).length;
+      var clone = h.cloneNode(true);
+      clone.querySelectorAll('.aim, .aim-fine').forEach(function (n) { n.remove(); });
+      var words = (clone.textContent || '').trim().split(/\s+/).filter(Boolean).length;
       h.classList.toggle('long-head', words >= 9);
     });
   }
