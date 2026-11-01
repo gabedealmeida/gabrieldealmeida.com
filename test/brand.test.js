@@ -94,3 +94,18 @@ test('no company, employer, or product names anywhere a visitor can read', () =>
     }
   }
 });
+
+test('a dollar goal on the home page is always a goal, with its limits written next to it', () => {
+  const html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
+  const lede = html.match(/<p class="lede">.*?<\/p>/s)?.[0] ?? '';
+  if (/\$\s?\d/.test(lede)) {
+    assert.match(lede, /aim for/i, 'the hero number must be framed as something to aim for');
+    assert.match(lede, /not a promise/i, 'the hero number needs "not a promise" beside it');
+    assert.match(lede, /typical result/i, 'the hero number needs "typical result" beside it');
+    assert.match(lede, /little or nothing/i, 'the hero number needs the honest line about most side hustles');
+  }
+  for (const page of ['index.html', 'test/index.html', 'privacy/index.html']) {
+    const text = fs.readFileSync(path.join(root, 'public', page), 'utf8');
+    assert.match(text, /Any dollar amount is a goal, not a typical result/, `${page} footer disclaimer`);
+  }
+});
