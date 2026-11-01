@@ -1642,9 +1642,9 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .hero h1 .aim-fine { display: block; margin-top: 0.7em; color: var(--fog); font-family: var(--font-body); font-size: max(12px, 0.17em); font-style: normal; font-weight: 400; letter-spacing: 0; line-height: 1.45; text-wrap: pretty; }
 
 /* ---- the asterisk after the goal links to the full note in the footer ---- */
-.aim-star { margin-left: 1px; color: var(--amber); font-weight: 700; text-decoration: none; }
+.aim-star { margin-left: 1px; color: var(--paper); font-weight: 700; text-decoration: none; }
 .aim-star:hover, .aim-star:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 .disclaimer:target { color: var(--soft); outline: 1px solid rgb(var(--r-accent) / 0.6); outline-offset: 6px; border-radius: 6px; }
 .disclaimer strong { color: var(--soft); font-weight: 600; }
 
-.hero h1 .aim .amt { color: var(--amber); font-weight: 700; }
+.hero h1 .aim .amt { color: var(--paper); font-weight: 700; text-decoration: underline; text-decoration-color: var(--amber); text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-skip-ink: none; }
