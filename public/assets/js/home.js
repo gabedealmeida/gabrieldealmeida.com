@@ -94,8 +94,6 @@ function enter(from) {
   };
 }
 
-const stickyLink = document.querySelector('#sticky-cta a');
-
 if ((form || captureForms.length) && arrival) {
   form?.replaceWith(readyCard(loadProfile(), arrival));
   for (const c of captureForms) c.form.replaceWith(startButton(arrival, 'Start your scorecard', c.where));
@@ -107,7 +105,6 @@ if ((form || captureForms.length) && arrival) {
     const label = progressStep() > 0 ? 'Continue your scorecard' : 'Start your scorecard';
     form?.replaceWith(welcomeBack(saved));
     for (const c of captureForms) c.form.replaceWith(startButton('/test', label, c.where));
-    if (stickyLink) { stickyLink.setAttribute('href', '/test'); stickyLink.textContent = label; }
   } else {
     if (form) initSignupForm(form, { onSuccess: enter('scorecard') });
     for (const c of captureForms) initSignupForm(c.form, { prefix: c.prefix, onSuccess: enter(c.where) });
