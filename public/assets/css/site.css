@@ -1683,3 +1683,6 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 .disclaimer strong { color: var(--soft); font-weight: 600; }
 
 .hero h1 .aim .amt { color: var(--paper); font-weight: 700; text-decoration: underline; text-decoration-color: var(--amber); text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-skip-ink: none; }
+
+/* ---- the family photo in the story section: a square crop that keeps all four of them ---- */
+.story-photo .story-family { object-position: 50% 80%; }
