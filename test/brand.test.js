@@ -98,9 +98,10 @@ test('no company, employer, or product names anywhere a visitor can read', () =>
 test('a dollar goal on the home page is always a goal, and its note is one tap away', () => {
   const html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
   const h1 = html.match(/<h1 id="hero-title">.*?<\/h1>/s)?.[0] ?? '';
-  if (/\$\s?\d/.test(h1)) {
+  if (/\$\s?\d/.test(h1) || /class="aim"/.test(h1)) {
     assert.match(h1, /(aim for|go after|build toward|work toward|your goal)/i, 'the hero number must be framed as something to pursue, never as a result');
     assert.ok(!/\b(make|earn|get|earning|making)\b[^<]{0,20}\$/i.test(h1.replace(/<[^>]+>/g, ' ')), 'the hero number must not say you will make or earn it');
+    assert.ok(!/at least|guarantee|\b(you will|you'll) (make|earn)\b/i.test(h1), 'the hero goal must not set a floor or promise a result');
     assert.match(h1, /href="#goal-note"/, 'the hero number needs its asterisk linked to the note');
     const note = html.match(/<p class="disclaimer" id="goal-note">.*?<\/p>/s)?.[0] ?? '';
     assert.match(note, /not a promise/i, 'the note must say it is not a promise');
