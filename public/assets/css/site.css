@@ -1686,3 +1686,8 @@ html.reveal-ready .mirror-grid:not(.in) .notif { opacity: 0; transform: translat
 
 /* ---- the family photo in the story section: a square crop that keeps all four of them ---- */
 .story-photo .story-family { object-position: 50% 80%; }
+
+/* ---- phones: the highlighted phrase stays in one piece, so its underline is one line, not two broken ones ---- */
+@media (min-width: 381px) { .hero h1 .aim .aim-end { white-space: nowrap; } }
+@media (max-width: 380px) { .hero h1 .aim { font-size: 15px; } .hero h1 .aim .aim-end { white-space: nowrap; } }
+.hero h1 .aim { text-wrap: balance; }
