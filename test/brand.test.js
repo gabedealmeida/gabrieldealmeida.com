@@ -55,7 +55,7 @@ test('no income promises or guarantees anywhere', () => {
   const claims = [/six[- ]figure/i, /guarantee/i, /quit your job/i, /get rich/i, /passive income/i];
   // "Six figures" may only describe who the site is for (a dad who already makes it), never a result
   // anyone should expect. These exact audience phrases are the only ones allowed.
-  const audience = ['For dads making six figures, or close'];
+  const audience = ['working dads who make six figures'];
   for (const file of files) {
     if (file.endsWith('brand.test.js')) continue;
     let text = fs.readFileSync(file, 'utf8');
@@ -120,7 +120,9 @@ test('a dollar goal on the home page is always a goal, and its note is one tap a
 
 test('"six figures" only ever describes the audience on the home page', () => {
   const html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
-  assert.match(html, /<p class="eyebrow">For dads making six figures, or close<\/p>/, 'the audience line is missing or reworded');
+  const lede = html.match(/<p class="lede">.*?<\/p>/s)?.[0] ?? '';
+  assert.match(lede, /working dads who make six figures build a second source of income/, 'the audience wording in the intro is missing or reworded');
+  assert.equal((html.match(/six[- ]figure/gi) || []).length, 1, 'six figures should appear exactly once, in the intro');
   for (const page of ['test/index.html', 'privacy/index.html', '404.html']) {
     assert.ok(!/six[- ]figure/i.test(fs.readFileSync(path.join(root, 'public', page), 'utf8')), `${page} mentions six figures`);
   }
