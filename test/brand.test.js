@@ -53,9 +53,13 @@ test('no guru language, wrong terms, or names that must stay private', () => {
 
 test('no income promises or guarantees anywhere', () => {
   const claims = [/six[- ]figure/i, /guarantee/i, /quit your job/i, /get rich/i, /passive income/i];
+  // "Six figures" may only describe who the site is for (a dad who already makes it), never a result
+  // anyone should expect. These exact audience phrases are the only ones allowed.
+  const audience = ['For dads making six figures, or close'];
   for (const file of files) {
     if (file.endsWith('brand.test.js')) continue;
-    const text = fs.readFileSync(file, 'utf8');
+    let text = fs.readFileSync(file, 'utf8');
+    for (const phrase of audience) text = text.split(phrase).join('');
     for (const re of claims) {
       assert.ok(!re.test(text), `${re} found in ${path.relative(root, file)}`);
     }
@@ -111,5 +115,13 @@ test('a dollar goal on the home page is always a goal, and its note is one tap a
   for (const page of ['index.html', 'test/index.html', 'privacy/index.html']) {
     const text = fs.readFileSync(path.join(root, 'public', page), 'utf8');
     assert.match(text, /Any dollar amount is a goal, not a typical result/, `${page} footer disclaimer`);
+  }
+});
+
+test('"six figures" only ever describes the audience on the home page', () => {
+  const html = fs.readFileSync(path.join(root, 'public', 'index.html'), 'utf8');
+  assert.match(html, /<p class="eyebrow">For dads making six figures, or close<\/p>/, 'the audience line is missing or reworded');
+  for (const page of ['test/index.html', 'privacy/index.html', '404.html']) {
+    assert.ok(!/six[- ]figure/i.test(fs.readFileSync(path.join(root, 'public', page), 'utf8')), `${page} mentions six figures`);
   }
 });
