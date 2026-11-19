@@ -1,0 +1,81 @@
+/* The AI automation pages. Loaded after theme.css, and built only from the palette variables
+   (--r-accent, --r-ink and so on), so changing the palette in theme.css changes this file too.
+   Nothing here sets a font: headlines and text follow theme.css. */
+
+/* ---- the hero card: follow and message on Instagram ---- */
+.hero-card { display: flex; gap: 22px; align-items: flex-start; max-width: 660px; padding: 26px; border: 1.5px solid rgb(var(--r-accent) / 0.7); border-radius: var(--radius); background: linear-gradient(135deg, rgb(var(--r-accent) / 0.16), rgb(var(--r-accent) / 0.04) 70%); box-shadow: 0 0 0 5px rgb(var(--r-accent) / 0.07), 0 24px 60px rgb(var(--r-accent) / 0.14); }
+.hc-icon { flex: none; display: grid; place-items: center; width: 72px; height: 72px; border-radius: 20px; background: rgb(var(--r-accent)); color: rgb(var(--r-ink)); box-shadow: 0 0 0 2px rgb(var(--r-accent) / 0.55); }
+.hc-icon svg { width: 40px; height: 40px; fill: none; stroke: currentColor; stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.hc-body { flex: 1 1 auto; min-width: 0; }
+.hc-eyebrow { margin: 0 0 8px; color: rgb(var(--r-accent)); font-size: 12.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; }
+.hero-card .capture-lead { margin-bottom: 18px; font-size: clamp(21px, 2.2vw, 26px); }
+.hc-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.hc-btn.btn { height: 56px; margin: 0; padding-inline: 24px; background: rgb(var(--r-accent)); color: #1e1611; font-weight: 700; box-shadow: 0 0 0 4px rgb(var(--r-accent) / 0.22), 0 12px 32px rgb(var(--r-accent) / 0.28); }
+.hc-btn.btn:hover { background: #e3bd72; }
+.hc-btn:hover .sj-arrow { transform: translateX(4px); }
+.hero-card .capture-note { margin-top: 16px; }
+.hc-alt { color: var(--paper); font-size: 16px; font-weight: 600; text-decoration: underline; text-decoration-color: rgb(var(--r-accent)); text-underline-offset: 4px; }
+.hc-alt:hover { text-decoration-color: var(--paper); }
+.band-paper .hc-alt { color: var(--midnight); text-decoration-color: rgb(var(--r-accent-text)); }
+@media (max-width: 560px) { .hero-card { flex-direction: column; gap: 16px; padding: 20px; } .hc-icon { width: 60px; height: 60px; } .hc-btn.btn { width: 100%; } .hc-actions { flex-direction: column; align-items: stretch; text-align: center; } }
+
+/* ---- "sound familiar": a Sunday night to-do list ---- */
+.queue { display: grid; gap: 10px; margin-top: 22px; padding: 14px; background: rgb(var(--r-calc)); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: calc(20px * var(--rscale, 1)); }
+.queue li { display: flex; align-items: center; gap: 12px; padding: 11px 14px; background: rgba(255, 255, 255, 0.06); border-radius: calc(12px * var(--rscale, 1)); color: var(--soft); font-size: 15px; line-height: 1.3; }
+.queue i { flex: none; width: 18px; height: 18px; border: 2px solid rgb(var(--r-paper) / 0.4); border-radius: 50%; }
+
+/* ---- using AI versus automating with it ---- */
+.flow { margin: 0; }
+.flow svg { display: block; width: 100%; height: auto; }
+.fl-cap { fill: var(--fog); font: 700 12px var(--font-body); letter-spacing: 0.12em; text-transform: uppercase; }
+.fl-box { fill: rgb(var(--r-graphite)); stroke: rgb(var(--r-paper) / 0.22); stroke-width: 1.5; }
+.fl-ai { fill: rgb(var(--r-accent)); stroke: none; }
+.fl-ok { fill: rgb(var(--r-accent) / 0.12); stroke: rgb(var(--r-accent)); stroke-width: 2; }
+.fl-t { fill: var(--paper); font: 600 15px var(--font-body); text-anchor: middle; }
+.fl-t-ink { fill: rgb(var(--r-ink)); }
+.fl-line { fill: none; stroke: rgb(var(--r-paper) / 0.55); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.fl-dash { stroke-dasharray: 2 7; stroke: rgb(var(--r-paper) / 0.4); }
+.fl-note { fill: var(--soft); font: 600 15px var(--font-body); }
+.fl-note-hot { fill: var(--amber); }
+/* on a phone the drawing is drawn at about half size, so its words get bigger to stay readable */
+@media (max-width: 560px) {
+  .fl-t { font-size: 20px; }
+  .fl-cap { font-size: 15px; }
+  .fl-note { font-size: 19px; }
+}
+
+/* ---- what I build ---- */
+.autos { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: clamp(32px, 5vw, 56px); }
+.auto { padding: 26px; border-top: 3px solid var(--ac); }
+.auto h3 { margin-top: 20px; font-size: 21px; }
+.auto-line { display: grid; grid-template-columns: 3.2em minmax(0, 1fr); column-gap: 10px; align-items: baseline; margin-top: 12px; color: var(--soft); font-size: 16px; line-height: 1.4; }
+.auto-line + .auto-line { margin-top: 8px; }
+.auto-line b { color: var(--ac); font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+.a1, .a5 { --ac: var(--amber); }
+.a2 { --ac: var(--blue); }
+.a3 { --ac: var(--teal); }
+.a4, .a6 { --ac: var(--coral); }
+.builds-note { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: clamp(28px, 4vw, 44px); padding-top: clamp(24px, 3vw, 32px); border-top: 1px solid var(--line); }
+.builds-note p { max-width: 36em; color: var(--soft); font-size: clamp(17px, 2vw, 19px); text-wrap: pretty; }
+.builds-note .btn { flex: none; }
+@media (max-width: 1000px) { .autos { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 560px) { .autos { grid-template-columns: minmax(0, 1fr); } .builds-note .btn { width: 100%; } }
+
+/* ---- the four tests: four links instead of five ---- */
+.how { padding-top: clamp(56px, 8vw, 104px); }
+.chain-row.four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+/* ---- work with me ---- */
+.work-split { grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr); align-items: center; }
+.work-lead { max-width: 32em; margin-top: 18px; color: var(--soft); font-size: clamp(17px, 2vw, 19px); text-wrap: pretty; }
+.work .check-list { margin-top: 22px; }
+.work-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 30px; }
+.work-btn.btn { width: auto; height: 60px; margin: 0; padding: 0 28px; background: rgb(var(--r-btn)); color: rgb(var(--r-ink)); border-radius: var(--radius-sm); font-size: 18px; font-weight: 700; text-decoration: none; box-shadow: 0 0 0 4px rgb(var(--r-accent) / 0.22), 0 12px 32px rgb(var(--r-accent) / 0.28); }
+.work-btn.btn:hover { background: #e3bd72; }
+.work-or { color: var(--soft); font-size: 16px; }
+.work-or a { color: var(--paper); font-weight: 600; }
+.work-photo { position: relative; max-width: 420px; margin: 0 auto; }
+.work-photo::before { content: ""; position: absolute; inset: 18px -16px -18px 18px; background: var(--amber); border-radius: calc(30px * var(--rscale, 1)); }
+.work-photo img { position: relative; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: calc(28px * var(--rscale, 1)); }
+@media (max-width: 880px) { .work-split { grid-template-columns: minmax(0, 1fr); } .work-photo { max-width: 320px; margin-left: 0; } }
+@media (max-width: 560px) { .work-btn.btn { width: 100%; } }

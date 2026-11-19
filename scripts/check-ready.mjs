@@ -8,13 +8,14 @@ import { fileURLToPath } from 'node:url';
 const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 const problems = [];
 
-const pdf = 'public/downloads/score-my-side-hustle-idea.pdf';
-if (!fs.existsSync(path.join(root, pdf))) {
-  problems.push(`Missing ${pdf}. The quiz links to it, so people would hit a 404.`);
+// The share card shown when the link is posted anywhere.
+const share = 'public/assets/img/og-automation.jpg';
+if (!fs.existsSync(path.join(root, share))) {
+  problems.push(`Missing ${share}. Shared links would show no picture.`);
 }
 
-if (!process.env.FLODESK_API_KEY) {
-  problems.push('FLODESK_API_KEY is not set in this shell. Add it in Railway (your service, then Variables) before going live. FLODESK_SEGMENT_ID and FLODESK_WORKFLOW_ID are optional.');
+if (!fs.existsSync(path.join(root, 'public', 'index.html'))) {
+  problems.push('Missing public/index.html.');
 }
 
 if (problems.length) {

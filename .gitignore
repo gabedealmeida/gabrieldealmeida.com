@@ -1,3 +1,6 @@
 node_modules
 .env
 .DS_Store
+
+# design work and social assets live here but are not part of the site
+brand-assets/

@@ -1,6 +1,5 @@
 import test, { before, after } from 'node:test';
 import assert from 'node:assert/strict';
-import http from 'node:http';
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,31 +9,8 @@ const root = path.join(path.dirname(fileURLToPath(import.meta.url)), '..');
 
 let server;
 let base;
-let flodesk;
-let flodeskCalls;
 
 before(async () => {
-  flodeskCalls = [];
-  flodesk = http.createServer((req, res) => {
-    let raw = '';
-    req.on('data', (c) => (raw += c));
-    req.on('end', () => {
-      flodeskCalls.push({ url: req.url, body: JSON.parse(raw || '{}') });
-      if (req.url.startsWith('/workflows/')) {
-        res.statusCode = 204;
-        return res.end();
-      }
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.end('{}');
-    });
-  });
-  await new Promise((resolve) => flodesk.listen(0, '127.0.0.1', resolve));
-  process.env.FLODESK_API_BASE = `http://127.0.0.1:${flodesk.address().port}`;
-  process.env.FLODESK_API_KEY = 'test-key';
-  process.env.FLODESK_SEGMENT_ID = 'seg42';
-  process.env.FLODESK_WORKFLOW_ID = 'wf42';
-
   server = createServer();
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   base = `http://127.0.0.1:${server.address().port}`;
@@ -42,11 +18,10 @@ before(async () => {
 
 after(() => {
   server.close();
-  flodesk.close();
 });
 
-test('pages: home, quiz and privacy are served, with clean addresses', async () => {
-  for (const route of ['/', '/test', '/privacy']) {
+test('pages: home and privacy are served, with clean addresses', async () => {
+  for (const route of ['/', '/privacy']) {
     const res = await fetch(base + route);
     assert.equal(res.status, 200, route);
     assert.match(res.headers.get('content-type'), /text\/html/, route);
@@ -61,6 +36,17 @@ test('pages: an unknown address is a 404 page, not a crash', async () => {
 
 test('pages: the old thank-you page is gone', async () => {
   assert.equal((await fetch(`${base}/thanks`)).status, 404);
+});
+
+test('pages: the retired scorecard sends people home, keeping where they came from', async () => {
+  for (const route of ['/test', '/test/']) {
+    const res = await fetch(`${base}${route}?from=ig`, { redirect: 'manual' });
+    assert.equal(res.status, 302, route);
+    assert.equal(res.headers.get('location'), '/?from=ig', route);
+    assert.equal(res.headers.get('cache-control'), 'no-store', 'a redirect must never be cached for good');
+  }
+  assert.equal((await fetch(`${base}/downloads/score-my-side-hustle-idea.pdf`)).status, 404);
+  assert.equal((await fetch(`${base}/assets/js/quiz.js`)).status, 404);
 });
 
 test('health: Railway can check the site is up', async () => {
@@ -118,7 +104,7 @@ test('only GET and HEAD are allowed on pages', async () => {
 test('caching: only the font is cached for long, everything else is re-checked', async () => {
   const font = await fetch(`${base}/assets/fonts/inter-variable.woff2`);
   assert.match(font.headers.get('cache-control'), /max-age=31536000, immutable/);
-  for (const route of ['/', '/test', '/assets/css/site.css', '/assets/js/quiz.js', '/assets/js/scorecard.js', '/assets/img/gabe.png', '/downloads/score-my-side-hustle-idea.pdf']) {
+  for (const route of ['/', '/privacy', '/assets/css/site.css', '/assets/css/automation.css', '/assets/js/home.js', '/assets/img/og-automation.jpg']) {
     const res = await fetch(base + route);
     assert.equal(res.headers.get('cache-control'), 'no-cache', route);
     assert.ok(res.headers.get('etag'), `${route} needs an ETag`);
@@ -172,44 +158,34 @@ test('compression: text is gzipped when asked, and decodes to the real file', as
   assert.equal(plain.headers.get('content-encoding'), null);
 });
 
-test('pdf and images are served untouched with the right type', async () => {
-  const pdf = await fetch(`${base}/downloads/score-my-side-hustle-idea.pdf`);
-  assert.equal(pdf.status, 200);
-  assert.equal(pdf.headers.get('content-type'), 'application/pdf');
-  assert.equal(pdf.headers.get('content-encoding'), null);
-  const bytes = Buffer.from(await pdf.arrayBuffer());
-  assert.equal(bytes.subarray(0, 4).toString(), '%PDF');
+test('images and fonts are served untouched with the right type', async () => {
+  for (const [route, type] of [
+    ['/assets/img/og-automation.jpg', 'image/jpeg'],
+    ['/assets/img/gabriel-cutout.webp', 'image/webp'],
+    ['/assets/fonts/Newsreader-latin.woff2', 'font/woff2'],
+  ]) {
+    const res = await fetch(base + route);
+    assert.equal(res.status, 200, route);
+    assert.equal(res.headers.get('content-type'), type, route);
+    assert.equal(res.headers.get('content-encoding'), null, `${route} must not be compressed`);
+  }
+  const jpeg = Buffer.from(await (await fetch(`${base}/assets/img/og-automation.jpg`)).arrayBuffer());
+  assert.equal(jpeg.subarray(0, 2).toString('hex'), 'ffd8', 'a real JPEG');
 });
 
-test('signup: the real server passes a good signup to Flodesk in the right order', async () => {
-  flodeskCalls.length = 0;
-  const res = await fetch(`${base}/api/subscribe`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ firstName: 'Sam', email: 'sam@example.com', hp: '', referrer: 'https://gabrieldealmeida.com/' }),
-  });
-  assert.equal(res.status, 200);
-  assert.deepEqual(await res.json(), { ok: true });
-  assert.deepEqual(flodeskCalls.map((c) => c.url), ['/subscribers', '/workflows/wf42/subscribers']);
-});
-
-test('signup: a bad signup is refused before it reaches Flodesk', async () => {
-  flodeskCalls.length = 0;
-  const res = await fetch(`${base}/api/subscribe`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ firstName: '', email: 'nope' }),
-  });
-  assert.equal(res.status, 422);
-  assert.equal(flodeskCalls.length, 0);
-});
-
-test('signup: the address only accepts POST', async () => {
-  assert.equal((await fetch(`${base}/api/subscribe`)).status, 405);
+test('nothing collects emails: the old signup address no longer exists', async () => {
+  for (const method of ['GET', 'POST']) {
+    const res = await fetch(`${base}/api/subscribe`, {
+      method,
+      headers: { 'content-type': 'application/json' },
+      body: method === 'POST' ? JSON.stringify({ email: 'sam@example.com' }) : undefined,
+    });
+    assert.ok([404, 405].includes(res.status), `${method} /api/subscribe returned ${res.status}`);
+  }
 });
 
 test('every page loads the analytics script from our own Plausible, and the policy allows it', () => {
-  const pages = ['index.html', 'test/index.html', 'privacy/index.html', '404.html'];
+  const pages = ['index.html', 'privacy/index.html', '404.html'];
   for (const page of pages) {
     const html = fs.readFileSync(path.join(root, 'public', page), 'utf8');
     const tag = html.match(/<script defer data-domain="gabrieldealmeida\.com" src="([^"]+)"><\/script>/);

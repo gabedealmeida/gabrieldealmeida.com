@@ -1,15 +1,14 @@
 {
   "name": "gabrieldealmeida.com",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "type": "module",
-  "description": "Landing page and quiz for Score My Side Hustle Idea, a free side hustle scorecard.",
+  "description": "Gabriel De Almeida: practical AI automation for businesses. Follow and message on Instagram.",
   "scripts": {
     "start": "node server.mjs",
     "dev": "node server.mjs --dev",
-    "test": "node --test",
-    "check": "node scripts/check-ready.mjs",
-    "build:pdf": "node scripts/build-pdf.mjs"
+    "test": "node --test test/*.test.js",
+    "check": "node scripts/check-ready.mjs"
   },
   "engines": {
     "node": ">=20"

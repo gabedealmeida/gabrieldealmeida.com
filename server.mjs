@@ -1,10 +1,8 @@
-// The site server. Serves public/ with clean URLs and runs api/subscribe.js.
+// The site server. Serves public/ with clean URLs. It collects nothing from visitors.
 // No dependencies: it only uses what comes with Node.
 //
-//   npm start                    what Railway runs (reads PORT and the Flodesk variables)
-//   npm run dev                  local preview, nothing cached
-//   npm run dev -- --mock-flodesk  local preview that pretends to be Flodesk, so you can
-//                                try the whole signup flow with no account
+//   npm start      what Railway runs (reads PORT)
+//   npm run dev    local preview, nothing cached
 
 import http from 'node:http';
 import fs from 'node:fs';
@@ -12,7 +10,6 @@ import path from 'node:path';
 import zlib from 'node:zlib';
 import crypto from 'node:crypto';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import subscribe from './api/subscribe.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.join(root, 'public');
@@ -47,6 +44,13 @@ const TYPES = {
   '.xml': 'application/xml; charset=utf-8',
   '.webmanifest': 'application/manifest+json',
 };
+
+// Addresses that used to be pages and now send people home. The quiz is archived in
+// archive/side-hustle-dads (see its README).
+const MOVED = new Map([
+  ['/test', '/'],
+  ['/test/', '/'],
+]);
 
 const COMPRESSIBLE = new Set(['.html', '.css', '.js', '.mjs', '.json', '.svg', '.txt', '.xml', '.webmanifest']);
 
@@ -154,12 +158,21 @@ export function createServer({ dev = false } = {}) {
         res.setHeader('Cache-Control', 'no-store');
         return res.end('ok');
       }
-      if (url.pathname === '/api/subscribe') return await subscribe(req, res);
 
       if (req.method !== 'GET' && req.method !== 'HEAD') {
         res.statusCode = 405;
         res.setHeader('Allow', 'GET, HEAD');
         return res.end('Method not allowed');
+      }
+
+      // Old links still in the wild (the retired scorecard) land on the home page,
+      // keeping any ?from= so the visit is still counted. A temporary redirect, so
+      // browsers never remember it for good.
+      if (MOVED.has(url.pathname)) {
+        res.statusCode = 302;
+        res.setHeader('Location', MOVED.get(url.pathname) + url.search);
+        res.setHeader('Cache-Control', 'no-store');
+        return res.end();
       }
 
       const found = resolveFile(url.pathname);
@@ -183,54 +196,9 @@ export function createServer({ dev = false } = {}) {
 
 // ---- running it ------------------------------------------------------------
 
-function loadEnvFile() {
-  const file = path.join(root, '.env');
-  if (!fs.existsSync(file)) return;
-  for (const line of fs.readFileSync(file, 'utf8').split('\n')) {
-    const match = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*?)\s*$/);
-    if (match && !(match[1] in process.env)) {
-      process.env[match[1]] = match[2].replace(/^["']|["']$/g, '');
-    }
-  }
-}
-
-async function startMockFlodesk() {
-  const mock = http.createServer((req, res) => {
-    let raw = '';
-    req.on('data', (c) => (raw += c));
-    req.on('end', () => {
-      console.log(`[mock flodesk] ${req.method} ${req.url} ${raw}`);
-      if (req.url.startsWith('/workflows/')) {
-        res.statusCode = 204;
-        return res.end();
-      }
-      res.statusCode = 200;
-      res.setHeader('Content-Type', 'application/json');
-      res.end('{}');
-    });
-  });
-  await new Promise((resolve) => mock.listen(0, '127.0.0.1', resolve));
-  process.env.FLODESK_API_BASE = `http://127.0.0.1:${mock.address().port}`;
-  process.env.FLODESK_API_KEY = 'mock-key';
-  process.env.FLODESK_SEGMENT_ID = 'mocksegment';
-  process.env.FLODESK_WORKFLOW_ID = 'mockworkflow';
-  console.log('Mock Flodesk is on. Signups are logged here and go nowhere else.');
-}
-
 const isMain = process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 
 if (isMain) {
-  loadEnvFile();
-
-  if (process.argv.includes('--mock-flodesk')) {
-    // A fake Flodesk on the live site would quietly throw real signups away.
-    if (process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT) {
-      console.error('--mock-flodesk is for local use only. Refusing to start.');
-      process.exit(1);
-    }
-    await startMockFlodesk();
-  }
-
   // 8080 unless the host hands us a PORT. Railway's PORT variable wins if it is set.
   const port = Number(process.env.PORT || 8080);
   const server = createServer({ dev: process.argv.includes('--dev') });
