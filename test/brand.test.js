@@ -175,7 +175,7 @@ test('the home page speaks to businesses bringing AI into their own operations',
 
 test('the site is in the palette: no stray hex colours in the new stylesheet', () => {
   const css = read(path.join(root, 'public', 'assets', 'css', 'automation.css'));
-  const allowed = new Set(['#1e1611', '#e3bd72']); // the espresso ink and the brass hover already used by theme.css
+  const allowed = new Set(); // every colour comes from the palette variables, so no hex literal belongs in this file
   for (const [hex] of css.matchAll(/#[0-9a-fA-F]{3,8}\b/g)) {
     assert.ok(allowed.has(hex.toLowerCase()), `${hex} in automation.css is not part of the palette`);
   }

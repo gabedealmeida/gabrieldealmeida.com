@@ -53,6 +53,35 @@ html[data-palette="espresso"] {
   --r-calc: 52 45 41;
   --r-muted-light: 111 102 91;
   --r-notif: 59 52 48;
+  --r-btn-hover: 227 189 114;
+}
+
+html[data-palette="cobalt"] {
+  --r-ink: 32 59 146;
+  --r-paper: 255 245 230;
+  --r-accent: 255 154 87;
+  --r-accent-text: 155 62 19;
+  --r-terra: 155 62 19;
+  --r-btn: 255 154 87;
+  --r-graphite: 50 75 155;
+  --r-cream: 240 230 218;
+  --r-teal: 150 210 200;
+  --r-blue: 160 190 245;
+  --r-coral: 255 176 140;
+  --r-band-a: 24 44 110;
+  --r-band-b: 20 37 91;
+  --r-card-b: 28 52 128;
+  --r-qbg: 18 32 80;
+  --r-phone-screen: 21 39 96;
+  --r-phone-frame: 81 100 164;
+  --r-night: 21 39 96;
+  --r-calc: 54 79 157;
+  --r-notif: 61 84 160;
+  --r-soft: 228 223 220;
+  --r-fog: 202 207 230;
+  --r-muted-light: 88 99 140;
+  --r-btn-hover: 255 176 118;
+  --r-error-soft: 255 196 206;
 }
 
 /* ---- exact accent on light bands ----
@@ -188,4 +217,16 @@ html[data-hero="cutout"] .hero .hero-start { order: 4; justify-self: start; marg
   .stairs-scale { justify-content: flex-end; border-top: 0; padding-top: 0; margin-top: 14px; }
   .stairs-scale .ss-low { display: none; }
   .stairs-scale span:last-child::before { content: "\2193  "; color: var(--amber); }
+}
+
+/* ---- cobalt: the ladder climbs from blue to apricot; apricot at partial strength over blue turns muddy ---- */
+html[data-palette="cobalt"] .s1 { background: rgb(var(--r-card-b)); border-color: rgb(var(--r-accent) / 0.5); }
+html[data-palette="cobalt"] .s2 { background: rgb(var(--r-graphite)); color: var(--paper); }
+html[data-palette="cobalt"] .s3 { background: rgb(var(--r-cream)); color: rgb(var(--r-qbg)); }
+html[data-palette="cobalt"] .band-amber {
+  background:
+    radial-gradient(ellipse 60% 420px at 50% 0, rgb(var(--r-blue) / 0.22), transparent 70%),
+    radial-gradient(ellipse 45% 380px at 100% 100%, rgb(var(--r-accent) / 0.10), transparent 70%),
+    rgb(var(--r-qbg));
+  border-block-color: rgb(var(--r-blue) / 0.3);
 }
